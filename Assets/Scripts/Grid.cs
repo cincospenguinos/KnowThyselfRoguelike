@@ -125,7 +125,10 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
-    Enemies.FindAll(e => e.Dead).ForEach(e => e.GoDie());
+    Enemies.FindAll(e => e.Dead).ForEach(e => {
+      e.GoDie();
+      Player.EmitEvent("EnemyDead");
+    });
     Enemies.RemoveAll(e => e.Dead);
   }
 

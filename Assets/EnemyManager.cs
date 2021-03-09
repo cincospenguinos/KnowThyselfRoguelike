@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public Enemy Enemy;
+    public Entity Enemy;
 
     // Start is called before the first frame update
     void Start() {
