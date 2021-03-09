@@ -5,13 +5,14 @@ using UnityEngine;
 public class StartGame : MonoBehaviour
 {
   public Grid gameGrid;
+  public GameObject PlayerObject;
+
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
   public GameObject PlayerPrefab;
 
-  // Start is called before the first frame update
-  void Start()
-  {
+
+  void Awake() {
     gameGrid = Grid.instance = GridGenerator.generateMultiRoomGrid(10);
 
     for (int x = 0; x < Grid.WIDTH; x++) {
@@ -29,11 +30,10 @@ public class StartGame : MonoBehaviour
       }
     }
 
-    Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
+    PlayerObject = Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
         gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
   }
 
-  // Update is called once per frame
   void Update()
   {
       
