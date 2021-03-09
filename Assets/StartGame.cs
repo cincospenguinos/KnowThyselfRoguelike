@@ -12,7 +12,7 @@ public class StartGame : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    gameGrid = GridGenerator.generateMultiRoomGrid(10);
+    gameGrid = Grid.instance = GridGenerator.generateMultiRoomGrid(10);
 
     for (int x = 0; x < Grid.WIDTH; x++) {
       for (int y = 0; y < Grid.HEIGHT; y++) {

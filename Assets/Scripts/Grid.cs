@@ -7,6 +7,8 @@ public class Grid {
       WALL = 1,
   };
 
+  public static Grid instance;
+
   // [x][y]
   private TileType[,] _grid;
   private Player _player;
@@ -102,5 +104,13 @@ public class Grid {
     if (InBounds(endPoint)) {
       yield return endPoint;
     }
+  }
+
+  public bool validPlayerMovement(Vector2Int movement) {
+    if (movement.x < 0 || movement.y < 0 || movement.x >= WIDTH || movement.y >= HEIGHT) {
+      return false;
+    }
+
+    return Tiles[movement.x, movement.y] == TileType.FLOOR;
   }
 }
