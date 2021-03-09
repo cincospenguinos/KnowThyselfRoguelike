@@ -4,6 +4,8 @@ public class Grid {
       WALL = 1,
   };
 
+  private static Grid _instance;
+
   // [x][y]
   private TileType[,] _grid;
   private Player _player;
@@ -28,7 +30,11 @@ public class Grid {
     _player = new Player(this);
   }
 
-  public static Grid generate() {
-    return new Grid();
+  public static Grid getInstance() {
+    if (_instance == null) {
+      _instance = new Grid();
+    }
+
+    return _instance;
   }
 }
