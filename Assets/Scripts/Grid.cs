@@ -92,17 +92,37 @@ public class Grid {
   }
 
   /// always starts right on the startPoint, and always ends right on the endPoint
-  public IEnumerable<Vector2Int> EnumerateLine(Vector2Int startPoint, Vector2Int endPoint) {
-    Vector2 offset = endPoint - startPoint;
-    for (float t = 0; t <= offset.magnitude; t += 0.5f) {
-      Vector2 point = startPoint + offset.normalized * t;
-      Vector2Int p = new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
-      if (InBounds(p)) {
-        yield return p;
-      }
+  public IEnumerable<Vector2Int> EnumerateManhattanLine(Vector2Int start, Vector2Int end) {
+    // Vector2 offset = endPoint - startPoint;
+    // for (float t = 0; t <= offset.magnitude; t += 0.5f) {
+    //   Vector2 point = startPoint + offset.normalized * t;
+    //   Vector2Int p = new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
+    //   if (InBounds(p)) {
+    //     yield return p;
+    //   }
+    // }
+    // if (InBounds(endPoint)) {
+    //   yield return endPoint;
+    // }
+
+    /// for now, go horizontal first, then vertical, then horizontal
+
+    var midX = (end.x + start.x) / 2;
+    var dX = end.x > start.x ? 1 : -1;
+    /// first horizontal half
+    for (int x = start.x; x != midX; x += dX) {
+      yield return new Vector2Int(x, start.y);
     }
-    if (InBounds(endPoint)) {
-      yield return endPoint;
+
+    /// entire vertical
+    var dY = end.y > start.y ? 1 : -1;
+    for (int y = start.y; y != end.y; y += dY) {
+      yield return new Vector2Int(midX, y);
+    }
+
+    /// second horizontal half
+    for (int x = midX; x != end.x; x += dX) {
+      yield return new Vector2Int(x, end.y);
     }
   }
 
