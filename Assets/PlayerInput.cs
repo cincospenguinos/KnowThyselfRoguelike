@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     void Update() {
       Player.Direction direction = getDirection();
 
-      if (Player.move(direction)) {
+      if (Player.move(direction) || Player.attack(direction)) {
         Grid.instance.actionTaken();
       }
 

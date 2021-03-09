@@ -110,8 +110,16 @@ public class Grid {
     Enemies.Add(e);
   }
 
+  public Enemy EnemyAt(Vector2Int pos) {
+    return Enemies.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
+  }
+
   public bool validPlayerMovement(Vector2Int movement) {
     if (movement.x < 0 || movement.y < 0 || movement.x >= WIDTH || movement.y >= HEIGHT) {
+      return false;
+    }
+
+    if (EnemyAt(movement) != null) {
       return false;
     }
 
