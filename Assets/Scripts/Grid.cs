@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Grid {
@@ -124,6 +125,8 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
+    Enemies.FindAll(e => e.Dead).ForEach(e => e.GoDie());
+    Enemies.RemoveAll(e => e.Dead);
   }
 
   public void AddEnemy(Enemy e) {

@@ -33,8 +33,11 @@ public class StartGame : MonoBehaviour
     Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
       gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
     
-    gameGrid.Enemies.ForEach(e => Object.Instantiate(Enemy0Prefab,
-      new Vector3(e.Coordinates.x, e.Coordinates.y, 0), Quaternion.identity));
+    gameGrid.Enemies.ForEach((enemy) => {
+      var enemyGameObj = Object.Instantiate(Enemy0Prefab,
+      new Vector3(enemy.Coordinates.x, enemy.Coordinates.y, 0), Quaternion.identity);
+      enemyGameObj.GetComponent<EnemyManager>().Enemy = enemy;
+    });
   }
 
   void Update() {
