@@ -5,7 +5,7 @@ public class Rune {
       _player = player;    
     }
 
-    public void EventOccurred(String eventName) {
+    public void EventOccurred(string eventName) {
       if (eventName == "EnemyDead") {
         // Here's the trigger
         

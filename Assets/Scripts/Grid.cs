@@ -125,6 +125,9 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
+    foreach (var e in Enemies) {
+      e.TakeTurn();
+    }
     Enemies.FindAll(e => e.Dead).ForEach(e => e.GoDie());
     Enemies.RemoveAll(e => e.Dead);
   }

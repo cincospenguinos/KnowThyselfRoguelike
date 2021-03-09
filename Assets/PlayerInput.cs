@@ -11,10 +11,17 @@ public class PlayerInput : MonoBehaviour
   }
 
   void Update() {
-    Direction? direction = getDirection();
+    Direction? direction = getUserInputDirection();
     if (direction != null) {
-      if (Player.move(direction.Value) || Player.attack(direction.Value)) {
+      var nextCoordinates = Player.adjacentIn(direction.Value);
+      var enemy = Grid.instance.EntityAt(nextCoordinates);
+      if (enemy != null) {
+        Player.attack(enemy);
         Grid.instance.actionTaken();
+      } else {
+        if (Player.move(nextCoordinates)) {
+          Grid.instance.actionTaken();
+        }
       }
     }
 
@@ -24,7 +31,7 @@ public class PlayerInput : MonoBehaviour
     transform.position = playerPos;
   }
 
-  private Direction? getDirection() {
+  private Direction? getUserInputDirection() {
     if (Input.GetKeyDown(KeyCode.UpArrow)) {
       return Direction.NORTH;
     }
