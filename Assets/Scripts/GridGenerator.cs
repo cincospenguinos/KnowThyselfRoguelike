@@ -40,29 +40,21 @@ public static class GridGenerator {
 
     rooms.ForEach(room => {
       // fill each room with floor
+      bool addedEnemy = false;
+
       foreach (var point in grid.EnumerateRoom(room)) {
         grid.Tiles[point.x, point.y] = Grid.TileType.FLOOR;
+
+        // Add an enemy in each room
+        // TODO: Smarter enemy addition
+
+        if (!addedEnemy) {
+          grid.AddEnemy(new Enemy(point));
+          addedEnemy = true;
+        }
       }
-      // GridUtils.PutGround(grid, grid.EnumerateRoom(room));
     });
 
-    // // sort rooms by distance to top-left, where the upstairs will be.
-    // Vector2Int topLeft = new Vector2Int(0, grid.height);
-    // rooms.OrderBy(room => Util.manhattanDistance(room.getTopLeft() - topLeft));
-
-    // Room upstairsRoom = rooms.First();
-    // // 1-px padding from the top-left of the room
-    // Vector2Int upstairsPos = new Vector2Int(upstairsRoom.min.x + 1, upstairsRoom.max.y - 1);
-    // grid.PlaceUpstairs(upstairsPos);
-
-    // Room downstairsRoom = rooms.Last();
-    // // 1-px padding from the bottom-right of the room
-    // Vector2Int downstairsPos = new Vector2Int(downstairsRoom.max.x - 1, downstairsRoom.min.y + 1);
-    // grid.PlaceDownstairs(downstairsPos);
-    // grid.root = root;
-    // grid.rooms = rooms;
-    // grid.upstairsRoom = upstairsRoom;
-    // grid.downstairsRoom = downstairsRoom;
     return grid;
   }
 

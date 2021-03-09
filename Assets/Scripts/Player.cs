@@ -15,7 +15,38 @@ public class Player {
     Coordinates = new Vector2Int(3, 3);
   }
 
-  public void move(Direction direction) {
+  public bool move(Direction direction) {
+    if (direction == Direction.NONE) {
+      return false;
+    }
+
+    Vector2Int newCoordinates = adjacentIn(direction);
+
+    if (_world.validPlayerMovement(newCoordinates)) {
+      Coordinates = newCoordinates;
+      return true;
+    }
+
+    return false;
+  }
+
+  public bool attack(Direction direction) {
+    if (direction == Direction.NONE) {
+      return false;
+    }
+
+    Vector2Int newCoordinates = adjacentIn(direction);
+    Enemy enemy = _world.EnemyAt(newCoordinates);
+
+    if (enemy != null) {
+      Debug.Log("Attack!!!!!!!");
+      return true;
+    }
+
+    return false;
+  }
+
+  private Vector2Int adjacentIn(Direction direction) {
     Vector2Int newCoordinates = new Vector2Int(Coordinates.x, Coordinates.y);
 
     switch(direction) {
@@ -33,8 +64,6 @@ public class Player {
         break;
     }
 
-    if (_world.validPlayerMovement(newCoordinates)) {
-      Coordinates = newCoordinates;
-    }
+    return newCoordinates;
   }
 }

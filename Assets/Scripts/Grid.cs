@@ -12,29 +12,25 @@ public class Grid {
   // [x][y]
   private TileType[,] _grid;
   private Player _player;
+  public List<Enemy> Enemies;
+  private int _elapsedTurns;
 
   public TileType[,] Tiles => _grid;
   public Player Player => _player;
 
   public const int WIDTH = 40;
   public const int HEIGHT = 28;
+
   /// min inclusive, max exclusive in terms of map WIDTH/HEIGHT
   public Vector2Int boundsMin => new Vector2Int(0, 0);
   public Vector2Int boundsMax => new Vector2Int(WIDTH, HEIGHT);
   public Vector2 center => new Vector2(WIDTH / 2.0f, HEIGHT / 2.0f);
-
+  public int CurrentTurn => _elapsedTurns + 1;
 
   public Grid() {
+    Enemies = new List<Enemy>();
+    _elapsedTurns = 0;
     _grid = new TileType[40,28];
-
-    // for (int x = 0; x < WIDTH; x++) {
-    //   for (int y = 0; y < HEIGHT; y++) {
-    //     if (x == 0 || y == 0 || x == WIDTH - 1 || y == HEIGHT - 1) {
-    //       _grid[x, y] = TileType.WALL;
-    //     }
-    //   }
-    // }
-
     _player = new Player(this);
   }
 
@@ -126,8 +122,24 @@ public class Grid {
     }
   }
 
+  public void actionTaken() {
+    _elapsedTurns += 1;
+  }
+
+  public void AddEnemy(Enemy e) {
+    Enemies.Add(e);
+  }
+
+  public Enemy EnemyAt(Vector2Int pos) {
+    return Enemies.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
+  }
+
   public bool validPlayerMovement(Vector2Int movement) {
     if (movement.x < 0 || movement.y < 0 || movement.x >= WIDTH || movement.y >= HEIGHT) {
+      return false;
+    }
+
+    if (EnemyAt(movement) != null) {
       return false;
     }
 
