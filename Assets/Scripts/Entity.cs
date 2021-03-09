@@ -16,6 +16,7 @@ public class Entity {
   
   public int DamageModifier = 0;
   public int DamageOut => 1 + DamageModifier;
+  public int HitPoints => _hitPoints;
 
   public Entity(Grid world, Vector2Int coords, int HitPoints) {
     _world = world;

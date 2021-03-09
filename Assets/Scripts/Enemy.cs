@@ -15,7 +15,6 @@ public class Enemy : Entity {
       hasDetectedPlayer = Vector2.Distance(_world.Player.Coordinates, Coordinates) < 7;
       moveRandomly();
     }
-    Debug.Log(Coordinates);
   }
 
   public void moveTowardsPlayerOrAttack() {

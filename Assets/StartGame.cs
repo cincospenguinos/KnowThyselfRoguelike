@@ -41,6 +41,6 @@ public class StartGame : MonoBehaviour
   }
 
   void Update() {
-    TurnText.text = "Turn " + gameGrid.CurrentTurn;
+    TurnText.text = $"Turn {gameGrid.CurrentTurn}\nHP: {gameGrid.Player.HitPoints}/20";
   }
 }

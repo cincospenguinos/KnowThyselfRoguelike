@@ -14,9 +14,6 @@ public class EnemyManager : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    var pos = transform.position;
-    pos.x = Enemy.Coordinates.x;
-    pos.y = Enemy.Coordinates.y;
-    transform.position = pos;
+    transform.position = Vector3.Lerp(transform.position, new Vector3(Enemy.Coordinates.x, Enemy.Coordinates.y, 0), 0.1f);
   }
 }

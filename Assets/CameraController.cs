@@ -7,9 +7,7 @@ public class CameraController : MonoBehaviour
   void Start() {}
 
   void LateUpdate() {
-    var pos = transform.position;
-    pos.x = Grid.instance.Player.Coordinates.x;
-    pos.y = Grid.instance.Player.Coordinates.y;
-    transform.position = pos;
+    var t = Grid.instance.Player.Coordinates;
+    transform.position = Vector3.Lerp(transform.position, new Vector3(t.x, t.y, transform.position.z), 0.1f);
   }
 }

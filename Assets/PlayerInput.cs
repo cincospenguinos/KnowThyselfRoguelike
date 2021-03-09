@@ -25,10 +25,7 @@ public class PlayerInput : MonoBehaviour
       }
     }
 
-    var playerPos = transform.position;
-    playerPos.x = Player.Coordinates.x;
-    playerPos.y = Player.Coordinates.y;
-    transform.position = playerPos;
+    transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
   }
 
   private Direction? getUserInputDirection() {
