@@ -30,7 +30,7 @@ public class StartGame : MonoBehaviour
       }
     }
 
-    PlayerObject = Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
+    this.PlayerObject = Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
         gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
   }
 
