@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Grid {
   public enum TileType {
       FLOOR = 0,
@@ -28,6 +30,14 @@ public class Grid {
     }
 
     _player = new Player(this);
+  }
+
+  public bool validPlayerMovement(Vector2Int movement) {
+    if (movement.x < 0 || movement.y < 0 || movement.x >= WIDTH || movement.y >= HEIGHT) {
+      return false;
+    }
+
+    return Tiles[movement.x, movement.y] == TileType.FLOOR;
   }
 
   public static Grid getInstance() {

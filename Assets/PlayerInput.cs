@@ -6,12 +6,10 @@ public class PlayerInput : MonoBehaviour
 {
     public Player Player;
 
-    // Start is called before the first frame update
     void Start() {
       Player = Grid.getInstance().Player;
     }
 
-    // Update is called once per frame
     void Update() {
       Player.Direction direction = getDirection();
       Player.move(direction);

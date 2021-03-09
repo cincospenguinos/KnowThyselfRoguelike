@@ -16,21 +16,25 @@ public class Player {
   }
 
   public void move(Direction direction) {
+    Vector2Int newCoordinates = new Vector2Int(Coordinates.x, Coordinates.y);
+
     switch(direction) {
       case Direction.NORTH:
-        Coordinates.y += 1;
+        newCoordinates.y += 1;
         break;
       case Direction.SOUTH:
-        Coordinates.y -= 1;
+        newCoordinates.y -= 1;
         break;
       case Direction.EAST:
-        Coordinates.x += 1;
+        newCoordinates.x += 1;
         break;
       case Direction.WEST:
-        Coordinates.x -= 1;
+        newCoordinates.x -= 1;
         break;
     }
 
-    Debug.Log("player is now at " + Coordinates.x + ", " + Coordinates.y);
+    if (_world.validPlayerMovement(newCoordinates)) {
+      Coordinates = newCoordinates;
+    }
   }
 }
