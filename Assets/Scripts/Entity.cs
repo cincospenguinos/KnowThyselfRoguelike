@@ -11,11 +11,17 @@ public class Entity {
   public Vector2Int Coordinates;
   public bool Dead => _hitPoints <= 0;
   public event Action OnDeath;
+  public List<Rune> RuneList;
 
   public Entity(Grid world, Vector2Int coords, int HitPoints) {
     _world = world;
     _hitPoints = HitPoints;
     Coordinates = coords;
+    _hitPoints = 20;
+    Coordinates = new Vector2Int(3, 3);
+
+    RuneList = new List<Rune>();
+    RuneList.Add(new Rune());
   }
 
   public bool move(Direction direction) {
