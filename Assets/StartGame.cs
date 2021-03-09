@@ -5,7 +5,6 @@ using UnityEngine;
 public class StartGame : MonoBehaviour
 {
   public Grid gameGrid;
-  public GameObject PlayerObject;
 
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
@@ -30,8 +29,8 @@ public class StartGame : MonoBehaviour
       }
     }
 
-    this.PlayerObject = Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
-        gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
+    Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.Player.Coordinates.x,
+      gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
   }
 
   void Update()
