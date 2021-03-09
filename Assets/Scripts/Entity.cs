@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Direction {
@@ -11,15 +12,18 @@ public class Entity {
   public Vector2Int Coordinates;
   public bool Dead => _hitPoints <= 0;
   public event Action OnDeath;
-  // public List<Rune> RuneList;
+  public List<Rune> RuneList;
+  
+  public int DamageModifier = 0;
+  public int DamageOut => 1 + DamageModifier;
 
   public Entity(Grid world, Vector2Int coords, int HitPoints) {
     _world = world;
     _hitPoints = HitPoints;
     Coordinates = coords;
 
-    // RuneList = new List<Rune>();
-    // RuneList.Add(new Rune());
+    RuneList = new List<Rune>();
+    RuneList.Add(new Rune(this));
   }
 
   public bool move(Vector2Int newCoordinates) {
@@ -33,10 +37,17 @@ public class Entity {
 
   public bool attack(Entity entity) {
     if (entity != null) {
-      entity.TakeDamage();
+      entity.TakeDamage(DamageOut);
       return true;
     }
     return false;
+  }
+
+  public void EmitEvent(String eventName) {
+    Debug.Log("Does this occur?" + eventName);
+    foreach(var rune in RuneList) {
+      rune.EventOccurred(eventName);
+    }
   }
 
   public void GoDie() {
@@ -44,8 +55,8 @@ public class Entity {
   }
 
   /// Taking damage from getting hit by the player
-  public void TakeDamage() {
-    _hitPoints -= 1;
+  public void TakeDamage(int damage) {
+    _hitPoints -= damage;
   }
 
   public Vector2Int adjacentIn(Direction direction) {
@@ -75,8 +86,6 @@ public class Entity {
   }
 }
 
-
 public class Player : Entity {
-  public Player(Grid world) : base(world, new Vector2Int(3, 3), 20) {
-  }
+  public Player(Grid world) : base(world, new Vector2Int(3, 3), 20) {}
 }

@@ -1,14 +1,14 @@
 public class Rune {
-    private Player _player;
+  private Entity _owningEntity;
 
-    public Rune(Player player) {
-      _player = player;    
-    }
+  public Rune(Entity entity) {
+    _owningEntity = entity;    
+  }
 
-    public void EventOccurred(string eventName) {
-      if (eventName == "EnemyDead") {
-        // Here's the trigger
-        
-      }
+  public void EventOccurred(string eventName) {
+    // Every time an enemy dies, double the damage modifier
+    if (eventName == "EnemyDead") {
+      _owningEntity.DamageModifier += 2;
     }
+  }
 }

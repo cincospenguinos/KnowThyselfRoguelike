@@ -128,7 +128,10 @@ public class Grid {
     foreach (var e in Enemies) {
       e.TakeTurn();
     }
-    Enemies.FindAll(e => e.Dead).ForEach(e => e.GoDie());
+    Enemies.FindAll(e => e.Dead).ForEach(e => {
+      e.GoDie();
+      Player.EmitEvent("EnemyDead");
+    });
     Enemies.RemoveAll(e => e.Dead);
   }
 
