@@ -133,19 +133,22 @@ public class Grid {
     Enemies.Add(e);
   }
 
-  public Enemy EnemyAt(Vector2Int pos) {
+  public Entity EntityAt(Vector2Int pos) {
+    if (Player.Coordinates == pos) {
+      return Player;
+    }
     return Enemies.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
   }
 
-  public bool validPlayerMovement(Vector2Int movement) {
-    if (movement.x < 0 || movement.y < 0 || movement.x >= WIDTH || movement.y >= HEIGHT) {
+  public bool canOccupy(Vector2Int pos) {
+    if (!InBounds(pos)) {
       return false;
     }
 
-    if (EnemyAt(movement) != null) {
+    if (EntityAt(pos) != null) {
       return false;
     }
 
-    return Tiles[movement.x, movement.y] == TileType.FLOOR;
+    return Tiles[pos.x, pos.y] == TileType.FLOOR;
   }
 }

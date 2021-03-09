@@ -1,28 +1,27 @@
+using System;
 using UnityEngine;
 
-public class Player {
-  public enum Direction {
-    NORTH, SOUTH, EAST, WEST, NONE
-  };
+public enum Direction {
+  NORTH, SOUTH, EAST, WEST
+};
 
-  private Grid _world;
-  private int _hitPoints;
+public class Entity {
+  protected Grid _world;
+  protected int _hitPoints;
   public Vector2Int Coordinates;
+  public bool Dead => _hitPoints <= 0;
+  public event Action OnDeath;
 
-  public Player(Grid world) {
+  public Entity(Grid world, Vector2Int coords, int HitPoints) {
     _world = world;
-    _hitPoints = 20;
-    Coordinates = new Vector2Int(3, 3);
+    _hitPoints = HitPoints;
+    Coordinates = coords;
   }
 
   public bool move(Direction direction) {
-    if (direction == Direction.NONE) {
-      return false;
-    }
-
     Vector2Int newCoordinates = adjacentIn(direction);
 
-    if (_world.validPlayerMovement(newCoordinates)) {
+    if (_world.canOccupy(newCoordinates)) {
       Coordinates = newCoordinates;
       return true;
     }
@@ -31,19 +30,24 @@ public class Player {
   }
 
   public bool attack(Direction direction) {
-    if (direction == Direction.NONE) {
-      return false;
-    }
-
     Vector2Int newCoordinates = adjacentIn(direction);
-    Enemy enemy = _world.EnemyAt(newCoordinates);
+    Entity entity = _world.EntityAt(newCoordinates);
 
-    if (enemy != null) {
-      enemy.GetShrekt(this);
+    if (entity != null) {
+      entity.TakeDamage();
       return true;
     }
 
     return false;
+  }
+
+  public void GoDie() {
+    OnDeath();
+  }
+
+  /// Taking damage from getting hit by the player
+  public void TakeDamage() {
+    _hitPoints -= 1;
   }
 
   private Vector2Int adjacentIn(Direction direction) {
@@ -65,5 +69,11 @@ public class Player {
     }
 
     return newCoordinates;
+  }
+}
+
+
+public class Player : Entity {
+  public Player(Grid world) : base(world, new Vector2Int(3, 3), 20) {
   }
 }

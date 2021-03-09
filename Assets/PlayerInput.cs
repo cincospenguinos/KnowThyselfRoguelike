@@ -4,43 +4,42 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Player Player;
+  public Player Player;
 
-    void Start() {
-      Player = Grid.instance.Player;
-    }
+  void Start() {
+    Player = Grid.instance.Player;
+  }
 
-    void Update() {
-      Player.Direction direction = getDirection();
-
-      if (Player.move(direction) || Player.attack(direction)) {
+  void Update() {
+    Direction? direction = getDirection();
+    if (direction != null) {
+      if (Player.move(direction.Value) || Player.attack(direction.Value)) {
         Grid.instance.actionTaken();
       }
-
-      var playerPos = transform.position;
-      playerPos.x = Player.Coordinates.x;
-      playerPos.y = Player.Coordinates.y;
-      transform.position = playerPos;
     }
 
-    private Player.Direction getDirection()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-          return Player.Direction.NORTH;
-        }
+    var playerPos = transform.position;
+    playerPos.x = Player.Coordinates.x;
+    playerPos.y = Player.Coordinates.y;
+    transform.position = playerPos;
+  }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
-          return Player.Direction.SOUTH;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-          return Player.Direction.WEST;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-          return Player.Direction.EAST;
-        }
-
-        return Player.Direction.NONE;
+  private Direction? getDirection() {
+    if (Input.GetKeyDown(KeyCode.UpArrow)) {
+      return Direction.NORTH;
     }
+
+    if (Input.GetKeyDown(KeyCode.DownArrow)) {
+      return Direction.SOUTH;
+    }
+
+    if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+      return Direction.WEST;
+    }
+
+    if (Input.GetKeyDown(KeyCode.RightArrow)) {
+      return Direction.EAST;
+    }
+    return null;
+  }
 }

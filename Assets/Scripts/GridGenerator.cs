@@ -49,7 +49,7 @@ public static class GridGenerator {
         // TODO: Smarter enemy addition
 
         if (!addedEnemy) {
-          grid.AddEnemy(new Enemy(point));
+          grid.AddEnemy(new Enemy(grid, point));
           addedEnemy = true;
         }
       }
