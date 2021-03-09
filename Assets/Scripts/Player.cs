@@ -39,7 +39,7 @@ public class Player {
     Enemy enemy = _world.EnemyAt(newCoordinates);
 
     if (enemy != null) {
-      Debug.Log("Attack!!!!!!!");
+      enemy.GetShrekt(this);
       return true;
     }
 

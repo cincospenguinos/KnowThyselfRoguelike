@@ -8,4 +8,9 @@ public class Enemy {
     Coordinates = position;
     HitPoints = 3;
   }
+
+  /// Taking damage from getting hit by the player
+  public void GetShrekt(Player player) {
+    HitPoints -= 1;
+  }
 }
