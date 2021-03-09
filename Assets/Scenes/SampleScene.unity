@@ -251,6 +251,7 @@ MonoBehaviour:
   WallPrefab: {fileID: 8671658040700093858, guid: dfc2a589c64dbe24095cdf266e4481ef, type: 3}
   FloorPrefab: {fileID: 5917646453256574787, guid: b3d2b8b01c95a8342913702ad058f702, type: 3}
   PlayerPrefab: {fileID: 8346944838880588496, guid: 78badca91af8d7c458d3ada932c6893c, type: 3}
+  Enemy0Prefab: {fileID: 1230850570171377641, guid: 79a5a58c344a26949862835ed6558ffd, type: 3}
   TurnText: {fileID: 2098800811}
 --- !u!4 &674524372
 Transform:

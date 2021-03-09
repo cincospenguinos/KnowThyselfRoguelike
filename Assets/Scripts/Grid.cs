@@ -12,6 +12,7 @@ public class Grid {
   // [x][y]
   private TileType[,] _grid;
   private Player _player;
+  public List<Enemy> Enemies;
   private int _elapsedTurns;
 
   public TileType[,] Tiles => _grid;
@@ -27,6 +28,7 @@ public class Grid {
   public int CurrentTurn => _elapsedTurns + 1;
 
   public Grid() {
+    Enemies = new List<Enemy>();
     _elapsedTurns = 0;
     _grid = new TileType[40,28];
     _player = new Player(this);
@@ -102,6 +104,10 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
+  }
+
+  public void AddEnemy(Enemy e) {
+    Enemies.Add(e);
   }
 
   public bool validPlayerMovement(Vector2Int movement) {
