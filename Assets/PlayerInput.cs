@@ -12,7 +12,10 @@ public class PlayerInput : MonoBehaviour
 
     void Update() {
       Player.Direction direction = getDirection();
-      Player.move(direction);
+
+      if (Player.move(direction)) {
+        Grid.instance.actionTaken();
+      }
 
       var playerPos = transform.position;
       playerPos.x = Player.Coordinates.x;

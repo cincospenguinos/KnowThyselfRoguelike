@@ -9,7 +9,7 @@ public class StartGame : MonoBehaviour
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
   public GameObject PlayerPrefab;
-
+  public TMPro.TMP_Text TurnText;
 
   void Awake() {
     gameGrid = Grid.instance = GridGenerator.generateMultiRoomGrid(10);
@@ -33,8 +33,7 @@ public class StartGame : MonoBehaviour
       gameGrid.Player.Coordinates.y, 0), Quaternion.identity);
   }
 
-  void Update()
-  {
-      
+  void Update() {
+    TurnText.text = "Turn " + gameGrid.CurrentTurn;
   }
 }

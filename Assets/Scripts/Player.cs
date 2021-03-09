@@ -15,7 +15,11 @@ public class Player {
     Coordinates = new Vector2Int(3, 3);
   }
 
-  public void move(Direction direction) {
+  public bool move(Direction direction) {
+    if (direction == Direction.NONE) {
+      return false;
+    }
+
     Vector2Int newCoordinates = new Vector2Int(Coordinates.x, Coordinates.y);
 
     switch(direction) {
@@ -35,6 +39,9 @@ public class Player {
 
     if (_world.validPlayerMovement(newCoordinates)) {
       Coordinates = newCoordinates;
+      return true;
     }
+
+    return false;
   }
 }
