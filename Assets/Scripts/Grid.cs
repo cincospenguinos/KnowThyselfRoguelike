@@ -2,11 +2,18 @@ public class Grid {
   public enum TileType {
       FLOOR = 0,
       WALL = 1,
+      PLAYER = 2,
   };
 
   // [x][y]
   private TileType[,] _grid;
+  private Player _player;
+
+  public int PlayerX;
+  public int PlayerY;
+
   public TileType[,] Tiles => _grid;
+  public Player Player => _player;
 
   public const int WIDTH = 40;
   public const int HEIGHT = 28;
@@ -21,6 +28,10 @@ public class Grid {
         }
       }
     }
+
+    _player = new Player();
+    PlayerX = 3;
+    PlayerY = 3;
   }
 
   public static Grid generate() {

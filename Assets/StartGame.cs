@@ -7,11 +7,13 @@ public class StartGame : MonoBehaviour
     public Grid gameGrid;
     public GameObject WallPrefab;
     public GameObject FloorPrefab;
+    public GameObject PlayerPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         gameGrid = Grid.generate();
+
         for (int x = 0; x < Grid.WIDTH; x++) {
             for (int y = 0; y < Grid.HEIGHT; y++) {
                 var tile = gameGrid.Tiles[x,y];
@@ -26,6 +28,8 @@ public class StartGame : MonoBehaviour
                 }
             }
         }
+
+        Object.Instantiate(PlayerPrefab, new Vector3(gameGrid.PlayerX, gameGrid.PlayerY, 0), Quaternion.identity);
     }
 
     // Update is called once per frame
