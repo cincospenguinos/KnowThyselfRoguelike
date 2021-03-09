@@ -44,7 +44,6 @@ public class Entity {
   }
 
   public void EmitEvent(String eventName) {
-    Debug.Log("Does this occur?" + eventName);
     foreach(var rune in RuneList) {
       rune.EventOccurred(eventName);
     }
