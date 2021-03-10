@@ -28,8 +28,7 @@ public class Entity {
     Coordinates = coords;
 
     RuneList = new List<Rune>();
-    // RuneList.Add(RuneGenerator.generateRandom(this));
-    RuneList.Add(RuneGenerator.generate("HalfHitPointsTrigger", "TeleportToRandomSpotAction", this));
+    RuneList.Add(RuneGenerator.generateRandom(this));
   }
 
   public void SetGrid(Grid grid) {
