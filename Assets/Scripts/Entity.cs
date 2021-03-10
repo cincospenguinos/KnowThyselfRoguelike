@@ -22,6 +22,8 @@ public class Entity {
   public int MaxHitPoints => _maxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
+  public int FreeAttacks = 0;
+
   public Entity(Vector2Int coords, int HitPoints) {
     _currentHitPoints = HitPoints;
     _maxHitPoints = HitPoints;
@@ -48,6 +50,12 @@ public class Entity {
   public bool attack(Entity entity) {
     if (entity != null) {
       entity.TakeDamage(DamageOut);
+
+      if (FreeAttacks > 0) {
+        FreeAttacks -= 1;
+        return false;
+      }
+
       return true;
     }
     return false;
