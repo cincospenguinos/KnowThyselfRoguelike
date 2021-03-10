@@ -50,6 +50,10 @@ public static class GridGenerator {
       grid.AddEnemy(new Enemy(pos));
     }
 
+    // put player in bottom-left corner
+    var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();
+    player.Coordinates = bottomLeftFloor;
+
     return grid;
   }
 
