@@ -84,6 +84,10 @@ public class Entity {
     var offset = Coordinates - e.Coordinates;
     return (Math.Abs(offset.x) + Math.Abs(offset.y) <= 1);
   }
+
+  internal void wait() {
+    // no-op for now
+  }
 }
 
 public class Player : Entity {

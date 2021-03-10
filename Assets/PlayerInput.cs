@@ -11,6 +11,18 @@ public class PlayerInput : MonoBehaviour
   }
 
   void Update() {
+    MaybeTakePlayerTurn();
+
+    transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
+  }
+
+  void MaybeTakePlayerTurn() {
+    if (Input.GetKeyDown(KeyCode.Space)) {
+      Player.wait();
+      Grid.instance.actionTaken();
+      return;
+    }
+
     Direction? direction = getUserInputDirection();
     if (direction != null) {
       var nextCoordinates = Player.adjacentIn(direction.Value);
@@ -24,8 +36,6 @@ public class PlayerInput : MonoBehaviour
         }
       }
     }
-
-    transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
   }
 
   private Direction? getUserInputDirection() {
