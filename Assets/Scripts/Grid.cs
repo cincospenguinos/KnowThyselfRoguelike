@@ -125,14 +125,17 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
-    foreach (var e in Enemies) {
-      e.TakeTurn();
-    }
+
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
       Player.EmitEvent(new GameEvent("EnemyDead"));
     });
+
     Enemies.RemoveAll(e => e.Dead);
+
+    foreach (var e in Enemies) {
+      e.TakeTurn();
+    }
   }
 
   public void AddEnemy(Enemy e) {
