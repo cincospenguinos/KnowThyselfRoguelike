@@ -12,4 +12,8 @@ public abstract class RuneTrigger {
   public abstract void Reset();
   public abstract RuneTrigger Clone();
   public abstract string Text();
+
+  public bool FromOwnEntity(GameEvent gameEvent) {
+    return gameEvent.EmittingEntity == OwningEntity;
+  }
 }

@@ -23,6 +23,8 @@ public class Entity {
   public int MaxHitPoints => _maxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
+  public int FreeAttacks = 0;
+
   public Entity(Vector2Int coords, int HitPoints) {
     _currentHitPoints = HitPoints;
     _maxHitPoints = HitPoints;
@@ -49,6 +51,12 @@ public class Entity {
   public bool attack(Entity entity) {
     if (entity != null) {
       entity.TakeDamage(DamageOut);
+
+      if (FreeAttacks > 0) {
+        FreeAttacks -= 1;
+        return false;
+      }
+
       return true;
     }
     return false;
@@ -69,15 +77,19 @@ public class Entity {
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
     OnHit?.Invoke();
+    bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;
 
-    if (_currentHitPoints < MaxHitPoints / 2) {
+    if (wasAboveHalf && _currentHitPoints < MaxHitPoints / 2) {
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.REACH_HALF_HIT_POINTS, this));
     }
   }
 
   public void Heal(int amount) {
-    _currentHitPoints += amount;
+    if (_currentHitPoints < MaxHitPoints) {
+      _currentHitPoints += Math.Min(amount, MaxHitPoints - _currentHitPoints);
+      Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
+    }
   }
 
   public Vector2Int adjacentIn(Direction direction) {

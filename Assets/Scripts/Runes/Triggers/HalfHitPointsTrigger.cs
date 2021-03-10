@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class HalfHitPointsTrigger : RuneTrigger {
   public HalfHitPointsTrigger(Entity e) : base(e) {}
 
