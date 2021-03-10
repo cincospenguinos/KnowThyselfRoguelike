@@ -130,7 +130,7 @@ public class Grid {
     }
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
-      Player.EmitEvent("EnemyDead");
+      Player.EmitEvent(new GameEvent("EnemyDead"));
     });
     Enemies.RemoveAll(e => e.Dead);
   }

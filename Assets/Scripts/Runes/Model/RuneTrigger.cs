@@ -5,7 +5,7 @@ public abstract class RuneTrigger {
     EventName = eventName;
   }
 
-  public abstract bool OnEvent(string name);
+  public abstract bool OnEvent(GameEvent gameEvent);
   public abstract void Reset();
   public abstract RuneTrigger Clone();
 }

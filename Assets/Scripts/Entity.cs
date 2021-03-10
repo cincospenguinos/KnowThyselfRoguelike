@@ -44,9 +44,9 @@ public class Entity {
     return false;
   }
 
-  public void EmitEvent(String eventName) {
+  public void EmitEvent(GameEvent gameEvent) {
     foreach(var rune in RuneList) {
-      rune.EventOccurred(eventName);
+      rune.EventOccurred(gameEvent);
     }
   }
 
