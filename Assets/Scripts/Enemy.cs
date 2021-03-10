@@ -5,20 +5,20 @@ using UnityEngine;
 public class Enemy : Entity {
   bool hasDetectedPlayer = false;
 
-  public Enemy(Grid world, Vector2Int position) : base(world, position, 3) {
+  public Enemy(Vector2Int position) : base(position, 3) {
   }
 
   public void TakeTurn() {
     if (hasDetectedPlayer) {
       moveTowardsPlayerOrAttack();
     } else {
-      hasDetectedPlayer = Vector2.Distance(_world.Player.Coordinates, Coordinates) < 7;
+      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < 7;
       moveRandomly();
     }
   }
 
   public void moveTowardsPlayerOrAttack() {
-    var player = _world.Player;
+    var player = _grid.Player;
     if (isNextTo(player)) {
       /// if we're already next to the player, attack them
       attack(player);
@@ -27,7 +27,7 @@ public class Enemy : Entity {
       var directions = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
       var newCoordinate = directions
         .Select(d => adjacentIn(d))
-        .Where((c) => _world.canOccupy(c))
+        .Where((c) => _grid.canOccupy(c))
         .OrderBy(c => Vector2.Distance(c, player.Coordinates))
         .FirstOrDefault();
       if (newCoordinate != null) {
@@ -39,7 +39,7 @@ public class Enemy : Entity {
   public void moveRandomly() {
     /// randomly move if possible
     var directions = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
-    var possibleNewCoordinates = directions.Select(d => adjacentIn(d)).Where((c) => _world.canOccupy(c)).ToList();
+    var possibleNewCoordinates = directions.Select(d => adjacentIn(d)).Where((c) => _grid.canOccupy(c)).ToList();
     if (possibleNewCoordinates.Any()) {
       var randomIndex = UnityEngine.Random.Range(0, possibleNewCoordinates.Count);
       var newCoordinates = possibleNewCoordinates[randomIndex];

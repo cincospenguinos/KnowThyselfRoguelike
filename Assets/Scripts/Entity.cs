@@ -7,7 +7,7 @@ public enum Direction {
 };
 
 public class Entity {
-  protected Grid _world;
+  protected Grid _grid;
 
   protected int _currentHitPoints;
   protected int _maxHitPoints;
@@ -22,8 +22,7 @@ public class Entity {
   public int MaxHitPoints => _maxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
-  public Entity(Grid world, Vector2Int coords, int HitPoints) {
-    _world = world;
+  public Entity(Vector2Int coords, int HitPoints) {
     _currentHitPoints = HitPoints;
     _maxHitPoints = HitPoints;
     Coordinates = coords;
@@ -32,8 +31,12 @@ public class Entity {
     RuneList.Add(RuneGenerator.generate("HalfHitPointsTrigger", "IncreaseDamageAction", this));
   }
 
+  public void SetGrid(Grid grid) {
+    this._grid = grid;
+  }
+
   public bool move(Vector2Int newCoordinates) {
-    if (_world.canOccupy(newCoordinates)) {
+    if (_grid.canOccupy(newCoordinates)) {
       Coordinates = newCoordinates;
       return true;
     }
@@ -96,5 +99,5 @@ public class Entity {
 }
 
 public class Player : Entity {
-  public Player(Grid world) : base(world, new Vector2Int(3, 3), 20) {}
+  public Player() : base(new Vector2Int(3, 3), 20) {}
 }

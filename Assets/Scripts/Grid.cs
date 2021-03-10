@@ -30,11 +30,12 @@ public class Grid {
   public Vector2 center => new Vector2(WIDTH / 2.0f, HEIGHT / 2.0f);
   public int CurrentTurn => _elapsedTurns + 1;
 
-  public Grid() {
+  public Grid(Player player) {
     Enemies = new List<Enemy>();
     _elapsedTurns = 0;
     _grid = new TileType[40,28];
-    _player = new Player(this);
+    player.SetGrid(this);
+    _player = player;
   }
 
   public bool InBounds(Vector2Int pos) {
@@ -152,6 +153,7 @@ public class Grid {
 
   public void AddEnemy(Enemy e) {
     Enemies.Add(e);
+    e.SetGrid(this);
   }
 
   public Entity EntityAt(Vector2Int pos) {
