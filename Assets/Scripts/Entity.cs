@@ -53,8 +53,10 @@ public class Entity {
   }
 
   public void EmitEvent(GameEvent gameEvent) {
-    foreach(var rune in RuneList) {
-      rune.EventOccurred(gameEvent);
+    if (!Dead) {
+      foreach(var rune in RuneList) {
+        rune.EventOccurred(gameEvent);
+      }
     }
   }
 
@@ -65,6 +67,10 @@ public class Entity {
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
     _currentHitPoints -= damage;
+  }
+
+  public void Heal(int amount) {
+    _currentHitPoints += amount;
   }
 
   public Vector2Int adjacentIn(Direction direction) {
