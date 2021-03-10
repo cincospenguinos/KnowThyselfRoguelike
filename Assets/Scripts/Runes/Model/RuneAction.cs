@@ -6,4 +6,5 @@ public abstract class RuneAction {
   }
 
   public abstract void Apply();
+  public abstract RuneAction Clone(Entity otherEntity);
 }
