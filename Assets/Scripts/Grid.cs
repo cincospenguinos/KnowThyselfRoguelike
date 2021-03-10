@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class Grid {
   private Player _player;
   public List<Enemy> Enemies;
   private int _elapsedTurns;
+  public event Action OnCleared;
 
   public TileType[,] Tiles => _grid;
   public Player Player => _player;
@@ -133,6 +135,10 @@ public class Grid {
       Player.EmitEvent("EnemyDead");
     });
     Enemies.RemoveAll(e => e.Dead);
+    /// all enemies are dead, move onto the next floor!
+    if (!Enemies.Any()) {
+      OnCleared?.Invoke();
+    }
   }
 
   public void AddEnemy(Enemy e) {

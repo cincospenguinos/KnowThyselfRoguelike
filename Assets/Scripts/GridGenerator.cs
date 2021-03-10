@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 public static class GridGenerator {
-  public static Grid generateMultiRoomGrid(int numSplits) {
+  public static Grid generateMultiRoomGrid(int numEnemies, int numSplits = 10) {
     Grid grid = new Grid();
     foreach (var point in grid.EnumerateFloor()) {
       grid.Tiles[point.x, point.y] = Grid.TileType.WALL;
@@ -40,20 +40,15 @@ public static class GridGenerator {
 
     rooms.ForEach(room => {
       // fill each room with floor
-      bool addedEnemy = false;
-
       foreach (var point in grid.EnumerateRoom(room)) {
         grid.Tiles[point.x, point.y] = Grid.TileType.FLOOR;
-
-        // Add an enemy in each room
-        // TODO: Smarter enemy addition
-
-        if (!addedEnemy) {
-          grid.AddEnemy(new Enemy(grid, point));
-          addedEnemy = true;
-        }
       }
     });
+
+    var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] == Grid.TileType.FLOOR).ToList();
+    foreach (var pos in floors.Shuffle().Take(numEnemies)) {
+      grid.AddEnemy(new Enemy(grid, pos));
+    }
 
     return grid;
   }
@@ -125,4 +120,22 @@ public static class GridGenerator {
   //   var path = Grid.FindPath(Grid.downstairs.pos, Grid.upstairs.pos);
   //   return path.Any();
   // }
+}
+
+public static class ListExtensions {
+  public static IList<T> Shuffle<T>(this IList<T> list) {
+    int n = list.Count;  
+    while (n > 1) {  
+      n--;  
+      int k = UnityEngine.Random.Range(0, n + 1);  
+      T value = list[k];  
+      list[k] = list[n];  
+      list[n] = value;  
+    }  
+    return list;
+  }
+
+  public static T GetRandom<T>(this IList<T> list) {
+    return list[Random.Range(0, list.Count)];
+  }
 }
