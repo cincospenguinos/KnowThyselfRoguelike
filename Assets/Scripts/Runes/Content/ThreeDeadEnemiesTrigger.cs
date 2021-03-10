@@ -1,7 +1,7 @@
 public class ThreeDeadEnemiesTrigger : RuneTrigger {
     private int _enemiesDied;
 
-    public bool IsTriggered => _enemiesDied % 3 == 0;
+    public bool IsTriggered => _enemiesDied % 3 == 0 && _enemiesDied > 0;
 
     public ThreeDeadEnemiesTrigger() : base(null) {
         _enemiesDied = 0;
