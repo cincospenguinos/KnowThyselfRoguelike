@@ -75,9 +75,10 @@ public class Entity {
 
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
+    bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;
 
-    if (_currentHitPoints < MaxHitPoints / 2) {
+    if (wasAboveHalf && _currentHitPoints < MaxHitPoints / 2) {
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.REACH_HALF_HIT_POINTS, this));
     }
   }
