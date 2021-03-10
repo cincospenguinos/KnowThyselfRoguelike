@@ -41,6 +41,9 @@ public static class GridGenerator {
     rooms.ForEach(room => {
       // fill each room with floor
       foreach (var point in grid.EnumerateRoom(room)) {
+        if (grid.Player == null) {
+          grid.Player = new Player(grid, point);
+        }
         grid.Tiles[point.x, point.y] = Grid.TileType.FLOOR;
       }
     });

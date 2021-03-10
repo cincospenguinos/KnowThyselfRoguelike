@@ -13,13 +13,12 @@ public class Grid {
 
   // [x][y]
   private TileType[,] _grid;
-  private Player _player;
+  public Player Player;
   public List<Enemy> Enemies;
   private int _elapsedTurns;
   public event Action OnCleared;
 
   public TileType[,] Tiles => _grid;
-  public Player Player => _player;
 
   public const int WIDTH = 40;
   public const int HEIGHT = 28;
@@ -34,7 +33,6 @@ public class Grid {
     Enemies = new List<Enemy>();
     _elapsedTurns = 0;
     _grid = new TileType[40,28];
-    _player = new Player(this);
   }
 
   public bool InBounds(Vector2Int pos) {

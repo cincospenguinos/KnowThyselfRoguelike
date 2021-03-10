@@ -96,5 +96,5 @@ public class Entity {
 }
 
 public class Player : Entity {
-  public Player(Grid world) : base(world, new Vector2Int(3, 3), 20) {}
+  public Player(Grid world, Vector2Int position) : base(world, position, 20) {}
 }
