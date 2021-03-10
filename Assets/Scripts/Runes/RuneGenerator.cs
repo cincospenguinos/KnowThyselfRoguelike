@@ -44,6 +44,7 @@ public class RuneGenerator {
             RuneGenerator._all_triggers.Add("MovementTrigger", new MovementTrigger(null));
             RuneGenerator._all_triggers.Add("HealTrigger", new HealTrigger(null));
             RuneGenerator._all_triggers.Add("DealDamageTrigger", new DealDamageTrigger(null));
+            RuneGenerator._all_triggers.Add("ReceiveDamageTrigger", new ReceiveDamageTrigger(null));
         }
 
         return RuneGenerator._all_triggers;
