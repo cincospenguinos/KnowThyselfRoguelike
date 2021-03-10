@@ -8,6 +8,7 @@ public class StartGame : MonoBehaviour {
 
   void Awake() {
     player = new Player();
+    Debug.Log("Player has rune: " + player.RuneList.ToArray()[0].ToDebugString());
     NewGrid();
   }
 

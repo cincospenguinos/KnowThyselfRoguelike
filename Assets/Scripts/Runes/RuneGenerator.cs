@@ -50,6 +50,8 @@ public class RuneGenerator {
         if (RuneGenerator._all_actions == null) {
             RuneGenerator._all_actions = new Dictionary<string, RuneAction>();
             RuneGenerator._all_actions.Add("IncreaseDamageAction", new IncreaseDamageAction(null));
+            RuneGenerator._all_actions.Add("HealAction", new HealAction(null));
+            RuneGenerator._all_actions.Add("TeleportToRandomSpotAction", new TeleportToRandomSpotAction(null));
         }
 
         return RuneGenerator._all_actions;

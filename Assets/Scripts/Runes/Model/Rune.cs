@@ -18,4 +18,8 @@ public class Rune {
       trigger.Reset();
     }
   }
+
+  public string ToDebugString() {
+    return _trigger.GetType().Name + ", " + _action.GetType().Name;
+  }
 }

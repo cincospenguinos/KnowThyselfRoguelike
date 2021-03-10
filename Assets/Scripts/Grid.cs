@@ -18,6 +18,8 @@ public class Grid {
   private int _elapsedTurns;
   public event Action OnCleared;
 
+  private Queue<GameEvent> _eventQueue;
+
   public TileType[,] Tiles => _grid;
 
   public const int WIDTH = 40;
@@ -35,6 +37,7 @@ public class Grid {
     _grid = new TileType[40,28];
     player.SetGrid(this);
     Player = player;
+    _eventQueue = new Queue<GameEvent>();
   }
 
   public bool InBounds(Vector2Int pos) {
@@ -130,13 +133,19 @@ public class Grid {
 
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
-      this.EmitEvent(new GameEvent("EnemyDead"));
+      this.EnqueueEvent(new GameEvent("EnemyDead"));
     });
 
     Enemies.RemoveAll(e => e.Dead);
+
+    ClearEventQueue();
+
     foreach (var e in Enemies) {
       e.TakeTurn();
     }
+
+    ClearEventQueue();
+
     /// all enemies are dead, move onto the next floor!
     if (!Enemies.Any()) {
       OnCleared?.Invoke();
@@ -145,9 +154,23 @@ public class Grid {
 
   /// Emit a game event first to the player and then to ever enemy on the
   /// board. Events are handled by runes in that order.
-  public void EmitEvent(GameEvent gameEvent) {
-    Player.EmitEvent(gameEvent);
-    Enemies.ForEach(e => e.EmitEvent(gameEvent));
+  public void EnqueueEvent(GameEvent gameEvent) {
+    _eventQueue.Enqueue(gameEvent);
+  }
+
+  private void ClearEventQueue() {
+    int count = 0;
+
+    while (_eventQueue.Count > 0) {
+      var gameEvent = _eventQueue.Dequeue();
+      Player.EmitEvent(gameEvent);
+      Enemies.ForEach(e => e.EmitEvent(gameEvent));
+      count += 1;
+
+      if (count >= 1000) {
+        throw new OverflowException("Infinite loop occurred! Need to fix!");
+      }
+    }
   }
 
   public void AddEnemy(Enemy e) {
