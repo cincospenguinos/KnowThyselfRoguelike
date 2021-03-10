@@ -1,11 +1,9 @@
-public class RuneAction {
-  private Entity _entity;
+public abstract class RuneAction {
+  protected Entity OwningEntity;
 
   public RuneAction(Entity entityToModify) {
-    _entity = entityToModify;
+    OwningEntity = entityToModify;
   }
 
-  public void Apply() {
-    _entity.DamageModifier += 2;
-  }
+  public abstract void Apply();
 }

@@ -4,7 +4,7 @@ public class Rune {
 
   public Rune(Entity entity) {
     _trigger = new ThreeDeadEnemiesTrigger();
-    _action = new RuneAction(entity);
+    _action = new IncreaseDamageAction(entity);
   }
 
   public void EventOccurred(string eventName) {
