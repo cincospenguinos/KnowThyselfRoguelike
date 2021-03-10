@@ -6,7 +6,7 @@ public class MovementTrigger : RuneTrigger {
   }
 
   public override bool OnEvent(GameEvent gameEvent) {
-    if (gameEvent.EmittingEntity == OwningEntity && gameEvent.EventName == "MovementEvent") {
+    if (gameEvent.EmittingEntity == OwningEntity && gameEvent.GameEventType == GameEvent.EventType.MOVEMENT) {
       return true;
     }
 

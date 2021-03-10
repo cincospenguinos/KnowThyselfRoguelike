@@ -38,7 +38,7 @@ public class Entity {
   public bool move(Vector2Int newCoordinates) {
     if (_grid.canOccupy(newCoordinates)) {
       Coordinates = newCoordinates;
-      _grid.EnqueueEvent(new GameEvent("MovementEvent", this));
+      _grid.EnqueueEvent(new GameEvent(GameEvent.EventType.MOVEMENT, this));
       return true;
     }
 
@@ -70,7 +70,7 @@ public class Entity {
     _currentHitPoints -= damage;
 
     if (_currentHitPoints < MaxHitPoints / 2) {
-      Grid.instance.EnqueueEvent(new GameEvent("ReachHalfHitPoints", this));
+      Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.REACH_HALF_HIT_POINTS, this));
     }
   }
 
