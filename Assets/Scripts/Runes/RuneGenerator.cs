@@ -19,13 +19,19 @@ public class RuneGenerator {
             return new Rune(entity);
         }
 
-        return new Rune(trigger.Clone(), action.Clone(entity));
+        trigger = trigger.Clone();
+        trigger.OwningEntity = entity;
+
+        action = action.Clone(entity);
+
+        return new Rune(trigger, action);
     }
 
     public static Dictionary<string, RuneTrigger> AllTriggers() {
         if (RuneGenerator._all_triggers == null) {
             RuneGenerator._all_triggers = new Dictionary<string, RuneTrigger>();
             RuneGenerator._all_triggers.Add("ThreeDeadEnemiesTrigger", new ThreeDeadEnemiesTrigger());
+            RuneGenerator._all_triggers.Add("HalfHitPointsTrigger", new HalfHitPointsTrigger(null));
         }
 
         return RuneGenerator._all_triggers;

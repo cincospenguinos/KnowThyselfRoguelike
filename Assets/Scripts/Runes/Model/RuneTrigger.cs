@@ -1,11 +1,11 @@
 public abstract class RuneTrigger {
-  protected string EventName;
+  public Entity OwningEntity;
 
-  public RuneTrigger(string eventName) {
-    EventName = eventName;
+  public RuneTrigger(Entity owningEntity) {
+    OwningEntity = owningEntity;
   }
 
-  public abstract bool OnEvent(string name);
+  public abstract bool OnEvent(GameEvent gameEvent);
   public abstract void Reset();
   public abstract RuneTrigger Clone();
 }

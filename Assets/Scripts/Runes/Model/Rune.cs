@@ -12,8 +12,8 @@ public class Rune {
     _action = action;
   }
 
-  public void EventOccurred(string eventName) {
-    if (_trigger.OnEvent(eventName)) {
+  public void EventOccurred(GameEvent gameEvent) {
+    if (_trigger.OnEvent(gameEvent)) {
       _action.Apply();
       _trigger.Reset();
     }

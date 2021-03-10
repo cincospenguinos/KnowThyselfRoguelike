@@ -127,18 +127,27 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
+
+    Enemies.FindAll(e => e.Dead).ForEach(e => {
+      e.GoDie();
+      this.EmitEvent(new GameEvent("EnemyDead"));
+    });
+
+    Enemies.RemoveAll(e => e.Dead);
     foreach (var e in Enemies) {
       e.TakeTurn();
     }
-    Enemies.FindAll(e => e.Dead).ForEach(e => {
-      e.GoDie();
-      Player.EmitEvent("EnemyDead");
-    });
-    Enemies.RemoveAll(e => e.Dead);
     /// all enemies are dead, move onto the next floor!
     if (!Enemies.Any()) {
       OnCleared?.Invoke();
     }
+  }
+
+  /// Emit a game event first to the player and then to ever enemy on the
+  /// board. Events are handled by runes in that order.
+  public void EmitEvent(GameEvent gameEvent) {
+    Player.EmitEvent(gameEvent);
+    Enemies.ForEach(e => e.EmitEvent(gameEvent));
   }
 
   public void AddEnemy(Enemy e) {

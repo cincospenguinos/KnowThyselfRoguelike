@@ -3,12 +3,12 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
 
     public bool IsTriggered => _enemiesDied % 3 == 0;
 
-    public ThreeDeadEnemiesTrigger() : base("EnemyDead") {
+    public ThreeDeadEnemiesTrigger() : base(null) {
         _enemiesDied = 0;
     }
 
-    public override bool OnEvent(string name) {
-        if (EventName == name) {
+    public override bool OnEvent(GameEvent gameEvent) {
+        if (gameEvent.EventName == "EnemyDead") {
             _enemiesDied += 1;
         }
 

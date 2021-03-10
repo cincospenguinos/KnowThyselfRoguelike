@@ -1,5 +1,5 @@
 public abstract class RuneAction {
-  protected Entity OwningEntity;
+  public Entity OwningEntity;
 
   public RuneAction(Entity entityToModify) {
     OwningEntity = entityToModify;
