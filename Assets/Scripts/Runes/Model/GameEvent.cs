@@ -1,14 +1,18 @@
 public class GameEvent {
-    public string EventName;
+    public enum EventType {
+        ENEMY_DEAD, MOVEMENT, REACH_HALF_HIT_POINTS,
+    };
+
+    public EventType GameEventType;
     public Entity EmittingEntity;
 
-    public GameEvent(string eventName) {
-        EventName = eventName;
+    public GameEvent(EventType eventType) {
+        GameEventType = eventType;
         EmittingEntity = null;
     }
 
-    public GameEvent(string eventName, Entity emitting) {
-        EventName = eventName;
+    public GameEvent(EventType eventName, Entity emitting) {
+        GameEventType = eventName;
         EmittingEntity = emitting;
     }
 }

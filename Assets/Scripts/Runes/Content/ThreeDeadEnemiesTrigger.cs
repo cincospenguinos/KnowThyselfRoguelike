@@ -8,7 +8,7 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
     }
 
     public override bool OnEvent(GameEvent gameEvent) {
-        if (gameEvent.EventName == "EnemyDead") {
+        if (gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD) {
             _enemiesDied += 1;
         }
 
