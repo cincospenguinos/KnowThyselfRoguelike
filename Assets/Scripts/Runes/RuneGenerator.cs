@@ -41,6 +41,7 @@ public class RuneGenerator {
             RuneGenerator._all_triggers = new Dictionary<string, RuneTrigger>();
             RuneGenerator._all_triggers.Add("ThreeDeadEnemiesTrigger", new ThreeDeadEnemiesTrigger());
             RuneGenerator._all_triggers.Add("HalfHitPointsTrigger", new HalfHitPointsTrigger(null));
+            RuneGenerator._all_triggers.Add("MovementTrigger", new MovementTrigger(null));
         }
 
         return RuneGenerator._all_triggers;

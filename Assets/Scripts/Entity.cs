@@ -38,6 +38,7 @@ public class Entity {
   public bool move(Vector2Int newCoordinates) {
     if (_grid.canOccupy(newCoordinates)) {
       Coordinates = newCoordinates;
+      _grid.EnqueueEvent(new GameEvent("MovementEvent", this));
       return true;
     }
 
