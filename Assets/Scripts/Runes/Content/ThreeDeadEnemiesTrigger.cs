@@ -1,14 +1,3 @@
-public abstract class RuneTrigger {
-  protected string EventName;
-
-  public RuneTrigger(string eventName) {
-    EventName = eventName;
-  }
-
-  public abstract bool OnEvent(string name);
-  public abstract void Reset();
-}
-
 public class ThreeDeadEnemiesTrigger : RuneTrigger {
     private int _enemiesDied;
 
@@ -26,5 +15,6 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
         return IsTriggered;
     }
 
+    /// Implementation not needed
     public override void Reset(){}
 }
