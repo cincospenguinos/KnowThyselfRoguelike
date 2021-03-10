@@ -8,7 +8,7 @@ public class HalfHitPointsTrigger : RuneTrigger {
   }
 
   public override bool OnEvent(GameEvent gameEvent) {
-    return OwningEntity.HitPoints < OwningEntity.MaxHitPoints / 2;
+    return gameEvent.EventName == "ReachHalfHitPoints" && gameEvent.EmittingEntity == OwningEntity;
   }
 
   public override void Reset() {}

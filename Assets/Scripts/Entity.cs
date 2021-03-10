@@ -28,7 +28,8 @@ public class Entity {
     Coordinates = coords;
 
     RuneList = new List<Rune>();
-    RuneList.Add(RuneGenerator.generateRandom(this));
+    // RuneList.Add(RuneGenerator.generateRandom(this));
+    RuneList.Add(RuneGenerator.generate("HalfHitPointsTrigger", "TeleportToRandomSpotAction", this));
   }
 
   public void SetGrid(Grid grid) {
@@ -67,6 +68,10 @@ public class Entity {
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
     _currentHitPoints -= damage;
+
+    if (_currentHitPoints < MaxHitPoints / 2) {
+      Grid.instance.EnqueueEvent(new GameEvent("ReachHalfHitPoints", this));
+    }
   }
 
   public void Heal(int amount) {
