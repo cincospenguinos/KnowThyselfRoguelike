@@ -26,7 +26,7 @@ public class GridManager : MonoBehaviour {
     }
 
     Object.Instantiate(PlayerPrefab, new Vector3(grid.Player.Coordinates.x,
-      grid.Player.Coordinates.y, 0), Quaternion.identity);
+      grid.Player.Coordinates.y, 0), Quaternion.identity, transform);
     
     grid.Enemies.ForEach((enemy) => {
       var enemyGameObj = Object.Instantiate(Enemy0Prefab,
