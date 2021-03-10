@@ -19,6 +19,8 @@ public class TeleportToRandomSpotAction : RuneAction
         OwningEntity.Coordinates = newPosition;
     }
 
+    public override string Text() => "teleport to a random location.";
+
     public override RuneAction Clone(Entity otherEntity) {
         return new TeleportToRandomSpotAction(otherEntity);
     }

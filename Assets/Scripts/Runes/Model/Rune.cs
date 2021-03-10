@@ -20,6 +20,6 @@ public class Rune {
   }
 
   public string ToDebugString() {
-    return _trigger.GetType().Name + ", " + _action.GetType().Name;
+    return trigger.GetType().Name + ", " + action.GetType().Name;
   }
 }
