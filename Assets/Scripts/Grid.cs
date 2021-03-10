@@ -128,7 +128,7 @@ public class Grid {
 
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
-      Player.EmitEvent(new GameEvent("EnemyDead"));
+      this.EmitEvent(new GameEvent("EnemyDead"));
     });
 
     Enemies.RemoveAll(e => e.Dead);
@@ -136,6 +136,13 @@ public class Grid {
     foreach (var e in Enemies) {
       e.TakeTurn();
     }
+  }
+
+  /// Emit a game event first to the player and then to ever enemy on the
+  /// board. Events are handled by runes in that order.
+  public void EmitEvent(GameEvent gameEvent) {
+    Player.EmitEvent(gameEvent);
+    Enemies.ForEach(e => e.EmitEvent(gameEvent));
   }
 
   public void AddEnemy(Enemy e) {
