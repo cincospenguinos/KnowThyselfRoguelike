@@ -24,7 +24,7 @@ public class Entity {
     Coordinates = coords;
 
     RuneList = new List<Rune>();
-    RuneList.Add(new Rune(this));
+    RuneList.Add(RuneGenerator.generate("ThreeDeadEnemiesTrigger", "IncreaseDamageAction", this));
   }
 
   public bool move(Vector2Int newCoordinates) {

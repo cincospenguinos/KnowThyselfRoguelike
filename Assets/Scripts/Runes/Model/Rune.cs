@@ -7,6 +7,11 @@ public class Rune {
     _action = new IncreaseDamageAction(entity);
   }
 
+  public Rune(RuneTrigger trigger, RuneAction action) {
+    _trigger = trigger;
+    _action = action;
+  }
+
   public void EventOccurred(string eventName) {
     if (_trigger.OnEvent(eventName)) {
       _action.Apply();
