@@ -5,15 +5,33 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
   public Player Player;
+  public Animator animator;
 
   void Start() {
     Player = Grid.instance.Player;
+    Player.OnHit += animatorUpdatePlayerHit;
   }
 
   void Update() {
     MaybeTakePlayerTurn();
 
     transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
+  }
+
+  void animatorUpdatePlayerHit() {
+    animator.SetTrigger("hit");
+  }
+
+  void animatorUpdatePlayerAttack() {
+    animator.SetTrigger("attack");
+  }
+
+  void animatorUpdatePlayerDirection(Direction direction) {
+    animator.SetInteger("direction", (int) direction);
+  }
+
+  void animatorUpdatePlayerMoved(Direction direction) {
+    animator.SetTrigger("moved");
   }
 
   void MaybeTakePlayerTurn() {
@@ -29,9 +47,13 @@ public class PlayerInput : MonoBehaviour
       var enemy = Grid.instance.EntityAt(nextCoordinates);
       if (enemy != null) {
         Player.attack(enemy);
+        animatorUpdatePlayerDirection(direction.Value);
+        animatorUpdatePlayerAttack();
         Grid.instance.actionTaken();
       } else {
         if (Player.move(nextCoordinates)) {
+          animatorUpdatePlayerDirection(direction.Value);
+          animatorUpdatePlayerMoved(direction.Value);
           Grid.instance.actionTaken();
         }
       }

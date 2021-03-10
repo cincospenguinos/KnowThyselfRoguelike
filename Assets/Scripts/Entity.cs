@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Direction {
-  NORTH, SOUTH, EAST, WEST
+  NORTH = 0, EAST = 1, SOUTH = 2, WEST = 3
 };
 
 public class Entity {
@@ -14,6 +14,7 @@ public class Entity {
 
   public Vector2Int Coordinates;
   public event Action OnDeath;
+  public event Action OnHit;
   public List<Rune> RuneList;
   
   public int DamageModifier = 0;
@@ -67,6 +68,7 @@ public class Entity {
 
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
+    OnHit?.Invoke();
     _currentHitPoints -= damage;
 
     if (_currentHitPoints < MaxHitPoints / 2) {
