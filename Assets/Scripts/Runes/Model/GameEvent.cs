@@ -1,6 +1,6 @@
 public class GameEvent {
     public enum EventType {
-        ENEMY_DEAD, MOVEMENT, REACH_HALF_HIT_POINTS,
+        ENEMY_DEAD, MOVEMENT, REACH_HALF_HIT_POINTS, HEAL,
     };
 
     public EventType GameEventType;

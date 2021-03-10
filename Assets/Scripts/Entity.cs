@@ -76,6 +76,7 @@ public class Entity {
 
   public void Heal(int amount) {
     _currentHitPoints += amount;
+    Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
   }
 
   public Vector2Int adjacentIn(Direction direction) {
