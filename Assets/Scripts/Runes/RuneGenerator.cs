@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class RuneGenerator {
+    // TODO: Refactor to this, maybe:
+    // typeof(HalfHitPointsTrigger).GetConstructor(new Type[]{})
     private static Dictionary<string, RuneTrigger> _all_triggers;
     private static Dictionary<string, RuneAction> _all_actions;
 
@@ -25,6 +27,13 @@ public class RuneGenerator {
         action = action.Clone(entity);
 
         return new Rune(trigger, action);
+    }
+
+    public static Rune generateRandom(Entity entity) {
+        string triggerName = new List<string>(RuneGenerator.AllTriggers().Keys).GetRandom();
+        string actionName = new List<string>(RuneGenerator.AllActions().Keys).GetRandom();
+
+        return RuneGenerator.generate(triggerName, actionName, entity);
     }
 
     public static Dictionary<string, RuneTrigger> AllTriggers() {
