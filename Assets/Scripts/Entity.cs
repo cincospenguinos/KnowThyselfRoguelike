@@ -8,23 +8,28 @@ public enum Direction {
 
 public class Entity {
   protected Grid _world;
-  protected int _hitPoints;
+
+  protected int _currentHitPoints;
+  protected int _maxHitPoints;
+
   public Vector2Int Coordinates;
-  public bool Dead => _hitPoints <= 0;
   public event Action OnDeath;
   public List<Rune> RuneList;
   
   public int DamageModifier = 0;
   public int DamageOut => 1 + DamageModifier;
-  public int HitPoints => _hitPoints;
+  public int HitPoints => _currentHitPoints;
+  public int MaxHitPoints => _maxHitPoints;
+  public bool Dead => _currentHitPoints <= 0;
 
   public Entity(Grid world, Vector2Int coords, int HitPoints) {
     _world = world;
-    _hitPoints = HitPoints;
+    _currentHitPoints = HitPoints;
+    _maxHitPoints = HitPoints;
     Coordinates = coords;
 
     RuneList = new List<Rune>();
-    RuneList.Add(RuneGenerator.generate("ThreeDeadEnemiesTrigger", "IncreaseDamageAction", this));
+    RuneList.Add(RuneGenerator.generate("HalfHitPointsTrigger", "IncreaseDamageAction", this));
   }
 
   public bool move(Vector2Int newCoordinates) {
@@ -56,7 +61,7 @@ public class Entity {
 
   /// Taking damage from getting hit by the player
   public void TakeDamage(int damage) {
-    _hitPoints -= damage;
+    _currentHitPoints -= damage;
   }
 
   public Vector2Int adjacentIn(Direction direction) {
