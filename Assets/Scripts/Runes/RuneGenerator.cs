@@ -46,6 +46,7 @@ public class RuneGenerator {
       RuneGenerator._all_triggers.Add("DealDamageTrigger", new DealDamageTrigger(null));
       RuneGenerator._all_triggers.Add("ReceiveDamageTrigger", new ReceiveDamageTrigger(null));
       RuneGenerator._all_triggers.Add("EveryFiftyTurnsTrigger", new EveryFiftyTurnsTrigger(null));
+      RuneGenerator._all_triggers.Add("TenTurnsNoDamage", new TenTurnsNoDamage(null));
     }
 
     return RuneGenerator._all_triggers;
