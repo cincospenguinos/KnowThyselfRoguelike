@@ -1,6 +1,7 @@
 public class Rune {
   public readonly RuneTrigger trigger;
   public readonly RuneAction action;
+  public event System.Action<GameEvent> OnTriggered;
 
   public Rune(Entity entity) {
     trigger = new ThreeDeadEnemiesTrigger();
@@ -16,6 +17,7 @@ public class Rune {
     if (trigger.OnEvent(gameEvent)) {
       action.Apply();
       trigger.Reset();
+      OnTriggered?.Invoke(gameEvent);
     }
   }
 
