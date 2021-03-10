@@ -17,4 +17,8 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
 
     /// Implementation not needed
     public override void Reset(){}
+
+    public override RuneTrigger Clone() {
+        return new ThreeDeadEnemiesTrigger();
+    }
 }

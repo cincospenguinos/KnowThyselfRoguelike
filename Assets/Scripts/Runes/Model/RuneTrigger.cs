@@ -7,4 +7,5 @@ public abstract class RuneTrigger {
 
   public abstract bool OnEvent(string name);
   public abstract void Reset();
+  public abstract RuneTrigger Clone();
 }
