@@ -5,6 +5,8 @@ public class IncreaseDamageAction : RuneAction {
     OwningEntity.DamageModifier += 2;
   }
 
+  public override string Text() => $"increase your damage by 2.";
+
   public override RuneAction Clone(Entity otherEntity) {
     return new IncreaseDamageAction(otherEntity);
   }

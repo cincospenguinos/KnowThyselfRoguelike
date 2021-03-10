@@ -15,6 +15,8 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
         return IsTriggered;
     }
 
+    public override string Text() => $"Every third kill (<color=yellow>{3 - _enemiesDied} remaining</color>), ";
+
     /// Implementation not needed
     public override void Reset(){}
 

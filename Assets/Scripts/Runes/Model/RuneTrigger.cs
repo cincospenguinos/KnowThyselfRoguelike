@@ -1,3 +1,6 @@
+using System;
+using TMPro;
+
 public abstract class RuneTrigger {
   public Entity OwningEntity;
 
@@ -8,4 +11,5 @@ public abstract class RuneTrigger {
   public abstract bool OnEvent(GameEvent gameEvent);
   public abstract void Reset();
   public abstract RuneTrigger Clone();
+  public abstract string Text();
 }
