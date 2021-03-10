@@ -43,6 +43,7 @@ public class RuneGenerator {
             RuneGenerator._all_triggers.Add("HalfHitPointsTrigger", new HalfHitPointsTrigger(null));
             RuneGenerator._all_triggers.Add("MovementTrigger", new MovementTrigger(null));
             RuneGenerator._all_triggers.Add("HealTrigger", new HealTrigger(null));
+            RuneGenerator._all_triggers.Add("DealDamageTrigger", new DealDamageTrigger(null));
         }
 
         return RuneGenerator._all_triggers;
