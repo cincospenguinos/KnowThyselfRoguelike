@@ -1,22 +1,30 @@
-public class RuneTrigger {
-  private string _eventName;
-  private int _enemiesDied;
-
-  public bool IsTriggered => _enemiesDied % 3 == 0;
+public abstract class RuneTrigger {
+  protected string EventName;
 
   public RuneTrigger(string eventName) {
-    _enemiesDied = 0;
-    _eventName = eventName;
+    EventName = eventName;
   }
 
-  public bool OnEvent(string name) {
-    if (_eventName == name) {
-      _enemiesDied += 1;
+  public abstract bool OnEvent(string name);
+  public abstract void Reset();
+}
+
+public class ThreeDeadEnemiesTrigger : RuneTrigger {
+    private int _enemiesDied;
+
+    public bool IsTriggered => _enemiesDied % 3 == 0;
+
+    public ThreeDeadEnemiesTrigger() : base("EnemyDead") {
+        _enemiesDied = 0;
     }
 
-    return IsTriggered;
-  }
+    public override bool OnEvent(string name) {
+        if (EventName == name) {
+            _enemiesDied += 1;
+        }
 
-  /// Not needed for this specific trigger...
-  public void Reset() {}
+        return IsTriggered;
+    }
+
+    public override void Reset(){}
 }
