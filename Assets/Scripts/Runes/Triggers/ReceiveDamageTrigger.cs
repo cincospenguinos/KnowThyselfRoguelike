@@ -1,4 +1,6 @@
 public class ReceiveDamageTrigger : RuneTrigger {
+    public const int OUTPUT_CHARGE = 17;
+
     public ReceiveDamageTrigger(Entity e) : base(e) {}
 
     public override RuneTrigger Clone() {
@@ -6,7 +8,9 @@ public class ReceiveDamageTrigger : RuneTrigger {
     }
 
     public override int OnEvent(GameEvent gameEvent) {
-        return FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED ? 1 : 0;
+        bool entityReceivedDamage = FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED;
+
+        return entityReceivedDamage ? OUTPUT_CHARGE : 0;
     }
 
     public override void Reset() {}

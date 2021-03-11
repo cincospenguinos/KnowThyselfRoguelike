@@ -1,4 +1,5 @@
 public class EveryFiftyTurnsTrigger : RuneTrigger {
+  public const int OUTPUT_CHARGE = 50;
   private int _elapsedTurns;
   public bool IsTriggered => _elapsedTurns > 0 && _elapsedTurns % 50 == 0;
 
@@ -15,7 +16,7 @@ public class EveryFiftyTurnsTrigger : RuneTrigger {
       _elapsedTurns += 1;
     }
 
-    return IsTriggered ? 1 : 0;
+    return IsTriggered ? OUTPUT_CHARGE : 0;
   }
 
   public override string Text() => $"When 50 turns have elapsed (<color=yellow>{_elapsedTurns} so far</color>),";
