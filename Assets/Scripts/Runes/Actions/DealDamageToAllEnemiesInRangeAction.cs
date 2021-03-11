@@ -4,7 +4,7 @@ using UnityEngine;
 public class DealDamageToAllEntitiesInRangeAction : RuneAction {
   public DealDamageToAllEntitiesInRangeAction(Entity e) : base(e) {}
 
-  public override void Apply() {
+  public override void ReceiveCharge(int amount) {
     List<Entity> entitiesToDamage = new List<Entity>();
 
     foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, 3)) {

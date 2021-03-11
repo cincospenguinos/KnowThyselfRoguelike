@@ -1,7 +1,7 @@
 public class HealAction : RuneAction {
   public HealAction(Entity e) : base(e) {}
 
-  public override void Apply() {
+  public override void ReceiveCharge(int amount) {
     OwningEntity.Heal(2);
   }
 

@@ -4,7 +4,7 @@ public class TeleportToRandomSpotAction : RuneAction
 {
     public TeleportToRandomSpotAction(Entity e) : base(e) {}
 
-    public override void Apply() {
+    public override void ReceiveCharge(int amount) {
         Vector2Int newPosition = new Vector2Int(-1, -1);
 
         while (newPosition.x == -1 && newPosition.y == -1) {

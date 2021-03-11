@@ -1,7 +1,7 @@
 public class FreeAttackAction : RuneAction {
     public FreeAttackAction(Entity e) : base(e) {}
 
-    public override void Apply() {
+    public override void ReceiveCharge(int amount) {
         OwningEntity.FreeAttacks += 1;
     }
 
