@@ -51,6 +51,7 @@ public class Entity {
   public bool attack(Entity entity) {
     if (entity != null) {
       entity.TakeDamage(DamageOut);
+      _grid.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, this));
 
       if (FreeAttacks > 0) {
         FreeAttacks -= 1;
@@ -79,6 +80,7 @@ public class Entity {
     OnHit?.Invoke();
     bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;
+    Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_RECEIVED, this));
 
     if (wasAboveHalf && _currentHitPoints < MaxHitPoints / 2) {
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.REACH_HALF_HIT_POINTS, this));

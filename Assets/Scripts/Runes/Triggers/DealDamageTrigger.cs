@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class DealDamageTrigger : RuneTrigger {
     public DealDamageTrigger(Entity e) : base(e) {}
 
