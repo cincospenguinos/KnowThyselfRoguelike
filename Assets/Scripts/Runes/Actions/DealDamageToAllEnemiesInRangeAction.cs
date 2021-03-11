@@ -2,18 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DealDamageToAllEntitiesInRangeAction : RuneAction {
+  private const int CHARGE_THRESHOLD = 66;
+
   public DealDamageToAllEntitiesInRangeAction(Entity e) : base(e) {}
 
   public override void ReceiveCharge(int amount) {
-    List<Entity> entitiesToDamage = new List<Entity>();
+    CurrentCharge += amount;
 
-    foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, 3)) {
-      Entity e = Grid.instance.EntityAt(point);
+    while (CurrentCharge > CHARGE_THRESHOLD) {
+      List<Entity> entitiesToDamage = new List<Entity>();
 
-      if (e != null && e != OwningEntity && !e.Dead) {
-        e.TakeDamage(1);
-        Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, OwningEntity));
+      foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, 3)) {
+        Entity e = Grid.instance.EntityAt(point);
+
+        if (e != null && e != OwningEntity && !e.Dead) {
+          e.TakeDamage(1);
+          Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, OwningEntity));
+        }
       }
+
+      CurrentCharge -= CHARGE_THRESHOLD;
     }
   }
 

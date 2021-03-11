@@ -1,8 +1,15 @@
 public class FreeAttackAction : RuneAction {
+    private const int CHARGE_THRESHOLD = 28;
+
     public FreeAttackAction(Entity e) : base(e) {}
 
     public override void ReceiveCharge(int amount) {
-        OwningEntity.FreeAttacks += 1;
+        CurrentCharge += amount;
+
+        while (CurrentCharge > CHARGE_THRESHOLD) {
+            OwningEntity.FreeAttacks += 1;
+            CurrentCharge -= CHARGE_THRESHOLD;
+        }
     }
 
     public override RuneAction Clone(Entity otherEntity) {
