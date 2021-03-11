@@ -13,6 +13,10 @@ public class RuneManager : MonoBehaviour {
     Update();
   }
 
+  void OnDestroy() {
+    rune.OnTriggered -= HandleRuneTriggered;
+  }
+
   Coroutine pulse;
   private void HandleRuneTriggered(GameEvent obj) {
     if (pulse != null) {

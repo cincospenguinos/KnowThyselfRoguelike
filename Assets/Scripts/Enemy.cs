@@ -17,6 +17,10 @@ public class Enemy : Entity {
     }
   }
 
+  public float DistanceTo(Entity other) {
+    return Vector2.Distance(Coordinates, other.Coordinates);
+  }
+
   public void moveTowardsPlayerOrAttack() {
     var player = _grid.Player;
     if (isNextTo(player)) {
