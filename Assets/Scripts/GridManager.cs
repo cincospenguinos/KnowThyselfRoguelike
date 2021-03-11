@@ -6,7 +6,6 @@ public class GridManager : MonoBehaviour {
   public Grid grid;
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
-  public GameObject PlayerPrefab;
   public GameObject Enemy0Prefab;
 
   void Start() {
@@ -24,9 +23,6 @@ public class GridManager : MonoBehaviour {
         }
       }
     }
-
-    Object.Instantiate(PlayerPrefab, new Vector3(grid.Player.Coordinates.x,
-      grid.Player.Coordinates.y, 0), Quaternion.identity, transform);
     
     grid.Enemies.ForEach((enemy) => {
       var enemyGameObj = Object.Instantiate(Enemy0Prefab,
