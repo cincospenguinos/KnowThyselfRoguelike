@@ -4,7 +4,7 @@ public class Rune {
   public event System.Action<GameEvent> OnTriggered;
 
   public Rune(Entity entity) {
-    trigger = new ThreeDeadEnemiesTrigger();
+    trigger = new EntityDiesTrigger();
     action = new IncreaseDamageAction(entity);
   }
 

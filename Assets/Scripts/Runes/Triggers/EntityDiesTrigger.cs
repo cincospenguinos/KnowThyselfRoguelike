@@ -1,9 +1,9 @@
-public class ThreeDeadEnemiesTrigger : RuneTrigger {
+public class EntityDiesTrigger : RuneTrigger {
     private int _enemiesDied;
 
     public bool IsTriggered => _enemiesDied % 3 == 0 && _enemiesDied > 0;
 
-    public ThreeDeadEnemiesTrigger() : base(null) {
+    public EntityDiesTrigger() : base(null) {
         _enemiesDied = 0;
     }
 
@@ -22,6 +22,6 @@ public class ThreeDeadEnemiesTrigger : RuneTrigger {
     }
 
     public override RuneTrigger Clone() {
-        return new ThreeDeadEnemiesTrigger();
+        return new EntityDiesTrigger();
     }
 }
