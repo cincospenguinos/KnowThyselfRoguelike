@@ -130,6 +130,7 @@ public class Grid {
 
   public void actionTaken() {
     _elapsedTurns += 1;
+    EnqueueEvent(new GameEvent(GameEvent.EventType.TURN_ELAPSED));
 
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
