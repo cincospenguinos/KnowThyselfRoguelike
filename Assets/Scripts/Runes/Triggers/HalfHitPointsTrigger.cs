@@ -5,8 +5,8 @@ public class HalfHitPointsTrigger : RuneTrigger {
     return new HalfHitPointsTrigger(OwningEntity);
   }
 
-  public override bool OnEvent(GameEvent gameEvent) {
-    return gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && gameEvent.EmittingEntity == OwningEntity;
+  public override int OnEvent(GameEvent gameEvent) {
+    return gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && FromOwnEntity(gameEvent) ? 1 : 0;
   }
 
   public override string Text() => $"When your HP falls below 50% (<color=yellow>{OwningEntity.MaxHitPoints / 2}</color>),";

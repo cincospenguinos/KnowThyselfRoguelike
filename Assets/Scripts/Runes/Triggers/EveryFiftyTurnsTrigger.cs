@@ -10,12 +10,12 @@ public class EveryFiftyTurnsTrigger : RuneTrigger {
     return new EveryFiftyTurnsTrigger(OwningEntity);
   }
 
-  public override bool OnEvent(GameEvent gameEvent) {
+  public override int OnEvent(GameEvent gameEvent) {
     if (gameEvent.GameEventType == GameEvent.EventType.TURN_ELAPSED) {
       _elapsedTurns += 1;
     }
 
-    return IsTriggered;
+    return IsTriggered ? 1 : 0;
   }
 
   public override string Text() => $"When 50 turns have elapsed (<color=yellow>{_elapsedTurns} so far</color>),";

@@ -5,12 +5,12 @@ public class MovementTrigger : RuneTrigger {
     return new MovementTrigger(OwningEntity);
   }
 
-  public override bool OnEvent(GameEvent gameEvent) {
-    if (gameEvent.EmittingEntity == OwningEntity && gameEvent.GameEventType == GameEvent.EventType.MOVEMENT) {
-      return true;
+  public override int OnEvent(GameEvent gameEvent) {
+    if (FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.MOVEMENT) {
+      return 1;
     }
 
-    return false;
+    return 0;
   } 
 
   public override string Text() => "Whenever you move, ";

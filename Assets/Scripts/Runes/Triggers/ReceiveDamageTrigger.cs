@@ -5,8 +5,8 @@ public class ReceiveDamageTrigger : RuneTrigger {
         return new ReceiveDamageTrigger(OwningEntity);
     }
 
-    public override bool OnEvent(GameEvent gameEvent) {
-        return FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED;
+    public override int OnEvent(GameEvent gameEvent) {
+        return FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED ? 1 : 0;
     }
 
     public override void Reset() {}

@@ -7,12 +7,12 @@ public class EntityDiesTrigger : RuneTrigger {
         _enemiesDied = 0;
     }
 
-    public override bool OnEvent(GameEvent gameEvent) {
+    public override int OnEvent(GameEvent gameEvent) {
         if (gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD) {
             _enemiesDied += 1;
         }
 
-        return IsTriggered;
+        return IsTriggered ? 1 : 0;
     }
 
     public override string Text() => $"Every third kill (<color=yellow>{3 - _enemiesDied} remaining</color>), ";

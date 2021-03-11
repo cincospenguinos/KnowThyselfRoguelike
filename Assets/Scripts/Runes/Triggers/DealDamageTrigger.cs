@@ -7,8 +7,8 @@ public class DealDamageTrigger : RuneTrigger {
         return new DealDamageTrigger(OwningEntity);
     }
 
-    public override bool OnEvent(GameEvent gameEvent) {
-        return FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_DEALT;
+    public override int OnEvent(GameEvent gameEvent) {
+        return FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_DEALT ? 1 : 0;
     }
 
     public override void Reset() {}
