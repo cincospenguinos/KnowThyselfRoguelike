@@ -1,5 +1,5 @@
 public class TenTurnsNoDamage : RuneTrigger {
-  public const int OUTPUT_CHARGE = 20;
+  public override int Charge => 20;
   private int _noDamage;
 
   public bool IsTriggered => _noDamage > 0 && _noDamage % 10 == 0;
@@ -19,10 +19,10 @@ public class TenTurnsNoDamage : RuneTrigger {
       _noDamage += 1;
     }
 
-    return IsTriggered ? OUTPUT_CHARGE : 0;
+    return IsTriggered ? Charge : 0;
   }
 
-  public override string Text() => $"When ten turns have elapsed without taking damage (<color=yellow>{_noDamage}</color> so far,)";
+  public override string Text() => $"in <b>{10 - _noDamage}</b> turns without taking damage.";
 
   public override void Reset() {}
 }

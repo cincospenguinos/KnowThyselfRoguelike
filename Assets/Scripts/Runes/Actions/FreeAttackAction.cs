@@ -1,20 +1,15 @@
 public class FreeAttackAction : RuneAction {
-    private const int CHARGE_THRESHOLD = 28;
+  public override int Threshold => 28;
 
-    public FreeAttackAction(Entity e) : base(e) {}
+  public FreeAttackAction(Entity e) : base(e) { }
 
-    public override void ReceiveCharge(int amount) {
-        CurrentCharge += amount;
+  public override void Perform() {
+    OwningEntity.FreeAttacks += 1;
+  }
 
-        while (CurrentCharge > CHARGE_THRESHOLD) {
-            OwningEntity.FreeAttacks += 1;
-            CurrentCharge -= CHARGE_THRESHOLD;
-        }
-    }
+  public override RuneAction Clone(Entity otherEntity) {
+    return new FreeAttackAction(otherEntity);
+  }
 
-    public override RuneAction Clone(Entity otherEntity) {
-        return new FreeAttackAction(otherEntity);
-    }
-
-    public override string Text() => " gain a free attack (currently " + OwningEntity.FreeAttacks + ")";
+  public override string Text() => "Gain a free attack (currently " + OwningEntity.FreeAttacks + ")";
 }

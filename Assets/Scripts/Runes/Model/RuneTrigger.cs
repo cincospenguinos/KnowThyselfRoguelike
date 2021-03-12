@@ -2,6 +2,7 @@ using System;
 using TMPro;
 
 public abstract class RuneTrigger : RunePiece {
+  public abstract int Charge { get; }
   public Entity OwningEntity;
 
   public RuneTrigger(Entity owningEntity) {
@@ -16,4 +17,5 @@ public abstract class RuneTrigger : RunePiece {
   public bool FromOwnEntity(GameEvent gameEvent) {
     return gameEvent.EmittingEntity == OwningEntity;
   }
+  public string TextFull() => $"<b><color=yellow>Charge {Charge}</color></b> {Text()}";
 }

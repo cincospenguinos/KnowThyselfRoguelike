@@ -1,7 +1,5 @@
-using System;
-using TMPro;
-
 public abstract class RuneAction : RunePiece {
+  public abstract int Threshold { get; }
   public Entity OwningEntity;
   protected int CurrentCharge;
 
@@ -10,7 +8,17 @@ public abstract class RuneAction : RunePiece {
     CurrentCharge = 0;
   }
 
-  public abstract void ReceiveCharge(int amount);
+  public void ReceiveCharge(int amount) {
+    CurrentCharge += amount;
+    while (CurrentCharge >= Threshold) {
+      Perform();
+      CurrentCharge -= Threshold;
+    }
+  }
+
+  public abstract void Perform();
+
   public abstract RuneAction Clone(Entity otherEntity);
   public abstract string Text();
+  public string TextFull() => $"<b><color=yellow>{CurrentCharge}/{Threshold}</color></b>\n{Text()}";
 }

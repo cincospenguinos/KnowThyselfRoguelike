@@ -2,26 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DealDamageToAllEntitiesInRangeAction : RuneAction {
-  private const int CHARGE_THRESHOLD = 66;
+  public override int Threshold => 66;
 
   public DealDamageToAllEntitiesInRangeAction(Entity e) : base(e) {}
 
-  public override void ReceiveCharge(int amount) {
-    CurrentCharge += amount;
+  public override void Perform() {
+    foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, 3)) {
+      Entity e = Grid.instance.EntityAt(point);
 
-    while (CurrentCharge > CHARGE_THRESHOLD) {
-      List<Entity> entitiesToDamage = new List<Entity>();
-
-      foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, 3)) {
-        Entity e = Grid.instance.EntityAt(point);
-
-        if (e != null && e != OwningEntity && !e.Dead) {
-          e.TakeDamage(1);
-          Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, OwningEntity));
-        }
+      if (e != null && e != OwningEntity && !e.Dead) {
+        e.TakeDamage(1);
+        Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, OwningEntity));
       }
-
-      CurrentCharge -= CHARGE_THRESHOLD;
     }
   }
 
@@ -29,7 +21,7 @@ public class DealDamageToAllEntitiesInRangeAction : RuneAction {
       return new DealDamageToAllEntitiesInRangeAction(otherEntity);
   }
 
-  public override string Text() => " apply 1 damage to all entities within 3 squares";
+  public override string Text() => "deal 1 damage to enemies in range 3.";
 
   private HashSet<Vector2Int> AllAdjacentTo(Vector2Int point, int surrounding) {
     if (surrounding == 1) {

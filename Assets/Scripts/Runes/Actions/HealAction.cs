@@ -1,15 +1,10 @@
 public class HealAction : RuneAction {
-  private const int CHARGE_THRESHOLD = 66;
+  public override int Threshold => 66;
 
   public HealAction(Entity e) : base(e) {}
 
-  public override void ReceiveCharge(int amount) {
-    CurrentCharge += amount;
-
-    while (CurrentCharge > CHARGE_THRESHOLD) {
-      OwningEntity.Heal(2);
-      CurrentCharge -= CHARGE_THRESHOLD;
-    }
+  public override void Perform() {
+    OwningEntity.Heal(2);
   }
 
   public override string Text() => "Heal 2 HP.";

@@ -40,7 +40,7 @@ public class RuneManager : MonoBehaviour {
   }
 
   void Update() {
-    actionText.text = rune.action.Text();
-    triggerText.text = rune.trigger.Text();
+    actionText.text = rune.action.TextFull();
+    triggerText.text = rune.trigger.TextFull();
   }
 }
