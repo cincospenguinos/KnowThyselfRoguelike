@@ -3,6 +3,7 @@ using UnityEngine;
 public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
   public TMPro.TMP_Text TurnText;
+  public TMPro.TMP_Text GameOverText;
   GameObject currentGrid;
   Player player;
 
@@ -25,6 +26,10 @@ public class StartGame : MonoBehaviour {
   }
 
   void Update() {
-    TurnText.text = $"Turn {Grid.instance.CurrentTurn}\nHP: {Grid.instance.Player.HitPoints}/20";
+    if (player.Dead) {
+      GameOverText.text = $"<b><color=red>Game Over</color></b>";
+    } else {
+      TurnText.text = $"Turn {Grid.instance.CurrentTurn}\nHP: {Grid.instance.Player.HitPoints}/20";
+    }
   }
 }

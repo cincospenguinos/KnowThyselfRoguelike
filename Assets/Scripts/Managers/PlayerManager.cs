@@ -13,9 +13,11 @@ public class PlayerManager : MonoBehaviour {
   }
 
   void Update() {
-    MaybeTakePlayerTurn();
+    if (!Player.Dead) {
+      MaybeTakePlayerTurn();
 
-    transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
+      transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
+    }
   }
 
   void animatorUpdatePlayerHit() {
