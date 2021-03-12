@@ -6,7 +6,7 @@ public static class GridGenerator {
   public static Grid generateMultiRoomGrid(Player player, int numEnemies, int numSplits = 10) {
     Grid grid = new Grid(player);
     foreach (var point in grid.EnumerateFloor()) {
-      grid.Tiles[point.x, point.y] = Grid.TileType.WALL;
+      grid.Tiles[point.x, point.y] = new Wall(grid, point);
     }
 
     // randomly partition space into rooms
@@ -34,18 +34,18 @@ public static class GridGenerator {
     foreach (var (r1, r2) in ComputeRoomConnections(rooms).Concat(BSPSiblingRoomConnections(rooms, root))) {
       /// draw lines 
       foreach (var point in grid.EnumerateManhattanLine(r1.center, r2.center).Where(p => grid.InBounds(p)).Take(1000)) {
-        grid.Tiles[point.x, point.y] = Grid.TileType.FLOOR;
+        grid.Tiles[point.x, point.y] = new Floor(grid, point);
       }
     }
 
     rooms.ForEach(room => {
       // fill each room with floor
       foreach (var point in grid.EnumerateRoom(room)) {
-        grid.Tiles[point.x, point.y] = Grid.TileType.FLOOR;
+        grid.Tiles[point.x, point.y] = new Floor(grid, point);
       }
     });
 
-    var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] == Grid.TileType.FLOOR).ToList();
+    var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] is Floor).ToList();
     foreach (var pos in floors.Shuffle().Take(numEnemies).ToList()) {
       grid.AddEntity(new Enemy(pos));
       floors.Remove(pos);
@@ -57,7 +57,7 @@ public static class GridGenerator {
 
     // put player in bottom-left corner
     var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();
-    player.Coordinates = bottomLeftFloor;
+    player.SetCoordinates(bottomLeftFloor);
 
     return grid;
   }

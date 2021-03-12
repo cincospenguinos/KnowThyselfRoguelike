@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour {
-  void Start() {}
+  void Start() {
+    var t = Grid.instance.Player.Coordinates;
+    transform.position = new Vector3(t.x, t.y, transform.position.z);
+  }
 
   void LateUpdate() {
     var t = Grid.instance.Player.Coordinates;

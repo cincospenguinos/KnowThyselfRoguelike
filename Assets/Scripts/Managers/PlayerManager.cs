@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour {
   void Start() {
     Player = Grid.instance.Player;
     Player.OnHit += animatorUpdatePlayerHit;
+    transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
   }
 
   void Update() {

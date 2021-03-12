@@ -15,10 +15,11 @@ public class GridManager : MonoBehaviour {
         var tile = grid.Tiles[x,y];
 
         switch(tile) {
-          case Grid.TileType.FLOOR:
-              Object.Instantiate(FloorPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+          case Floor floor:
+              var f = Object.Instantiate(FloorPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+              f.GetComponent<FloorManager>().floor = floor;
               break;
-          case Grid.TileType.WALL:
+          case Wall _:
               Object.Instantiate(WallPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
               break;
         }

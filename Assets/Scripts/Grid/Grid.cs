@@ -3,16 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Grid {
-  public enum TileType {
-      FLOOR = 0,
-      WALL = 1,
-  };
+public abstract class Tile {
+  public Vector2Int Coordinates;
+  protected Grid _grid;
+  public bool isVisible => ManhattanDistanceToPlayer <= 6;
 
+  public int ManhattanDistanceToPlayer {
+    get {
+      var distanceX = Mathf.Abs(_grid.Player.Coordinates.x - Coordinates.x);
+      var distanceY = Mathf.Abs(_grid.Player.Coordinates.y - Coordinates.y);
+      return distanceX + distanceY;
+    }
+  }
+
+  protected Tile(Grid grid, Vector2Int Coordinates) {
+    _grid = grid;
+    this.Coordinates = Coordinates;
+  }
+}
+
+public class Floor : Tile
+{
+  public Floor(Grid grid, Vector2Int Coordinates) : base(grid, Coordinates)
+  {
+  }
+}
+
+public class Wall : Tile
+{
+  public Wall(Grid grid, Vector2Int Coordinates) : base(grid, Coordinates)
+  {
+  }
+}
+
+public class Grid {
   public static Grid instance;
 
   // [x][y]
-  private TileType[,] _grid;
+  private Tile[,] _grid;
   public Player Player;
   public List<Entity> Entities;
   public IEnumerable<Enemy> Enemies => Entities.Where((e) => e is Enemy).Cast<Enemy>();
@@ -21,7 +49,7 @@ public class Grid {
 
   private Queue<GameEvent> _eventQueue;
 
-  public TileType[,] Tiles => _grid;
+  public Tile[,] Tiles => _grid;
 
   public const int WIDTH = 40;
   public const int HEIGHT = 28;
@@ -35,7 +63,12 @@ public class Grid {
   public Grid(Player player) {
     Entities = new List<Entity>();
     _elapsedTurns = 0;
-    _grid = new TileType[40,28];
+    _grid = new Tile[40, 28];
+    for (var x = 0; x < 40; x++) {
+      for (var y = 0; y < 28; y++) {
+        _grid[x, y] = new Wall(this, new Vector2Int(x, y));
+      }
+    }
     player.SetGrid(this);
     Player = player;
     _eventQueue = new Queue<GameEvent>();
@@ -138,7 +171,7 @@ public class Grid {
       Rune rune = e.RuneList.ToArray()[0];
 
       if (UnityEngine.Random.value > 0.5f) {
-        Player.AddRunePiece(rune.trigger);
+        Player.AddRunePiece(rune.action);
       } else {
         Player.AddRunePiece(rune.trigger);
       }
@@ -204,6 +237,6 @@ public class Grid {
       return false;
     }
 
-    return Tiles[pos.x, pos.y] == TileType.FLOOR;
+    return Tiles[pos.x, pos.y] is Floor;
   }
 }

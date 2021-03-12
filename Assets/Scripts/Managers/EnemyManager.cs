@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour {
   // Start is called before the first frame update
   void Start() {
     this.enemyRunesManager = GameObject.Find("Enemy Runes").GetComponent<EnemyRunesManager>();
+    transform.localScale = new Vector3(0, 0, 1);
     Enemy.OnDeath += () => {
       Destroy(this.gameObject);
     };
@@ -18,6 +19,8 @@ public class EnemyManager : MonoBehaviour {
   void Update() {
     transform.position = Vector3.Lerp(transform.position, new Vector3(Enemy.Coordinates.x, Enemy.Coordinates.y, 0), 0.1f);
     UpdateRuneUI();
+    var targetScale = Enemy.isVisible ? 1 : 0;
+    transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(targetScale, targetScale, 1), 0.2f);
   }
 
   void OnDestroy() {
@@ -25,9 +28,7 @@ public class EnemyManager : MonoBehaviour {
   }
 
   void UpdateRuneUI() {
-    Vector3 screenPoint = Camera.main.WorldToViewportPoint(new Vector3(Enemy.Coordinates.x, Enemy.Coordinates.y, 0));
-    bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-    if (onScreen) {
+    if (Enemy.isVisible) {
       enemyRunesManager.EnsureRegistered(Enemy, this);
     } else {
       enemyRunesManager.EnsureDeregistered(Enemy, this);

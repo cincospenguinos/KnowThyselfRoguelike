@@ -9,10 +9,10 @@ public class TeleportToRandomSpotAction : RuneAction {
   public override void Perform() {
     Vector2Int newPosition = Grid.instance
       .EnumerateFloor()
-      .Where(p => Grid.instance.Tiles[p.x, p.y] == Grid.TileType.FLOOR)
+      .Where(p => Grid.instance.Tiles[p.x, p.y] is Floor)
       .ToList()
       .GetRandom();
-    OwningEntity.Coordinates = newPosition;
+    OwningEntity.SetCoordinates(newPosition);
   }
 
   public override string Text() => "Teleport to a random location.";

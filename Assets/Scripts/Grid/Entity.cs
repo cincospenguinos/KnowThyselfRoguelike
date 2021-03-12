@@ -8,11 +8,14 @@ public enum Direction {
 
 public abstract class Entity {
   protected Grid _grid;
+  public bool isVisible => _grid.Tiles[Coordinates.x, Coordinates.y].isVisible;
 
   protected int _currentHitPoints;
   protected int _maxHitPoints;
 
-  public Vector2Int Coordinates;
+  private Vector2Int _Coordinates;
+  /// set through SetCoordinates()
+  public Vector2Int Coordinates => _Coordinates;
   public event Action OnDeath;
   public event Action OnHit;
   public List<Rune> RuneList;
@@ -28,7 +31,7 @@ public abstract class Entity {
   public Entity(Vector2Int coords, int HitPoints) {
     _currentHitPoints = HitPoints;
     _maxHitPoints = HitPoints;
-    Coordinates = coords;
+    _Coordinates = coords;
 
     RuneList = new List<Rune>();
     RuneList.Add(RuneGenerator.generateRandom(this));
@@ -38,9 +41,14 @@ public abstract class Entity {
     this._grid = grid;
   }
 
-  public bool move(Vector2Int newCoordinates) {
+  /// this doesn't care about grid walkability; it just sets the field
+  public virtual void SetCoordinates(Vector2Int c) {
+    _Coordinates = c;
+  }
+
+  public virtual bool move(Vector2Int newCoordinates) {
     if (_grid.canOccupy(newCoordinates)) {
-      Coordinates = newCoordinates;
+      SetCoordinates(newCoordinates);
       _grid.EnqueueEvent(new GameEvent(GameEvent.EventType.MOVEMENT, this));
       return true;
     }
