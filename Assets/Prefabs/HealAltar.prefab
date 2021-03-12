@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.7358491, g: 0.9811321, b: 0.77106524, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -659,15 +659,15 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 10
+    type: 18
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0.3, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 0.21095692, y: 0.11, z: 0}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -865,7 +865,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1319,8 +1319,8 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 32768
-        atime1: 65535
+        atime0: 0
+        atime1: 47802
         atime2: 65535
         atime3: 65535
         atime4: 0
@@ -4815,6 +4815,7 @@ GameObject:
   - component: {fileID: 5759507410469425768}
   - component: {fileID: 9005592709009055542}
   - component: {fileID: -2867709761509112260}
+  - component: {fileID: 6086618643838306068}
   m_Layer: 0
   m_Name: HealAltar
   m_TagString: Untagged
@@ -4831,7 +4832,7 @@ Transform:
   m_GameObject: {fileID: 8336636750626801030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1647775817684365458}
   m_Father: {fileID: 0}
@@ -4877,7 +4878,7 @@ SpriteRenderer:
   m_SortingLayerID: -1180523767
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f8698e5c143d67045b3e3fcab3ae98f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d7a3b1c08159004ab50b25f3b935c3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4900,4 +4901,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed075dea6cd0da42a72d0ef7f3a7ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAltar: {fileID: 21300000, guid: 26d391e98c2494d4fba017afb58e160d, type: 3}
+  usedAltar: {fileID: 21300000, guid: e4900df3826aabb4db618259cfcf765d, type: 3}
+--- !u!95 &6086618643838306068
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336636750626801030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
