@@ -4,7 +4,6 @@ public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
   public TMPro.TMP_Text TurnText;
   GameObject currentGrid;
-  public GameObject PlayerGameObject;
   Player player;
 
   void Awake() {

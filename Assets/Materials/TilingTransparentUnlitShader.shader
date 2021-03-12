@@ -52,6 +52,9 @@ Shader "Unlit/TilingTransparentUnlitShader"
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+                // fixed3 W = fixed3(0.2125, 0.7154, 0.0721);
+                // float b = dot(col.rgb, W);
+                // col.rgb = fixed3(b, b, b);
                 col.a *= _Opacity;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
