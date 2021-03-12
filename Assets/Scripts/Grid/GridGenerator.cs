@@ -46,9 +46,14 @@ public static class GridGenerator {
     });
 
     var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] == Grid.TileType.FLOOR).ToList();
-    foreach (var pos in floors.Shuffle().Take(numEnemies)) {
-      grid.AddEnemy(new Enemy(pos));
+    foreach (var pos in floors.Shuffle().Take(numEnemies).ToList()) {
+      grid.AddEntity(new Enemy(pos));
+      floors.Remove(pos);
     }
+
+    var altarPos = floors.GetRandom();
+    grid.AddEntity(new HealAltar(altarPos));
+    floors.Remove(altarPos);
 
     // put player in bottom-left corner
     var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();

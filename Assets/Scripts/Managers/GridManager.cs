@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour {
   public Grid grid;
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
+  public GameObject HealAltarPrefab;
   public GameObject Enemy0Prefab;
 
   void Start() {
@@ -24,10 +25,30 @@ public class GridManager : MonoBehaviour {
       }
     }
     
-    grid.Enemies.ForEach((enemy) => {
-      var enemyGameObj = Object.Instantiate(Enemy0Prefab,
-      new Vector3(enemy.Coordinates.x, enemy.Coordinates.y, 0), Quaternion.identity, transform);
-      enemyGameObj.GetComponent<EnemyManager>().Enemy = enemy;
+    grid.Entities.ForEach((entity) => {
+      var prefab = GetPrefabFor(entity);
+      var gameObj = Object.Instantiate(
+        prefab,
+        new Vector3(entity.Coordinates.x, entity.Coordinates.y, 0),
+        Quaternion.identity,
+        transform
+      );
+      if (entity is Enemy e) {
+        gameObj.GetComponent<EnemyManager>().Enemy = e;
+      } else if (entity is HealAltar a) {
+        gameObj.GetComponent<HealAltarManager>().altar = a;
+      }
     });
+  }
+
+  private GameObject GetPrefabFor(Entity entity) {
+    switch (entity) {
+      case Enemy _:
+        return Enemy0Prefab;
+      case HealAltar _:
+        return HealAltarPrefab;
+      default:
+        return null;
+    }
   }
 }

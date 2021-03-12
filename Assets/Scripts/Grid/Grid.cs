@@ -14,7 +14,8 @@ public class Grid {
   // [x][y]
   private TileType[,] _grid;
   public Player Player;
-  public List<Enemy> Enemies;
+  public List<Entity> Entities;
+  public IEnumerable<Enemy> Enemies => Entities.Where((e) => e is Enemy).Cast<Enemy>();
   private int _elapsedTurns;
   public event Action OnCleared;
 
@@ -32,7 +33,7 @@ public class Grid {
   public int CurrentTurn => _elapsedTurns + 1;
 
   public Grid(Player player) {
-    Enemies = new List<Enemy>();
+    Entities = new List<Entity>();
     _elapsedTurns = 0;
     _grid = new TileType[40,28];
     player.SetGrid(this);
@@ -132,12 +133,12 @@ public class Grid {
     _elapsedTurns += 1;
     EnqueueEvent(new GameEvent(GameEvent.EventType.TURN_ELAPSED));
 
-    Enemies.FindAll(e => e.Dead).ForEach(e => {
+    Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
     });
 
-    Enemies.RemoveAll(e => e.Dead);
+    Entities.RemoveAll(e => e.Dead);
 
     ClearEventQueue();
 
@@ -165,7 +166,7 @@ public class Grid {
     while (_eventQueue.Count > 0) {
       var gameEvent = _eventQueue.Dequeue();
       Player.EmitEvent(gameEvent);
-      Enemies.ForEach(e => e.EmitEvent(gameEvent));
+      Entities.ForEach(e => e.EmitEvent(gameEvent));
       count += 1;
 
       if (count >= 1000) {
@@ -174,8 +175,8 @@ public class Grid {
     }
   }
 
-  public void AddEnemy(Enemy e) {
-    Enemies.Add(e);
+  public void AddEntity(Entity e) {
+    Entities.Add(e);
     e.SetGrid(this);
   }
 
@@ -183,7 +184,7 @@ public class Grid {
     if (Player.Coordinates == pos) {
       return Player;
     }
-    return Enemies.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
+    return Entities.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
   }
 
   public bool canOccupy(Vector2Int pos) {

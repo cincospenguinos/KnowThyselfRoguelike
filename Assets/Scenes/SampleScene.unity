@@ -477,7 +477,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridPrefab: {fileID: 2465876601929633402, guid: 4fbcf085fc7a9fc44a9688ae425208b8, type: 3}
   TurnText: {fileID: 2098800811}
-  PlayerGameObject: {fileID: 0}
 --- !u!4 &674524372
 Transform:
   m_ObjectHideFlags: 0

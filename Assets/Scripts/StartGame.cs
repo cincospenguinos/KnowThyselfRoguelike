@@ -12,7 +12,7 @@ public class StartGame : MonoBehaviour {
   }
 
   void NewGrid() {
-    Grid.instance = GridGenerator.generateMultiRoomGrid(player, 3);
+    Grid.instance = GridGenerator.generateMultiRoomGrid(player, 6);
     Grid.instance.OnCleared += HandleGridCleared;
     currentGrid = Instantiate(GridPrefab);
     currentGrid.GetComponent<GridManager>().grid = Grid.instance;
