@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 
-public abstract class RuneAction {
+public abstract class RuneAction : RunePiece {
   public Entity OwningEntity;
   protected int CurrentCharge;
 

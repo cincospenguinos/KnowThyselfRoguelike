@@ -134,6 +134,14 @@ public class Grid {
 
     Enemies.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
+      Rune rune = e.RuneList.ToArray()[0];
+
+      if (UnityEngine.Random.value > 0.5f) {
+        Player.AddRunePiece(rune.trigger);
+      } else {
+        Player.AddRunePiece(rune.trigger);
+      }
+
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
     });
 

@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 
-public abstract class RuneTrigger {
+public abstract class RuneTrigger : RunePiece {
   public Entity OwningEntity;
 
   public RuneTrigger(Entity owningEntity) {
