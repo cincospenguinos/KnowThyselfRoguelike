@@ -1,26 +1,19 @@
 public class EntityDiesTrigger : RuneTrigger {
   public override int Charge => 33;
-  private int _enemiesDied;
 
-  public bool IsTriggered => _enemiesDied % 3 == 0 && _enemiesDied > 0;
-
-  public EntityDiesTrigger() : base(null) {
-    _enemiesDied = 0;
-  }
+  public EntityDiesTrigger() : base(null) {}
 
   public override int OnEvent(GameEvent gameEvent) {
     if (gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD) {
-      _enemiesDied += 1;
+      return Charge;
     }
 
-    return IsTriggered ? Charge : 0;
+    return 0;
   }
 
-  public override string Text() => $"after killing (<b>{3 - _enemiesDied}</b>) more enemies.";
+  public override string Text() => $"when killing an enemy.";
 
-  public override void Reset() {
-    _enemiesDied = 0;
-  }
+  public override void Reset() {}
 
   public override RuneTrigger Clone() {
     return new EntityDiesTrigger();

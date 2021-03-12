@@ -14,7 +14,9 @@ public class ParallaxEffect : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     var offset = new Vector2(Time.time / 10 % 1, 0);
-    meshRenderer.material.SetTextureOffset("_MainTex", offset);
+    if (meshRenderer != null) {
+      meshRenderer.material.SetTextureOffset("_MainTex", offset);
+    }
     transform.position = new Vector3(
       camera.transform.position.x * moveScale, 
       camera.transform.position.y * moveScale, 
