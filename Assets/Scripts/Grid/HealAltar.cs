@@ -5,9 +5,11 @@ public abstract class Altar : Entity {
   public event Action OnUsed;
   public bool Used = false;
 
-  public Altar(Vector2Int coords) : base(coords, 100) {}
+  public Altar(Vector2Int coords) : base(coords, 100) {
+    RuneList.Clear();
+  }
 
-   public override void onWalkInto(Player player) {
+  public override void onWalkInto(Player player) {
     if (!Used) {
       Used = true;
       Use(player);
@@ -27,6 +29,7 @@ public class RuneEditAltar : Altar {
   public override void Use(Player player) {
     TriggerOnUse();
     Debug.Log("Hey show the edit rune screen homie");
+    GameObject.Find("GameManager").GetComponent<RuneEditorAcceptButtonManager>().Button.SetActive(true);
     // TODO: Show the screen
   }
 }

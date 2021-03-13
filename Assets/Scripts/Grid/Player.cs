@@ -21,4 +21,23 @@ public class Player : Entity {
     base.TakeDamage(damage);
     TurnsSinceHitByEnemy = 0;
   }
+
+  public void SwapShard(RuneShard shard) {
+    if (shard == RuneList[0].trigger || shard == RuneList[0].action) {
+      return;
+    }
+
+    var rune = RuneList[0];
+    shards.Remove(shard);
+
+    if (shard is RuneAction action) {
+      Rune newRune = new Rune(rune.trigger, action);
+      shards.Add(RuneList[0].action);
+      RuneList[0] = newRune;
+    } else {
+      Rune newRune = new Rune((RuneTrigger) shard, rune.action);
+      shards.Add(RuneList[0].trigger);
+      RuneList[0] = newRune;
+    }
+  }
 }
