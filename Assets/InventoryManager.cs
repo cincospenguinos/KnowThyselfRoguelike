@@ -34,12 +34,17 @@ public class InventoryManager : MonoBehaviour {
       }
     }
     // delete shards
+    List<RuneShard> toRemove = new List<RuneShard>();
+
     foreach (var oldShard in mapping.Keys) {
       if (!shards.Contains(oldShard)) {
         var gameObject = mapping[oldShard];
         Destroy(gameObject);
+        toRemove.Add(oldShard);
       }
     }
+
+    toRemove.ForEach(shard => mapping.Remove(shard));
   }
 
   void Update() {
