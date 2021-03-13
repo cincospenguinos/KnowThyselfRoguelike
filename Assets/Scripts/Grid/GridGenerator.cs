@@ -3,8 +3,8 @@ using System.Linq;
 using UnityEngine;
 
 public static class GridGenerator {
-  public static Grid generateMultiRoomGrid(Player player, int numEnemies, int numSplits = 10) {
-    Grid grid = new Grid(player);
+  public static Grid generateMultiRoomGrid(Player player, int depth, int numEnemies, int numSplits = 10) {
+    Grid grid = new Grid(player, depth);
     foreach (var point in grid.EnumerateFloor()) {
       grid.Tiles[point.x, point.y] = new Wall(grid, point);
     }

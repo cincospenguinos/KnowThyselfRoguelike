@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
   public Player Player;
   public Animator animator;
+  public static bool inputEnabled = true;
 
   void Start() {
     Player = Grid.instance.Player;
@@ -14,7 +15,9 @@ public class PlayerManager : MonoBehaviour {
 
   void Update() {
     if (!Player.Dead) {
-      MaybeTakePlayerTurn();
+      if (inputEnabled) {
+        MaybeTakePlayerTurn();
+      }
 
       transform.position = Vector3.Lerp(transform.position, new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0), 0.1f);
     }
