@@ -51,9 +51,13 @@ public static class GridGenerator {
       floors.Remove(pos);
     }
 
-    var altarPos = floors.GetRandom();
-    grid.AddEntity(new HealAltar(altarPos));
-    floors.Remove(altarPos);
+    var healAltarPos = floors.GetRandom();
+    grid.AddEntity(new HealAltar(healAltarPos));
+    floors.Remove(healAltarPos);
+
+    var runeEditAltarPos = floors.GetRandom();
+    grid.AddEntity(new RuneEditAltar(runeEditAltarPos));
+    floors.Remove(runeEditAltarPos);
 
     // put player in bottom-left corner
     var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();

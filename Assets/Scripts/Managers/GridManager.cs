@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour {
   public GameObject FloorPrefab;
   public GameObject HealAltarPrefab;
   public GameObject Enemy0Prefab;
+  public GameObject RuneEditAltarPrefab;
 
   void Start() {
     for (int x = 0; x < Grid.WIDTH; x++) {
@@ -38,6 +39,8 @@ public class GridManager : MonoBehaviour {
         gameObj.GetComponent<EnemyManager>().Enemy = e;
       } else if (entity is HealAltar a) {
         gameObj.GetComponent<HealAltarManager>().altar = a;
+      } else if (entity is RuneEditAltar re) {
+        gameObj.GetComponent<RuneEditAltarManager>().altar = re;
       }
     });
   }
@@ -48,6 +51,8 @@ public class GridManager : MonoBehaviour {
         return Enemy0Prefab;
       case HealAltar _:
         return HealAltarPrefab;
+      case RuneEditAltar _:
+        return RuneEditAltarPrefab;
       default:
         return null;
     }
