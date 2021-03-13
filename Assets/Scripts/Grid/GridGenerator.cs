@@ -51,19 +51,21 @@ public static class GridGenerator {
       floors.Remove(pos);
     }
 
-    var healAltarPos = randomPosInRoom(grid, rooms);
+    List<Room> blocklist = new List<Room>();
+
+    var healAltarPos = randomPosInRoom(grid, rooms, blocklist);
     grid.AddEntity(new HealAltar(healAltarPos));
     floors.Remove(healAltarPos);
 
-    var runeEditAltarPos = randomPosInRoom(grid, rooms);
+    var runeEditAltarPos = randomPosInRoom(grid, rooms, blocklist);
     grid.AddEntity(new RuneEditAltar(runeEditAltarPos));
     floors.Remove(runeEditAltarPos);
 
-    var upgradeAltarPos = randomPosInRoom(grid, rooms);
+    var upgradeAltarPos = randomPosInRoom(grid, rooms, blocklist);
     grid.AddEntity(new UpgradeAltar(upgradeAltarPos));
     floors.Remove(upgradeAltarPos);
 
-    var downstairsPos = randomPosInRoom(grid, rooms);
+    var downstairsPos = randomPosInRoom(grid, rooms, blocklist);
     grid.Tiles[downstairsPos.x, downstairsPos.y] = new Downstairs(grid, downstairsPos);
 
     // put player in bottom-left corner
@@ -73,8 +75,13 @@ public static class GridGenerator {
     return grid;
   }
 
-  private static Vector2Int randomPosInRoom(Grid grid, List<Room> rooms) {
-    return grid.EnumerateRoom(rooms.GetRandom(), -1).ToList().GetRandom();
+  private static Vector2Int randomPosInRoom(Grid grid, List<Room> rooms, List<Room> blocklist) {
+    Room room = rooms.FindAll(r => !blocklist.Contains(r))
+            .ToList()
+            .GetRandom();
+    var pos = grid.EnumerateRoom(room, -1).ToList().GetRandom();
+    blocklist.Add(room);
+    return pos;
   }
 
   /// Connect all the rooms together with at least one through-path

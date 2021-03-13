@@ -50,7 +50,6 @@ public class GridManager : MonoBehaviour {
       } else if (entity is UpgradeAltar u) {
         gameObj.GetComponent<UpgradeAltarManager>().altar = u;
       }
-
     });
   }
 
