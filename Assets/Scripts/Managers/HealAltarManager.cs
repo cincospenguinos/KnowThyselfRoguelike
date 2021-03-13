@@ -17,6 +17,7 @@ public class HealAltarManager : MonoBehaviour {
 
   private void HandleUsed() {
     GetComponent<SpriteRenderer>().sprite = usedAltar;
+    GetComponent<Animator>().enabled = false;
     GetComponentInChildren<ParticleSystem>().Stop();
   }
 }
