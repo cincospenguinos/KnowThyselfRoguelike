@@ -55,11 +55,16 @@ public class RuneGenerator {
     if (RuneGenerator._all_actions == null) {
       RuneGenerator._all_actions = new Dictionary<string, RuneAction>();
       RuneGenerator._all_actions.Add("IncreaseDamageAction", new IncreaseDamageAction(null));
+      RuneGenerator._all_actions.Add("IncreaseDamageSmallAction", new IncreaseDamageSmallAction(null));
       RuneGenerator._all_actions.Add("HealTinyAction", new HealTinyAction(null));
       RuneGenerator._all_actions.Add("HealMediumAction", new HealMediumAction(null));
       RuneGenerator._all_actions.Add("HealLargeAction", new HealLargeAction(null));
       RuneGenerator._all_actions.Add("TeleportToRandomSpotAction", new TeleportToRandomSpotAction(null));
       RuneGenerator._all_actions.Add("IncreaseViewRadiusAction", new IncreaseViewRadiusAction(null));
+      RuneGenerator._all_actions.Add("NextAttackAddDamageAction", new NextAttackAddDamageAction(null));
+      RuneGenerator._all_actions.Add("GainBlockAction", new GainBlockAction(null));
+      RuneGenerator._all_actions.Add("PermanentBlockAction", new PermanentBlockAction(null));
+      RuneGenerator._all_actions.Add("LessHPMoreBlockAction", new LessHPMoreBlockAction(null));
       RuneGenerator._all_actions.Add("IncreaseMaxHitPoints", new IncreaseMaxHitPoints(null));
       RuneGenerator._all_actions.Add("Damage1EntitiesInRange3Action", new Damage5EntitiesInRange3Action(null));
       RuneGenerator._all_actions.Add("Damage2EntitiesInRange2Action", new Damage8EntitiesInRange2Action(null));

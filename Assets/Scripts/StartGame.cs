@@ -65,7 +65,10 @@ public class StartGame : MonoBehaviour {
     if (player.Dead) {
       GameOverText.text = $"<b><color=red>Game Over</color></b>";
     } else {
-      TurnText.text = $"Turn {Grid.instance.CurrentTurn}";
+      TurnText.text = $"Turn {Grid.instance.CurrentTurn}\n" +
+      $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}\n" +
+      $"Block: {player.Block}\n"
+      ;
     }
   }
 }

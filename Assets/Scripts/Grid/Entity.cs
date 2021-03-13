@@ -22,6 +22,7 @@ public abstract class Entity {
   public int AddedDamage = 0;
   public abstract int BaseDamage { get; }
   public int TotalDamage => BaseDamage + AddedDamage;
+  public int Block = 0;
   public int HitPoints => _currentHitPoints;
   public int MaxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
@@ -87,6 +88,7 @@ public abstract class Entity {
 
   /// Taking damage from getting hit by the player
   public virtual void TakeDamage(int damage) {
+    damage = Math.Max(damage - Block, 0);
     OnHit?.Invoke(damage);
     bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;

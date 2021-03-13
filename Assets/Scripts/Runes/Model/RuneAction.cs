@@ -19,6 +19,8 @@ public abstract class RuneAction : RuneShard {
     }
   }
 
+  internal virtual void OnEvent(GameEvent gameEvent) { }
+
   public abstract void Perform();
 
   public abstract RuneAction Clone(Entity otherEntity);
