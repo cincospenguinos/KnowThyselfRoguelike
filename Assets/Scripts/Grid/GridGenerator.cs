@@ -51,11 +51,11 @@ public static class GridGenerator {
       floors.Remove(pos);
     }
 
-    var healAltarPos = floors.GetRandom();
+    var healAltarPos = randomPosInRoom(grid, rooms);
     grid.AddEntity(new HealAltar(healAltarPos));
     floors.Remove(healAltarPos);
 
-    var runeEditAltarPos = floors.GetRandom();
+    var runeEditAltarPos = randomPosInRoom(grid, rooms);
     grid.AddEntity(new RuneEditAltar(runeEditAltarPos));
     floors.Remove(runeEditAltarPos);
 
@@ -64,6 +64,10 @@ public static class GridGenerator {
     player.SetCoordinates(bottomLeftFloor);
 
     return grid;
+  }
+
+  private static Vector2Int randomPosInRoom(Grid grid, List<Room> rooms) {
+    return grid.EnumerateRoom(rooms.GetRandom()).ToList().GetRandom();
   }
 
   /// Connect all the rooms together with at least one through-path
