@@ -26,7 +26,7 @@ public class RuneEditAltar : Altar {
 
   public override void Use(Player player) {
     TriggerOnUse();
-    Debug.Log("Hey show the screen homie");
+    Debug.Log("Hey show the edit rune screen homie");
     // TODO: Show the screen
   }
 }
@@ -44,5 +44,15 @@ public class HealAltar : Altar {
   public override void Use(Player player) {
     TriggerOnUse();
     player.Heal(player.MaxHitPoints - player.HitPoints);
+  }
+}
+
+public class UpgradeAltar : Altar {
+  public UpgradeAltar(Vector2Int coords) : base(coords) {}
+
+  public override void Use(Player player) {
+    TriggerOnUse();
+    Debug.Log("Hey show the upgrade dialog screen homie");
+    // TODO: Show the screen
   }
 }
