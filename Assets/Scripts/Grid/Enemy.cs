@@ -4,7 +4,9 @@ using UnityEngine;
 public class Enemy : Entity {
   bool hasDetectedPlayer = false;
 
-  public Enemy(Vector2Int position) : base(position, 3) {
+  public override int BaseDamage => Random.Range(4, 7);
+
+  public Enemy(Vector2Int position) : base(position, 15) {
   }
 
   public void TakeTurn() {

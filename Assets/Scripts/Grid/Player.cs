@@ -4,8 +4,9 @@ using UnityEngine;
 public class Player : Entity {
   public List<RuneShard> shards;
   public int TurnsSinceHitByEnemy = 0;
+  public override int BaseDamage => Random.Range(4, 7);
 
-  public Player() : base(new Vector2Int(3, 3), 20) {
+  public Player() : base(new Vector2Int(3, 3), 100) {
     shards = new List<RuneShard>();
   }
 

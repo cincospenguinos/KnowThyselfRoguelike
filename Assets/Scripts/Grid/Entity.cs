@@ -19,8 +19,9 @@ public abstract class Entity {
   public event Action<int> OnHit;
   public List<Rune> RuneList;
   
-  public int DamageModifier = 0;
-  public int DamageOut => 1 + DamageModifier;
+  public int AddedDamage = 0;
+  public abstract int BaseDamage { get; }
+  public int TotalDamage => BaseDamage + AddedDamage;
   public int HitPoints => _currentHitPoints;
   public int MaxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
@@ -59,7 +60,7 @@ public abstract class Entity {
 
   public bool attack(Entity entity) {
     if (entity != null) {
-      entity.TakeDamage(DamageOut);
+      entity.TakeDamage(TotalDamage);
       _grid.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, this));
 
       if (FreeAttacks > 0) {

@@ -4,7 +4,7 @@ public class IncreaseDamageAction : RuneAction {
   public IncreaseDamageAction(Entity entityToModify) : base(entityToModify) {}
 
   public override void Perform() {
-    OwningEntity.DamageModifier += 1;
+    OwningEntity.AddedDamage += 1;
   }
 
   public override string Text() => $"Permanently gain +1 damage.";

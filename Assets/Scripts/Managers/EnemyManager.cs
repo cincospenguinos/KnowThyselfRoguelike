@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour {
   public Enemy Enemy;
   private EnemyRunesManager enemyRunesManager;
   public GameObject damageNumber;
+  public TMPro.TMP_Text hpText;
 
   // Start is called before the first frame update
   void Start() {
@@ -26,6 +27,7 @@ public class EnemyManager : MonoBehaviour {
     UpdateRuneUI();
     var targetScale = Enemy.isVisible ? 1 : 0;
     transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(targetScale, targetScale, 1), 0.2f);
+    hpText.text = $"{Enemy.HitPoints}/{Enemy.MaxHitPoints}";
   }
 
   void OnDestroy() {

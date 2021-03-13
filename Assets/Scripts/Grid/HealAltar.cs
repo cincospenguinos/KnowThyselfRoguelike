@@ -4,8 +4,9 @@ using UnityEngine;
 public abstract class Altar : Entity {
   public event Action OnUsed;
   public bool Used = false;
+  public override int BaseDamage => 0;
 
-  public Altar(Vector2Int coords) : base(coords, 100) {
+  public Altar(Vector2Int coords) : base(coords, 1000) {
     RuneList.Clear();
   }
 
