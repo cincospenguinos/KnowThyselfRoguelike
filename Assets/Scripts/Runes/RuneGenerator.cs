@@ -59,7 +59,9 @@ public class RuneGenerator {
       RuneGenerator._all_actions.Add("TeleportToRandomSpotAction", new TeleportToRandomSpotAction(null));
       RuneGenerator._all_actions.Add("IncreaseViewRadiusAction", new IncreaseViewRadiusAction(null));
       RuneGenerator._all_actions.Add("IncreaseMaxHitPoints", new IncreaseMaxHitPoints(null));
-      RuneGenerator._all_actions.Add("DealDamageToAllEntitiesInRangeAction", new DealDamageToAllEntitiesInRangeAction(null));
+      RuneGenerator._all_actions.Add("Damage1EntitiesInRange3Action", new Damage1EntitiesInRange3Action(null));
+      RuneGenerator._all_actions.Add("Damage2EntitiesInRange2Action", new Damage2EntitiesInRange2Action(null));
+      RuneGenerator._all_actions.Add("Damage3EntitiesInRange1Action", new Damage3EntitiesInRange1Action(null));
     }
 
     return RuneGenerator._all_actions;
