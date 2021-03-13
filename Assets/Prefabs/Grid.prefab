@@ -49,3 +49,4 @@ MonoBehaviour:
   HealAltarPrefab: {fileID: 8336636750626801030, guid: 3f5645ee069527e4fbc6310077005126, type: 3}
   Enemy0Prefab: {fileID: 1230850570171377641, guid: 79a5a58c344a26949862835ed6558ffd, type: 3}
   RuneEditAltarPrefab: {fileID: 989011775110690345, guid: 833d3b52cb79d1f43b2b42c91cddc6a7, type: 3}
+  RuneUpgradeAltarPrefab: {fileID: 3985301158078176318, guid: a5a6b859d4685534d999c1a4e7deb919, type: 3}

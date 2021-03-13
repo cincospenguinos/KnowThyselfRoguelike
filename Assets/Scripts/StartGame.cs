@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
+  public GameObject depthPanel;
   public TMPro.TMP_Text TurnText;
   public TMPro.TMP_Text GameOverText;
   GameObject currentGrid;
@@ -9,36 +11,55 @@ public class StartGame : MonoBehaviour {
 
   void Awake() {
     player = new Player();
-    NewGrid();
+    NewGrid(1);
   }
 
-  void NewGrid() {
-    Grid.instance = GridGenerator.generateMultiRoomGrid(player, 6);
+  void NewGrid(int depth) {
+    Grid.instance = GridGenerator.generateMultiRoomGrid(player, depth, 6);
     Grid.instance.OnCleared += HandleGridCleared;
     currentGrid = Instantiate(GridPrefab);
     currentGrid.GetComponent<GridManager>().grid = Grid.instance;
   }
 
   void HandleGridCleared() {
-    // StartCoroutine(ChangeFloors());
+    StartCoroutine(ChangeFloors(Grid.instance.depth + 1));
     // recreate a new grid
-    Destroy(currentGrid);
-    NewGrid();
+    // Destroy(currentGrid);
+    // NewGrid();
   }
 
-  // IEnumerator ChangeFloors() {
-  //   // disable player input
-  //   var PlayerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
-  //   PlayerManager.enabled = false;
-  //   // shrink player
-  //   yield return RuneManager.
+  IEnumerator ChangeFloors(int newDepth) {
+    PlayerManager.inputEnabled = false;
+    // let player movement animation finish
+    // yield return new WaitForSeconds(0.25f);
+    // disable player input
+    var pManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+    // pManager.enabled = false;
+    // shrink player
+    var initialScale = pManager.transform.localScale;
+    yield return AnimUtils.Animate(0.5f, (t) => {
+      var s = 1 - t;
+      var newScale = new Vector3(s, s, 1);
+      newScale.Scale(initialScale);
+      pManager.transform.localScale = newScale;
+    });
+    yield return new WaitForSeconds(0.5f);
+    depthPanel.GetComponentInChildren<TMPro.TMP_Text>().text = "Depth " + newDepth;
+    depthPanel.SetActive(true);
+    yield return null;
+    Destroy(currentGrid);
+    NewGrid(newDepth);
+    yield return new WaitForSeconds(2);
+    depthPanel.SetActive(false);
 
-  //   // pop level out
-
-  //   // create new level
-
-  //   // maybe fade to black for a second?
-  // }
+    yield return AnimUtils.Animate(0.5f, (t) => {
+      var newScale = new Vector3(t, t, 1);
+      newScale.Scale(initialScale);
+      pManager.transform.localScale = newScale;
+    });
+    PlayerManager.inputEnabled = true;
+    // pManager.enabled = true;
+  }
 
   void Update() {
     if (player.Dead) {

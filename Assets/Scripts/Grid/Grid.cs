@@ -55,6 +55,7 @@ public class Grid {
   public event Action OnCleared;
 
   private Queue<GameEvent> _eventQueue;
+  internal int depth;
 
   public Tile[,] Tiles => _grid;
 
@@ -67,7 +68,8 @@ public class Grid {
   public Vector2 center => new Vector2(WIDTH / 2.0f, HEIGHT / 2.0f);
   public int CurrentTurn => _elapsedTurns + 1;
 
-  public Grid(Player player) {
+  public Grid(Player player, int depth) {
+    this.depth = depth;
     Entities = new List<Entity>();
     _elapsedTurns = 0;
     _grid = new Tile[40, 28];

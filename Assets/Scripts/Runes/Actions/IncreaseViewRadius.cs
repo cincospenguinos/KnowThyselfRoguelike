@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class IncreaseViewRadiusAction : RuneAction {
   public override int Threshold => 300;
 
@@ -5,6 +7,7 @@ public class IncreaseViewRadiusAction : RuneAction {
 
   public override void Perform() {
     OwningEntity.SightModifier += 1;
+    Camera.main.orthographicSize += 1;
   }
 
   public override string Text() => $"Permanently gain +1 sight.";

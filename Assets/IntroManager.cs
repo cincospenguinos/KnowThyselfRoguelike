@@ -12,7 +12,6 @@ public class IntroManager : MonoBehaviour {
 
   IEnumerator DoIntro() {
     yield return AnimUtils.Animate(1f, t => {
-      t = t * t * (3.0f - 2.0f * t);
       var s = 100 - 99 * t;
       text.rectTransform.localScale = new Vector3(s, s, 1);
     });

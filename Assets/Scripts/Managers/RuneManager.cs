@@ -41,11 +41,14 @@ public class RuneManager : MonoBehaviour {
 }
 
 public static class AnimUtils {
-  public static IEnumerator Animate(float duration, Action<float> callback) {
+  public static IEnumerator Animate(float duration, Action<float> callback, bool smoothStep = true) {
     var start = Time.time;
     callback(0);
     while(Time.time - start < duration) {
       var t = (Time.time - start) / duration;
+      if (smoothStep) {
+        t = t * t * (3.0f - 2.0f * t);
+      }
       callback(t);
       yield return new WaitForEndOfFrame();
     }
