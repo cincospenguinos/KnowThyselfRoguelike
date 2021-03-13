@@ -26,6 +26,8 @@ public abstract class Entity {
   public int MaxHitPoints => _maxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
+  public int SightModifier = 0;
+
   public int FreeAttacks = 0;
 
   public Entity(Vector2Int coords, int HitPoints) {
