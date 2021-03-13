@@ -65,7 +65,7 @@ public class StartGame : MonoBehaviour {
     if (player.Dead) {
       GameOverText.text = $"<b><color=red>Game Over</color></b>";
     } else {
-      TurnText.text = $"Turn {Grid.instance.CurrentTurn}\nHP: {Grid.instance.Player.HitPoints}/20";
+      TurnText.text = $"Turn {Grid.instance.CurrentTurn}";
     }
   }
 }
