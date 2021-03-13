@@ -180,9 +180,9 @@ public class Grid {
       Rune rune = e.RuneList.ToArray()[0];
 
       if (UnityEngine.Random.value > 0.5f) {
-        Player.AddRunePiece(rune.action);
+        Player.AddRuneShard(rune.action);
       } else {
-        Player.AddRunePiece(rune.trigger);
+        Player.AddRuneShard(rune.trigger);
       }
 
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
@@ -237,7 +237,7 @@ public class Grid {
     if (Player.Coordinates == pos) {
       return Player;
     }
-    return Entities.Find(e => e.Coordinates.x == pos.x && e.Coordinates.y == pos.y);
+    return Entities.Find(e => e.Coordinates == pos);
   }
 
   public bool canOccupy(Vector2Int pos) {

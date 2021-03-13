@@ -19,6 +19,5 @@ public abstract class RuneAction : RuneShard {
   public abstract void Perform();
 
   public abstract RuneAction Clone(Entity otherEntity);
-  public abstract string Text();
-  public string TextFull() => $"<b><color=yellow>{CurrentCharge}/{Threshold}</color></b>\n{Text()}";
+  public override string TextFull() => $"<b><color=yellow>{CurrentCharge}/{Threshold}</color></b>\n{Text()}";
 }

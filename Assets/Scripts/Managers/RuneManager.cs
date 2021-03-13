@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class RuneManager : MonoBehaviour {
   public Rune rune;
-  public TMPro.TMP_Text actionText;
-  public TMPro.TMP_Text triggerText;
+  public RuneShardManager action;
+  public RuneShardManager trigger;
 
   void Start() {
+    action.shard = rune.action;
+    trigger.shard = rune.trigger;
     rune.OnTriggered += HandleRuneTriggered;
-    Update();
   }
 
   void OnDestroy() {
@@ -32,11 +33,6 @@ public class RuneManager : MonoBehaviour {
     });
     transform.localScale = new Vector3(1, 1, 1);
     pulse = null;
-  }
-
-  void Update() {
-    actionText.text = rune.action.TextFull();
-    triggerText.text = rune.trigger.TextFull();
   }
 }
 

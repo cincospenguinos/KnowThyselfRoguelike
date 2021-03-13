@@ -12,10 +12,9 @@ public abstract class RuneTrigger : RuneShard {
   public abstract int OnEvent(GameEvent gameEvent);
   public abstract void Reset();
   public abstract RuneTrigger Clone();
-  public abstract string Text();
 
   public bool FromOwnEntity(GameEvent gameEvent) {
     return gameEvent.EmittingEntity == OwningEntity;
   }
-  public string TextFull() => $"<b><color=yellow>Charge {Charge}</color></b> {Text()}";
+  public override string TextFull() => $"<b><color=yellow>Charge {Charge}</color></b> {Text()}";
 }
