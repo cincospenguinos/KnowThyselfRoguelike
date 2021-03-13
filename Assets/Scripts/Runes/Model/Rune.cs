@@ -1,7 +1,7 @@
 public class Rune {
   public readonly RuneTrigger trigger;
   public readonly RuneAction action;
-  public event System.Action<GameEvent> OnTriggered;
+  public event System.Action<int> OnChargeAdded;
 
   public Rune(Entity entity) {
     trigger = new EntityDiesTrigger();
@@ -17,9 +17,9 @@ public class Rune {
     int chargeOutput = trigger.OnEvent(gameEvent);
 
     if (chargeOutput > 0) {
+      OnChargeAdded?.Invoke(chargeOutput);
       action.ReceiveCharge(chargeOutput);
       trigger.Reset();
-      OnTriggered?.Invoke(gameEvent);
     }
   }
 

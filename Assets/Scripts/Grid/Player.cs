@@ -15,6 +15,7 @@ public class Player : Entity {
   }
 
   public void AddRuneShard(RuneShard shard) {
+    shard.OwningEntity = this;
     shards.Add(shard);
   }
 

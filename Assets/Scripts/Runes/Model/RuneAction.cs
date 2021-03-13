@@ -1,7 +1,9 @@
+using System;
+
 public abstract class RuneAction : RuneShard {
   public abstract int Threshold { get; }
-  public Entity OwningEntity;
   protected int CurrentCharge;
+  public event Action OnTriggered;
 
   public RuneAction(Entity entityToModify) {
     OwningEntity = entityToModify;
@@ -11,6 +13,7 @@ public abstract class RuneAction : RuneShard {
   public void ReceiveCharge(int amount) {
     CurrentCharge += amount;
     while (CurrentCharge >= Threshold) {
+      OnTriggered?.Invoke();
       Perform();
       CurrentCharge -= Threshold;
     }

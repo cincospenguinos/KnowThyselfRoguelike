@@ -7,19 +7,35 @@ public class RuneManager : MonoBehaviour {
   public Rune rune;
   public RuneShardManager action;
   public RuneShardManager trigger;
+  public GameObject chargePrefab;
 
   void Start() {
     action.shard = rune.action;
     trigger.shard = rune.trigger;
-    rune.OnTriggered += HandleRuneTriggered;
+    rune.OnChargeAdded += HandleChargeAdded;
+    rune.action.OnTriggered += HandleActionTriggered;
   }
 
   void OnDestroy() {
-    rune.OnTriggered -= HandleRuneTriggered;
+    rune.OnChargeAdded -= HandleChargeAdded;
+    rune.action.OnTriggered -= HandleActionTriggered;
+  }
+
+  private void HandleChargeAdded(int charge) {
+    StartCoroutine(CreateChargeParticles(charge));
+  }
+
+  IEnumerator CreateChargeParticles(int num) {
+    while (num > 0) {
+      var charge = Instantiate(chargePrefab, transform);
+      charge.SetActive(true);
+      num--;
+      yield return new WaitForEndOfFrame();
+    }
   }
 
   Coroutine pulse;
-  private void HandleRuneTriggered(GameEvent obj) {
+  private void HandleActionTriggered() {
     if (pulse != null) {
       StopCoroutine(pulse);
     }

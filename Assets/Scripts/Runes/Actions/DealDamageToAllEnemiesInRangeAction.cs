@@ -45,44 +45,44 @@ public abstract class DamageEntitiesInRangeAction : RuneAction {
   }
 }
 
-public class Damage1EntitiesInRange3Action : DamageEntitiesInRangeAction {
-  public Damage1EntitiesInRange3Action(Entity e) : base(e) { }
+public class Damage5EntitiesInRange3Action : DamageEntitiesInRangeAction {
+  public Damage5EntitiesInRange3Action(Entity e) : base(e) { }
 
-  public override int damage => 1;
+  public override int damage => 5;
 
   public override int range => 3;
 
   public override int Threshold => 66;
 
   public override RuneAction Clone(Entity otherEntity) {
-    return new Damage1EntitiesInRange3Action(otherEntity);
+    return new Damage5EntitiesInRange3Action(otherEntity);
   }
 }
 
-public class Damage2EntitiesInRange2Action : DamageEntitiesInRangeAction {
-  public Damage2EntitiesInRange2Action(Entity e) : base(e) { }
+public class Damage8EntitiesInRange2Action : DamageEntitiesInRangeAction {
+  public Damage8EntitiesInRange2Action(Entity e) : base(e) { }
 
-  public override int damage => 2;
+  public override int damage => 8;
 
   public override int range => 2;
 
   public override int Threshold => 56;
 
   public override RuneAction Clone(Entity otherEntity) {
-    return new Damage2EntitiesInRange2Action(otherEntity);
+    return new Damage8EntitiesInRange2Action(otherEntity);
   }
 }
 
-public class Damage3EntitiesInRange1Action : DamageEntitiesInRangeAction {
-  public Damage3EntitiesInRange1Action(Entity e) : base(e) { }
+public class Damage12EntitiesInRange1Action : DamageEntitiesInRangeAction {
+  public Damage12EntitiesInRange1Action(Entity e) : base(e) { }
 
-  public override int damage => 3;
+  public override int damage => 12;
 
   public override int range => 1;
 
   public override int Threshold => 36;
 
   public override RuneAction Clone(Entity otherEntity) {
-    return new Damage2EntitiesInRange2Action(otherEntity);
+    return new Damage8EntitiesInRange2Action(otherEntity);
   }
 }

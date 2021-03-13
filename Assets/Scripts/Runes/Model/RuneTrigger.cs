@@ -3,7 +3,6 @@ using TMPro;
 
 public abstract class RuneTrigger : RuneShard {
   public abstract int Charge { get; }
-  public Entity OwningEntity;
 
   public RuneTrigger(Entity owningEntity) {
     OwningEntity = owningEntity;
