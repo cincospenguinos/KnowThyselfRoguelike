@@ -6,11 +6,14 @@ using UnityEngine;
 public abstract class Tile {
   public Vector2Int Coordinates;
   protected Grid _grid;
-  public bool isVisible => ManhattanDistanceToPlayer <= 6;
+  // +4/-4; show 9 vertical tiles
+  public bool isVisible => ManhattanDistanceToPlayer <= 4;
 
   public int ManhattanDistanceToPlayer {
     get {
-      var distanceX = Mathf.Abs(_grid.Player.Coordinates.x - Coordinates.x);
+      /// hack - make an oval shape; players can see longer in X. Matches the usual 
+      var xScale = 9f / 16f;
+      var distanceX = Mathf.RoundToInt(Mathf.Abs(_grid.Player.Coordinates.x - Coordinates.x) * xScale);
       var distanceY = Mathf.Abs(_grid.Player.Coordinates.y - Coordinates.y);
       return distanceX + distanceY;
     }
