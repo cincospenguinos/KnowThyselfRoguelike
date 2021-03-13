@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 
-public abstract class RuneTrigger : RunePiece {
+public abstract class RuneTrigger : RuneShard {
   public abstract int Charge { get; }
   public Entity OwningEntity;
 

@@ -1,1 +1,1 @@
-public abstract class RunePiece {}
+public abstract class RuneShard {}

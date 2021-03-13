@@ -1,4 +1,4 @@
-public abstract class RuneAction : RunePiece {
+public abstract class RuneAction : RuneShard {
   public abstract int Threshold { get; }
   public Entity OwningEntity;
   protected int CurrentCharge;
