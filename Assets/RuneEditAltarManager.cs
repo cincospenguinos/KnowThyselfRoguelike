@@ -15,7 +15,6 @@ public class RuneEditAltarManager : MonoBehaviour
 
     void HandleUsed() {
         GetComponent<SpriteRenderer>().sprite = usedAltar;
-        // TODO: Where does this come from?
-        // GetComponentInChildren<ParticleSystem>().Stop();
+        GetComponentInChildren<ParticleSystem>()?.Stop();
     }
 }
