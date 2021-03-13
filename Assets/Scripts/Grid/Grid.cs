@@ -39,6 +39,10 @@ public class Wall : Tile
   }
 }
 
+public class Downstairs : Tile {
+  public Downstairs(Grid grid, Vector2Int Coordinates) : base(grid, Coordinates) {}
+}
+
 public class Grid {
   public static Grid instance;
 
@@ -193,7 +197,10 @@ public class Grid {
     ClearEventQueue();
 
     /// all enemies are dead, move onto the next floor!
-    if (!Enemies.Any()) {
+    // if (!Enemies.Any()) {
+    //   OnCleared?.Invoke();
+    // }
+    if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
       OnCleared?.Invoke();
     }
   }
@@ -240,6 +247,6 @@ public class Grid {
       return false;
     }
 
-    return Tiles[pos.x, pos.y] is Floor;
+    return Tiles[pos.x, pos.y] is Floor || Tiles[pos.x, pos.y] is Downstairs;
   }
 }

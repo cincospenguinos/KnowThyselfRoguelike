@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallPrefab: {fileID: 8671658040700093858, guid: dfc2a589c64dbe24095cdf266e4481ef, type: 3}
   FloorPrefab: {fileID: 5917646453256574787, guid: b3d2b8b01c95a8342913702ad058f702, type: 3}
+  DownstairsPrefab: {fileID: 3939689377779985600, guid: 6aee973e5602a5e4db4a8a4f9f6d6402, type: 3}
   HealAltarPrefab: {fileID: 8336636750626801030, guid: 3f5645ee069527e4fbc6310077005126, type: 3}
   Enemy0Prefab: {fileID: 1230850570171377641, guid: 79a5a58c344a26949862835ed6558ffd, type: 3}
   RuneEditAltarPrefab: {fileID: 989011775110690345, guid: 833d3b52cb79d1f43b2b42c91cddc6a7, type: 3}

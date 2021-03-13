@@ -59,6 +59,9 @@ public static class GridGenerator {
     grid.AddEntity(new RuneEditAltar(runeEditAltarPos));
     floors.Remove(runeEditAltarPos);
 
+    var downstairsPos = randomPosInRoom(grid, rooms);
+    grid.Tiles[downstairsPos.x, downstairsPos.y] = new Downstairs(grid, downstairsPos);
+
     // put player in bottom-left corner
     var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();
     player.SetCoordinates(bottomLeftFloor);
@@ -67,7 +70,7 @@ public static class GridGenerator {
   }
 
   private static Vector2Int randomPosInRoom(Grid grid, List<Room> rooms) {
-    return grid.EnumerateRoom(rooms.GetRandom()).ToList().GetRandom();
+    return grid.EnumerateRoom(rooms.GetRandom(), -1).ToList().GetRandom();
   }
 
   /// Connect all the rooms together with at least one through-path

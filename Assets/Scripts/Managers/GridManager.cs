@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour {
   public Grid grid;
   public GameObject WallPrefab;
   public GameObject FloorPrefab;
+  public GameObject DownstairsPrefab;
   public GameObject HealAltarPrefab;
   public GameObject Enemy0Prefab;
   public GameObject RuneEditAltarPrefab;
@@ -17,12 +18,15 @@ public class GridManager : MonoBehaviour {
 
         switch(tile) {
           case Floor floor:
-              var f = Object.Instantiate(FloorPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
-              f.GetComponent<FloorManager>().floor = floor;
-              break;
+            var f = Object.Instantiate(FloorPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+            f.GetComponent<FloorManager>().floor = floor;
+            break;
           case Wall _:
-              Object.Instantiate(WallPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
-              break;
+            Object.Instantiate(WallPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+            break;
+          case Downstairs _:
+            Object.Instantiate(DownstairsPrefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+            break;
         }
       }
     }
