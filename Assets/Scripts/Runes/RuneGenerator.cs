@@ -58,6 +58,7 @@ public class RuneGenerator {
       RuneGenerator._all_actions.Add("HealAction", new HealAction(null));
       RuneGenerator._all_actions.Add("TeleportToRandomSpotAction", new TeleportToRandomSpotAction(null));
       RuneGenerator._all_actions.Add("IncreaseViewRadiusAction", new IncreaseViewRadiusAction(null));
+      RuneGenerator._all_actions.Add("IncreaseMaxHitPoints", new IncreaseMaxHitPoints(null));
       RuneGenerator._all_actions.Add("DealDamageToAllEntitiesInRangeAction", new DealDamageToAllEntitiesInRangeAction(null));
     }
 

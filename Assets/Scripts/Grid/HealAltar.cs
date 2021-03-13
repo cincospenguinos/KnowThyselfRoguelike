@@ -43,7 +43,7 @@ public class HealAltar : Altar {
 
   public override void Use(Player player) {
     TriggerOnUse();
-    player.Heal(player.MaxHitPoints - player.HitPoints);
+    player.Heal(-1);
   }
 }
 

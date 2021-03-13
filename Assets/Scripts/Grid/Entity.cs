@@ -11,7 +11,6 @@ public abstract class Entity {
   public bool isVisible => _grid.Tiles[Coordinates.x, Coordinates.y].isVisible;
 
   protected int _currentHitPoints;
-  protected int _maxHitPoints;
 
   private Vector2Int _Coordinates;
   /// set through SetCoordinates()
@@ -23,7 +22,7 @@ public abstract class Entity {
   public int DamageModifier = 0;
   public int DamageOut => 1 + DamageModifier;
   public int HitPoints => _currentHitPoints;
-  public int MaxHitPoints => _maxHitPoints;
+  public int MaxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
   public int SightModifier = 0;
@@ -32,7 +31,7 @@ public abstract class Entity {
 
   public Entity(Vector2Int coords, int HitPoints) {
     _currentHitPoints = HitPoints;
-    _maxHitPoints = HitPoints;
+    MaxHitPoints = HitPoints;
     _Coordinates = coords;
 
     RuneList = new List<Rune>();
@@ -98,6 +97,12 @@ public abstract class Entity {
   }
 
   public void Heal(int amount) {
+    if (amount == -1) {
+      _currentHitPoints = MaxHitPoints;
+      Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
+      return;
+    }
+
     if (_currentHitPoints < MaxHitPoints) {
       _currentHitPoints += Math.Min(amount, MaxHitPoints - _currentHitPoints);
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
