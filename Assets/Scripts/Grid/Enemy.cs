@@ -11,7 +11,7 @@ public class Enemy : Entity {
     if (hasDetectedPlayer) {
       moveTowardsPlayerOrAttack();
     } else {
-      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < 7;
+      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < (7 - SightModifier);
       moveRandomly();
     }
   }

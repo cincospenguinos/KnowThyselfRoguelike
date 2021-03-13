@@ -7,7 +7,7 @@ public abstract class Tile {
   public Vector2Int Coordinates;
   protected Grid _grid;
   // +4/-4; show 9 vertical tiles
-  public bool isVisible => ManhattanDistanceToPlayer <= 4;
+  public bool isVisible => ManhattanDistanceToPlayer <= (4 + _grid.Player.SightModifier);
 
   public int ManhattanDistanceToPlayer {
     get {
