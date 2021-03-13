@@ -51,6 +51,19 @@ public class GridManager : MonoBehaviour {
         gameObj.GetComponent<UpgradeAltarManager>().altar = u;
       }
     });
+
+    grid.OnEntityAdded += (Entity entity) => {
+      Debug.Log("hey what the fuck man");
+      var prefab = GetPrefabFor(entity);
+      var gameObj = Object.Instantiate(
+        prefab,
+        new Vector3(entity.Coordinates.x, entity.Coordinates.y, 0),
+        Quaternion.identity,
+        transform
+      );
+
+      gameObj.GetComponent<EnemyManager>().Enemy = (Enemy) entity;
+    };
   }
 
   private GameObject GetPrefabFor(Entity entity) {

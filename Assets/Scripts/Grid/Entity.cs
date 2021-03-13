@@ -86,7 +86,7 @@ public abstract class Entity {
   }
 
   /// Taking damage from getting hit by the player
-  public void TakeDamage(int damage) {
+  public virtual void TakeDamage(int damage) {
     OnHit?.Invoke();
     bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;

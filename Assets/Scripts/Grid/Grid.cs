@@ -53,6 +53,7 @@ public class Grid {
   public IEnumerable<Enemy> Enemies => Entities.Where((e) => e is Enemy).Cast<Enemy>();
   private int _elapsedTurns;
   public event Action OnCleared;
+  public event Action<Entity> OnEntityAdded;
 
   private Queue<GameEvent> _eventQueue;
   internal int depth;
@@ -198,10 +199,25 @@ public class Grid {
 
     ClearEventQueue();
 
+    // We want to prevent movement scumming, so if the player hasn't been hit in 75 turns, spawn some enemies
+    if (++Player.TurnsSinceHitByEnemy >= 75) {
+      var positions = EnumerateCircle(Player.Coordinates, 3)
+        .Where(pos => canOccupy(pos))
+        .ToList()
+        .Shuffle()
+        .Take(2);
+
+      foreach(var pos in positions) {
+        Enemy enemy = new Enemy(pos);
+        AddEntity(enemy);
+        OnEntityAdded(enemy);
+      }
+
+      Player.TurnsSinceHitByEnemy = 0;      
+    }
+
+
     /// all enemies are dead, move onto the next floor!
-    // if (!Enemies.Any()) {
-    //   OnCleared?.Invoke();
-    // }
     if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
       OnCleared?.Invoke();
     }
