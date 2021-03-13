@@ -26,21 +26,29 @@ public class RuneManager : MonoBehaviour {
   }
 
   IEnumerator Pulse() {
-    var start = Time.time;
-    var originalScale = new Vector3(1, 1, 1);
-    var duration = 0.2f;
-    while(Time.time - start < duration) {
-      var t = (Time.time - start) / duration;
+    yield return AnimUtils.Animate(0.2f, (t) => {
       var scale = 1 + Mathf.Sin(t * Mathf.PI) * 0.33f;
       transform.localScale = new Vector3(scale, scale, 1);
-      yield return new WaitForEndOfFrame();
-    }
-    transform.localScale = originalScale;
+    });
+    transform.localScale = new Vector3(1, 1, 1);
     pulse = null;
   }
 
   void Update() {
     actionText.text = rune.action.TextFull();
     triggerText.text = rune.trigger.TextFull();
+  }
+}
+
+public static class AnimUtils {
+  public static IEnumerator Animate(float duration, Action<float> callback) {
+    var start = Time.time;
+    callback(0);
+    while(Time.time - start < duration) {
+      var t = (Time.time - start) / duration;
+      callback(t);
+      yield return new WaitForEndOfFrame();
+    }
+    callback(1);
   }
 }

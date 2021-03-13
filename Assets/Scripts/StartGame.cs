@@ -20,10 +20,25 @@ public class StartGame : MonoBehaviour {
   }
 
   void HandleGridCleared() {
+    // StartCoroutine(ChangeFloors());
     // recreate a new grid
     Destroy(currentGrid);
     NewGrid();
   }
+
+  // IEnumerator ChangeFloors() {
+  //   // disable player input
+  //   var PlayerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+  //   PlayerManager.enabled = false;
+  //   // shrink player
+  //   yield return RuneManager.
+
+  //   // pop level out
+
+  //   // create new level
+
+  //   // maybe fade to black for a second?
+  // }
 
   void Update() {
     if (player.Dead) {
