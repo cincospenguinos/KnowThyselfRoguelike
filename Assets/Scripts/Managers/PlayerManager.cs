@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
   public Player Player;
   public Animator animator;
+  public GameObject damageNumber;
   public static bool inputEnabled = true;
 
   void Start() {
     Player = Grid.instance.Player;
-    Player.OnHit += animatorUpdatePlayerHit;
+    Player.OnHit += HandlePlayerHit;
     transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
   }
 
@@ -23,7 +24,9 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
-  void animatorUpdatePlayerHit() {
+  void HandlePlayerHit(int damage) {
+    var obj = Instantiate(damageNumber, transform.position, Quaternion.identity);
+    obj.GetComponentInChildren<TMPro.TMP_Text>().text = "-" + damage.ToString();
     animator.SetTrigger("hit");
   }
 

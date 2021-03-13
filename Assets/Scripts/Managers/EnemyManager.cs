@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour {
   public Enemy Enemy;
   private EnemyRunesManager enemyRunesManager;
+  public GameObject damageNumber;
 
   // Start is called before the first frame update
   void Start() {
@@ -12,6 +13,10 @@ public class EnemyManager : MonoBehaviour {
     transform.localScale = new Vector3(0, 0, 1);
     Enemy.OnDeath += () => {
       Destroy(this.gameObject);
+    };
+    Enemy.OnHit += (int damage) => {
+      var obj = Instantiate(damageNumber, transform.position, Quaternion.identity);
+      obj.GetComponentInChildren<TMPro.TMP_Text>().text = "-" + damage.ToString();
     };
   }
 

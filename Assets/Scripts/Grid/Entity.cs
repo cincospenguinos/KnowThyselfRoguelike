@@ -16,7 +16,7 @@ public abstract class Entity {
   /// set through SetCoordinates()
   public Vector2Int Coordinates => _Coordinates;
   public event Action OnDeath;
-  public event Action OnHit;
+  public event Action<int> OnHit;
   public List<Rune> RuneList;
   
   public int DamageModifier = 0;
@@ -86,7 +86,7 @@ public abstract class Entity {
 
   /// Taking damage from getting hit by the player
   public virtual void TakeDamage(int damage) {
-    OnHit?.Invoke();
+    OnHit?.Invoke(damage);
     bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
     _currentHitPoints -= damage;
     Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_RECEIVED, this));

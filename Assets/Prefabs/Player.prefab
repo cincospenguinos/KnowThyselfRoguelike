@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 133904613458319670}
+  damageNumber: {fileID: 381724521857512134, guid: 38caf6e558d12cb48ad2b9cc5a54693f, type: 3}
 --- !u!95 &133904613458319670
 Animator:
   serializedVersion: 3
