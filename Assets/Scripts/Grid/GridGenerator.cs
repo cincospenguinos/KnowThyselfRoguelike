@@ -59,6 +59,10 @@ public static class GridGenerator {
     grid.AddEntity(new RuneEditAltar(runeEditAltarPos));
     floors.Remove(runeEditAltarPos);
 
+    var upgradeAltarPos = randomPosInRoom(grid, rooms);
+    grid.AddEntity(new UpgradeAltar(upgradeAltarPos));
+    floors.Remove(upgradeAltarPos);
+
     var downstairsPos = randomPosInRoom(grid, rooms);
     grid.Tiles[downstairsPos.x, downstairsPos.y] = new Downstairs(grid, downstairsPos);
 
