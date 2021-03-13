@@ -55,7 +55,9 @@ public class RuneGenerator {
     if (RuneGenerator._all_actions == null) {
       RuneGenerator._all_actions = new Dictionary<string, RuneAction>();
       RuneGenerator._all_actions.Add("IncreaseDamageAction", new IncreaseDamageAction(null));
-      RuneGenerator._all_actions.Add("HealAction", new HealAction(null));
+      RuneGenerator._all_actions.Add("HealTinyAction", new HealTinyAction(null));
+      RuneGenerator._all_actions.Add("HealMediumAction", new HealMediumAction(null));
+      RuneGenerator._all_actions.Add("HealLargeAction", new HealLargeAction(null));
       RuneGenerator._all_actions.Add("TeleportToRandomSpotAction", new TeleportToRandomSpotAction(null));
       RuneGenerator._all_actions.Add("IncreaseViewRadiusAction", new IncreaseViewRadiusAction(null));
       RuneGenerator._all_actions.Add("IncreaseMaxHitPoints", new IncreaseMaxHitPoints(null));
