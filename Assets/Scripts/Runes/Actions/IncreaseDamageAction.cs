@@ -15,7 +15,7 @@ public class IncreaseDamageAction : RuneAction {
 }
 
 public class IncreaseDamageSmallAction : RuneAction {
-  public override int Threshold => 75;
+  public override int Threshold => 100;
 
   public IncreaseDamageSmallAction(Entity entityToModify) : base(entityToModify) {}
 

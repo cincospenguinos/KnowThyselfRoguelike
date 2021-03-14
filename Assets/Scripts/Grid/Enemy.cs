@@ -1,25 +1,15 @@
 using System.Linq;
 using UnityEngine;
 
-public class Enemy : Entity {
-  bool hasDetectedPlayer = false;
+public abstract class Enemy : Entity {
+  public bool hasDetectedPlayer = false;
 
-  public override int BaseDamage => Random.Range(4, 7);
+  public Enemy(Vector2Int coords, int HitPoints) : base(coords, HitPoints) { }
 
-  public Enemy(Vector2Int position) : base(position, 15) {
-  }
+  public abstract void TakeTurn();
 
-  public void TakeTurn() {
-    if (hasDetectedPlayer) {
-      moveTowardsPlayerOrAttack();
-    } else {
-      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < (7 - SightModifier);
-      moveRandomly();
-    }
-  }
-
-  public float DistanceTo(Entity other) {
-    return Vector2.Distance(Coordinates, other.Coordinates);
+  public override void onWalkInto(Player player) {
+    player.attack(this);
   }
 
   public void moveTowardsPlayerOrAttack() {
@@ -51,8 +41,41 @@ public class Enemy : Entity {
       move(newCoordinates);
     }
   }
+}
 
-  public override void onWalkInto(Player player) {
-    player.attack(this);
+public class Enemy0 : Enemy {
+  public override int BaseDamage => Random.Range(4, 7);
+
+  public Enemy0(Vector2Int position) : base(position, 15) { }
+
+  public override void TakeTurn() {
+    if (hasDetectedPlayer) {
+      moveTowardsPlayerOrAttack();
+    } else {
+      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < 7;
+      moveRandomly();
+    }
+  }
+}
+
+public class Enemy1 : Enemy {
+  public override int BaseDamage => Random.Range(7, 11);
+  public bool mustWait = true;
+
+  public Enemy1(Vector2Int position) : base(position, 30) { }
+
+  public override void TakeTurn() {
+    if (mustWait) {
+      mustWait = false;
+      wait();
+      return;
+    }
+    if (hasDetectedPlayer) {
+      moveTowardsPlayerOrAttack();
+    } else {
+      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < 7;
+      moveRandomly();
+    }
+    mustWait = true;
   }
 }

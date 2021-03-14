@@ -48,5 +48,6 @@ MonoBehaviour:
   DownstairsPrefab: {fileID: 3939689377779985600, guid: 6aee973e5602a5e4db4a8a4f9f6d6402, type: 3}
   HealAltarPrefab: {fileID: 8336636750626801030, guid: 3f5645ee069527e4fbc6310077005126, type: 3}
   Enemy0Prefab: {fileID: 1230850570171377641, guid: 79a5a58c344a26949862835ed6558ffd, type: 3}
+  Enemy1Prefab: {fileID: 7472828412863080837, guid: 438381c473f46d34fa2014c37f9f811f, type: 3}
   RuneEditAltarPrefab: {fileID: 989011775110690345, guid: 833d3b52cb79d1f43b2b42c91cddc6a7, type: 3}
   RuneUpgradeAltarPrefab: {fileID: 3985301158078176318, guid: a5a6b859d4685534d999c1a4e7deb919, type: 3}

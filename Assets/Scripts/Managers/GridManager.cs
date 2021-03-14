@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour {
   public GameObject DownstairsPrefab;
   public GameObject HealAltarPrefab;
   public GameObject Enemy0Prefab;
+  public GameObject Enemy1Prefab;
   public GameObject RuneEditAltarPrefab;
   public GameObject RuneUpgradeAltarPrefab;
 
@@ -62,14 +63,19 @@ public class GridManager : MonoBehaviour {
         transform
       );
 
-      gameObj.GetComponent<EnemyManager>().Enemy = (Enemy) entity;
+      var enemyManager = gameObj.GetComponent<EnemyManager>();
+      if (enemyManager != null) {
+        enemyManager.Enemy = (Enemy) entity;
+      }
     };
   }
 
   private GameObject GetPrefabFor(Entity entity) {
     switch (entity) {
-      case Enemy _:
+      case Enemy0 _:
         return Enemy0Prefab;
+      case Enemy1 _:
+        return Enemy1Prefab;
       case HealAltar _:
         return HealAltarPrefab;
       case RuneEditAltar _:

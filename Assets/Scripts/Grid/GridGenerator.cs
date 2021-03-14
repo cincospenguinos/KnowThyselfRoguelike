@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,7 +50,11 @@ public static class GridGenerator {
 
     var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] is Floor).ToList();
     foreach (var pos in floors.Shuffle().Take(numEnemies).ToList()) {
-      grid.AddEntity(new Enemy(pos));
+      var enemyType = new List<Type>() { typeof(Enemy0), typeof(Enemy1) }.GetRandom();
+      var constructor = enemyType.GetConstructor(new Type[] { typeof(Vector2Int) });
+      var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
+
+      grid.AddEntity(enemy);
       floors.Remove(pos);
     }
 
