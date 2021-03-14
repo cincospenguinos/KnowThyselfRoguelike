@@ -68,19 +68,19 @@ public class PlayerManager : MonoBehaviour {
   }
 
   private Direction? getUserInputDirection() {
-    if (Input.GetKeyDown(KeyCode.UpArrow)) {
+    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
       return Direction.NORTH;
     }
 
-    if (Input.GetKeyDown(KeyCode.DownArrow)) {
+    if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
       return Direction.SOUTH;
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+    if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
       return Direction.WEST;
     }
 
-    if (Input.GetKeyDown(KeyCode.RightArrow)) {
+    if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
       return Direction.EAST;
     }
     return null;
