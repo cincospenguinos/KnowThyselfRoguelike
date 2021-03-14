@@ -7,7 +7,9 @@ public class RuneEditorAcceptButtonManager : MonoBehaviour
     public GameObject Button;
 
     // Start is called before the first frame update
-    void Start() {}
+    void Start() {
+        // ((Button) Button)
+    }
 
     // Update is called once per frame
     void Update()
