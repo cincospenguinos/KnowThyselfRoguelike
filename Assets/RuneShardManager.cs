@@ -18,8 +18,10 @@ public class RuneShardManager : MonoBehaviour {
   }
 
   public void OnShardInventoryClick() {
-    if (shard != null) {
-      Grid.instance.Player.SwapShard(shard);
+    if (Grid.instance.Player.EditingRunes) {
+      if (shard != null) {
+        Grid.instance.Player.SwapShard(shard);
+      }
     }
   }
 }

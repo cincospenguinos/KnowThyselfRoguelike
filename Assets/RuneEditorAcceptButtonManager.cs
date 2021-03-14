@@ -10,8 +10,9 @@ public class RuneEditorAcceptButtonManager : MonoBehaviour
     void Start() {}
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {}
+
+    public void DoneEditingRunes() {
+        Grid.instance.Player.EditingRunes = false;
     }
 }

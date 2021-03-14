@@ -29,9 +29,8 @@ public class RuneEditAltar : Altar {
 
   public override void Use(Player player) {
     TriggerOnUse();
-    Debug.Log("Hey show the edit rune screen homie");
+    player.EditingRunes = true;
     GameObject.Find("GameManager").GetComponent<RuneEditorAcceptButtonManager>().Button.SetActive(true);
-    // TODO: Show the screen
   }
 }
 
