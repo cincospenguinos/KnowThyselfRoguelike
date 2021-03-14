@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour {
 
   void Update() {
     if (!Player.Dead) {
-      if (inputEnabled) {
+      if (inputEnabled && actionLoop == null) {
         MaybeTakePlayerTurn();
       }
 
@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour {
   void MaybeTakePlayerTurn() {
     if (Input.GetKeyDown(KeyCode.Space)) {
       Player.wait();
-      Grid.instance.actionTaken();
+      RunActionLoop(false);
       return;
     }
 
@@ -62,13 +62,26 @@ public class PlayerManager : MonoBehaviour {
       if (entity != null) {
         entity.onWalkInto(Player);
         animatorUpdatePlayerAttack();
-        Grid.instance.actionTaken();
+        RunActionLoop(true);
       } else {
         if (Player.move(nextCoordinates)) {
           animatorUpdatePlayerMoved(direction.Value);
-          Grid.instance.actionTaken();
+          RunActionLoop(false);
         }
       }
+    }
+  }
+
+  private Grid grid => Grid.instance;
+
+  Coroutine actionLoop = null;
+  void RunActionLoop(bool hasDelay) {
+    if (actionLoop == null) {
+      Debug.Log("actionLoop started");
+      actionLoop = StartCoroutine(Grid.instance.actionTaken(hasDelay, () => {
+        actionLoop = null;
+        Debug.Log("actionLoop finished");
+      }));
     }
   }
 

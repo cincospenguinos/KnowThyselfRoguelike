@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -172,9 +173,13 @@ public class Grid {
     }
   }
 
-  public void actionTaken() {
+  public IEnumerator actionTaken(bool delay, Action then) {
     _elapsedTurns += 1;
     EnqueueEvent(new GameEvent(GameEvent.EventType.TURN_ELAPSED));
+
+    var turnWaitDuration = delay ? 0.25f : 0;
+    // wait 0.2f seconds
+    yield return new WaitForSeconds(turnWaitDuration);
 
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
@@ -193,8 +198,13 @@ public class Grid {
 
     ClearEventQueue();
 
+    bool enemiesMoved = false;
     foreach (var e in Enemies) {
       e.TakeTurn();
+      // if (e.isVisible) {
+        enemiesMoved = true;
+      //   yield return new WaitForSeconds(turnWaitDuration);
+      // }
     }
 
     ClearEventQueue();
@@ -216,12 +226,17 @@ public class Grid {
       Player.TurnsSinceHitByEnemy = 0;      
     }
 
+    if (enemiesMoved) {
+      yield return new WaitForSeconds(turnWaitDuration);
+    }
 
-    /// all enemies are dead, move onto the next floor!
+    /// Move onto the next floor!
     if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
       Player.score += 10;
       OnCleared?.Invoke();
     }
+
+    then();
   }
 
   /// Emit a game event first to the player and then to ever enemy on the
