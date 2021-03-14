@@ -140,20 +140,7 @@ public class Grid {
 
   /// always starts right on the startPoint, and always ends right on the endPoint
   public IEnumerable<Vector2Int> EnumerateManhattanLine(Vector2Int start, Vector2Int end) {
-    // Vector2 offset = endPoint - startPoint;
-    // for (float t = 0; t <= offset.magnitude; t += 0.5f) {
-    //   Vector2 point = startPoint + offset.normalized * t;
-    //   Vector2Int p = new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
-    //   if (InBounds(p)) {
-    //     yield return p;
-    //   }
-    // }
-    // if (InBounds(endPoint)) {
-    //   yield return endPoint;
-    // }
-
     /// for now, go horizontal first, then vertical, then horizontal
-
     var midX = (end.x + start.x) / 2;
     var dX = end.x > start.x ? 1 : -1;
     /// first horizontal half
@@ -183,14 +170,6 @@ public class Grid {
 
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
-      Rune rune = e.RuneList.ToArray()[0];
-
-      if (UnityEngine.Random.value > 0.5f) {
-        Player.AddRuneShard(rune.action);
-      } else {
-        Player.AddRuneShard(rune.trigger);
-      }
-
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
     });
 
