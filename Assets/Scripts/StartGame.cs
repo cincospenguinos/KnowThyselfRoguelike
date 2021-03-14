@@ -33,6 +33,7 @@ public class StartGame : MonoBehaviour {
 
   IEnumerator ChangeFloors(int newDepth) {
     PlayerManager.inputEnabled = false;
+
     // let player movement animation finish
     // yield return new WaitForSeconds(0.25f);
     // disable player input
@@ -47,6 +48,15 @@ public class StartGame : MonoBehaviour {
       pManager.transform.localScale = newScale;
     });
     yield return new WaitForSeconds(0.5f);
+
+    if (newDepth % 2 == 0) {
+      var trigger = RuneGenerator.randomTrigger(player.shards);
+      player.AddRuneShard(trigger);
+    } else {
+      var action = RuneGenerator.randomAction(player.shards);
+      player.AddRuneShard(action);
+    }
+
     depthPanel.GetComponentInChildren<TMPro.TMP_Text>().text = "Depth " + newDepth;
     depthPanel.SetActive(true);
     yield return null;

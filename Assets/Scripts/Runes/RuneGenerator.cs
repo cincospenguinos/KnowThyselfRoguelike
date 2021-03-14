@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RuneGenerator {
   // TODO: Refactor to this, maybe:
@@ -34,6 +35,20 @@ public class RuneGenerator {
     string actionName = new List<string>(RuneGenerator.AllActions().Keys).GetRandom();
 
     return RuneGenerator.generate(triggerName, actionName, entity);
+  }
+
+  public static RuneTrigger randomTrigger(List<RuneShard> blocklist) {
+    var list = AllTriggers().Values.ToList();
+    list.RemoveAll(t => blocklist.Contains(t));
+
+    return list.GetRandom();
+  }
+
+  public static RuneAction randomAction(List<RuneShard> blocklist) {
+    var list = AllActions().Values.ToList();
+    list.RemoveAll(t => blocklist.Contains(t));
+
+    return list.GetRandom();
   }
 
   public static Dictionary<string, RuneTrigger> AllTriggers() {
