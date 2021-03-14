@@ -17,10 +17,6 @@ public class MusicManager : MonoBehaviour {
             (AudioClip) Resources.Load("Sounds/stutter2"),
             (AudioClip) Resources.Load("Sounds/nosce_te_ipsem"),
         });
-
-        IncidentalSoundSource.volume = 0.0f;
-        IncidentalSoundSource.PlayOneShot(_audioClips[5]);
-        StartCoroutine(FadeMixerGroup.StartFade(IncidentalSoundSource, 8f, 0.125f));
     }
 
     void Update() {
