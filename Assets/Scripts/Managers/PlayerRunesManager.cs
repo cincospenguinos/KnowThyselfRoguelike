@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerRunesManager : MonoBehaviour {
   public GameObject runePrefab;
-  private GameObject runeObject;
+  List<Rune> runes => Grid.instance.Player.RuneList;
 
   void Start() {
-    var runes = Grid.instance.Player.RuneList;
     foreach (var rune in runes) {
-      runeObject = Instantiate(runePrefab, transform);
+      var runeObject = Instantiate(runePrefab, transform);
       runeObject.GetComponent<RuneManager>().rune = rune;
     }
   }
@@ -19,12 +18,16 @@ public class PlayerRunesManager : MonoBehaviour {
   }
 
   void MatchRuneList() {
-    var rune = Grid.instance.Player.RuneList[0];
+    for (int i = 0; i < runes.Count; i++) {
+      var rune = runes[i];
+      var runeObject = transform.GetChild(i).gameObject;
 
-    if (runeObject.GetComponent<RuneManager>().rune != rune) {
-      Destroy(runeObject);
-      runeObject = Instantiate(runePrefab, transform);
-      runeObject.GetComponent<RuneManager>().rune = rune;
+      if (runeObject.GetComponent<RuneManager>().rune != rune) {
+        Destroy(runeObject);
+        var newRuneObject = Instantiate(runePrefab, transform);
+        newRuneObject.GetComponent<RuneManager>().rune = rune;
+        newRuneObject.transform.SetSiblingIndex(i);
+      }
     }
   }
 }
