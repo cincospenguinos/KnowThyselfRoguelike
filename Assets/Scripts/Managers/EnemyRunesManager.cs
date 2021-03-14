@@ -46,8 +46,12 @@ public class EnemyRunesManager : MonoBehaviour {
     if (visibleRunes.ContainsKey(enemyManager)) {
       /// destroy
       var connection = visibleRunes[enemyManager]; 
-      Destroy(connection.lineRenderer.gameObject);
-      Destroy(connection.rune);
+      if (connection.lineRenderer.gameObject != null) {
+        Destroy(connection.lineRenderer.gameObject);
+      }
+      if (connection.rune != null) {
+        Destroy(connection.rune);
+      }
       visibleRunes.Remove(enemyManager);
     }
   }

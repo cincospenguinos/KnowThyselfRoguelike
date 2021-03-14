@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerManager : MonoBehaviour {
   void Start() {
     Player = Grid.instance.Player;
     Player.OnHit += HandlePlayerHit;
+    Player.OnHeal += HandleHeal;
     transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
   }
 
@@ -24,9 +26,12 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
+  private void HandleHeal(int amount) {
+    AnimUtils.AddDamageOrHealNumber(amount, transform.position, false);
+  }
+
   void HandlePlayerHit(int damage) {
-    var obj = Instantiate(damageNumber, transform.position, Quaternion.identity);
-    obj.GetComponentInChildren<TMPro.TMP_Text>().text = "-" + damage.ToString();
+    AnimUtils.AddDamageOrHealNumber(damage, transform.position, true);
     animator.SetTrigger("hit");
   }
 

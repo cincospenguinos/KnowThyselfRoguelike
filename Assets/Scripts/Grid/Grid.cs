@@ -7,7 +7,7 @@ public abstract class Tile {
   public Vector2Int Coordinates;
   protected Grid _grid;
   // +4/-4; show 9 vertical tiles
-  public bool isVisible => ManhattanDistanceToPlayer <= (4 + _grid.Player.SightModifier);
+  public bool isVisible => ManhattanDistanceToPlayer <= _grid.Player.SightRange;
 
   public int ManhattanDistanceToPlayer {
     get {
@@ -208,7 +208,7 @@ public class Grid {
         .Take(2);
 
       foreach(var pos in positions) {
-        Enemy enemy = new Enemy(pos);
+        Enemy enemy = new Enemy0(pos);
         AddEntity(enemy);
         OnEntityAdded(enemy);
       }
@@ -219,6 +219,7 @@ public class Grid {
 
     /// all enemies are dead, move onto the next floor!
     if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
+      Player.score += 10;
       OnCleared?.Invoke();
     }
   }

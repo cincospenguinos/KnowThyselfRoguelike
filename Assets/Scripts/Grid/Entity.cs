@@ -16,7 +16,9 @@ public abstract class Entity {
   /// set through SetCoordinates()
   public Vector2Int Coordinates => _Coordinates;
   public event Action OnDeath;
+  public event System.Action<Entity> OnAttack;
   public event Action<int> OnHit;
+  public event Action<int> OnHeal;
   public List<Rune> RuneList;
   
   public int AddedDamage = 0;
@@ -27,7 +29,7 @@ public abstract class Entity {
   public int MaxHitPoints;
   public bool Dead => _currentHitPoints <= 0;
 
-  public int SightModifier = 0;
+  public int SightRange = 4;
 
   public int FreeAttacks = 0;
 
@@ -61,6 +63,7 @@ public abstract class Entity {
 
   public bool attack(Entity entity) {
     if (entity != null) {
+      OnAttack?.Invoke(entity);
       entity.TakeDamage(TotalDamage);
       _grid.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, this));
 
@@ -83,6 +86,7 @@ public abstract class Entity {
   }
 
   public void GoDie() {
+    _grid.Player.score++;
     OnDeath();
   }
 
@@ -101,13 +105,14 @@ public abstract class Entity {
 
   public void Heal(int amount) {
     if (amount == -1) {
-      _currentHitPoints = MaxHitPoints;
-      Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
-      return;
+      amount = MaxHitPoints - _currentHitPoints;
     }
 
+
     if (_currentHitPoints < MaxHitPoints) {
-      _currentHitPoints += Math.Min(amount, MaxHitPoints - _currentHitPoints);
+      amount = Math.Min(amount, MaxHitPoints - _currentHitPoints);
+      OnHeal?.Invoke(amount);
+      _currentHitPoints += amount;
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
     }
   }
@@ -143,4 +148,8 @@ public abstract class Entity {
   }
 
   public abstract void onWalkInto(Player player);
+
+  public float DistanceTo(Entity other) {
+    return Vector2.Distance(Coordinates, other.Coordinates);
+  }
 }

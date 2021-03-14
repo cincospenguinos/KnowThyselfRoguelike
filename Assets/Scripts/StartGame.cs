@@ -1,15 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
   public GameObject depthPanel;
   public TMPro.TMP_Text TurnText;
+  public TMPro.TMP_Text ScoreText;
   public TMPro.TMP_Text GameOverText;
   GameObject currentGrid;
   Player player;
 
   void Awake() {
+    GameOverText.gameObject.SetActive(false);
     player = new Player();
     NewGrid(1);
   }
@@ -63,12 +66,27 @@ public class StartGame : MonoBehaviour {
 
   void Update() {
     if (player.Dead) {
-      GameOverText.text = $"<b><color=red>Game Over</color></b>";
+      GameOverText.gameObject.SetActive(true);
+      if (player.newHighscoreReached == null) {
+        // hasn't been computed yet; compute it for the first time, and store it 
+        player.newHighscoreReached = player.score > Player.HIGHSCORE;
+        Player.HIGHSCORE = player.score;
+      }
+      var highscore = Player.HIGHSCORE;
+      GameOverText.text = $"<b><color=red>You succumb to insanity...</color></b>\nScore: {player.score}\nHigh Score: {Player.HIGHSCORE}";
+      if (player.newHighscoreReached == true) {
+        GameOverText.text += $"\nNew high score!";
+      }
+      GameOverText.text += "\n\n<u>Replay<u>";
     } else {
       TurnText.text = $"Turn {Grid.instance.CurrentTurn}\n" +
       $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}\n" +
-      $"Block: {player.Block}\n"
-      ;
+      $"Block: {player.Block}\n";
+      ScoreText.text = $"Score: {player.score}";
     }
+  }
+
+  public void Replay() {
+    SceneManager.LoadSceneAsync("Scenes/SampleScene", LoadSceneMode.Single);
   }
 }
