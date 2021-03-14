@@ -20,8 +20,6 @@ public class MusicManager : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(Time.timeAsDouble + ", " + _nextSoundTime);
-
         if (_nextSoundTime < Time.timeAsDouble) {
             AudioClip clip = _audioClips.GetRandom();
 
