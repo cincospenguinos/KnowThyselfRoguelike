@@ -2,6 +2,8 @@ using System;
 
 public abstract class RuneAction : RuneShard {
   public abstract int Threshold { get; }
+  public float ChargePercentage => (float) CurrentCharge / Threshold;
+
   protected int CurrentCharge;
   public event Action OnTriggered;
 

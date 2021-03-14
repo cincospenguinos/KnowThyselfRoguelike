@@ -42,8 +42,8 @@ public class RuneManager : MonoBehaviour {
   }
 
   IEnumerator Pulse() {
-    yield return AnimUtils.Animate(0.2f, (t) => {
-      var scale = 1 + Mathf.Sin(t * Mathf.PI) * 0.33f;
+    yield return AnimUtils.Animate(0.5f, (t) => {
+      var scale = 1 + Mathf.Sin(t * Mathf.PI) * 1.0f;
       transform.localScale = new Vector3(scale, scale, 1);
     });
     transform.localScale = new Vector3(1, 1, 1);

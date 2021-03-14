@@ -28,10 +28,10 @@ public class MusicManager : MonoBehaviour {
             if (_audioClips.IndexOf(clip) == _audioClips.Count - 1) {
                 IncidentalSoundSource.volume = 0.0f;
                 IncidentalSoundSource.PlayOneShot(clip);
-                StartCoroutine(FadeMixerGroup.StartFade(IncidentalSoundSource, 8f, 0.25f));
+                StartCoroutine(FadeMixerGroup.StartFade(IncidentalSoundSource, 8f, 0.125f));
                 _nextSoundTime = Time.timeAsDouble + 180;
             } else {
-                IncidentalSoundSource.volume = 0.5f;
+                IncidentalSoundSource.volume = 0.20f;
                 IncidentalSoundSource.PlayOneShot(clip);
                 _nextSoundTime = Time.timeAsDouble + Random.Range(10, 50);
             }
