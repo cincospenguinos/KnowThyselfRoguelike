@@ -83,6 +83,7 @@ public abstract class Entity {
   }
 
   public void GoDie() {
+    _grid.Player.score++;
     OnDeath();
   }
 

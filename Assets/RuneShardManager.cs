@@ -12,11 +12,14 @@ public class RuneShardManager : MonoBehaviour {
   }
 
   void Update() {
-    text.text = shard.TextFull();
+    if (shard != null) {
+      text.text = shard.TextFull();
+    }
   }
 
   public void OnShardInventoryClick() {
-    Grid.instance.Player.SwapShard(shard);
-    Debug.Log("Count: " + Grid.instance.Player.shards.Count);
+    if (shard != null) {
+      Grid.instance.Player.SwapShard(shard);
+    }
   }
 }

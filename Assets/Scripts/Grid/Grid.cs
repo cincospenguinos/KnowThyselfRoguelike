@@ -219,6 +219,7 @@ public class Grid {
 
     /// all enemies are dead, move onto the next floor!
     if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
+      Player.score += 10;
       OnCleared?.Invoke();
     }
   }

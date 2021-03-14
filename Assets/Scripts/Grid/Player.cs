@@ -5,8 +5,16 @@ public class Player : Entity {
   public List<RuneShard> shards;
   public int TurnsSinceHitByEnemy = 0;
   public override int BaseDamage => Random.Range(minBaseDamage, maxBaseDamage + 1);
+  public static int HIGHSCORE {
+    get => PlayerPrefs.GetInt("highscore");
+    set => PlayerPrefs.SetInt("highscore", value);
+  }
+
+  public bool? newHighscoreReached = null;
+
   public int minBaseDamage = 4;
   public int maxBaseDamage = 6;
+  public int score;
 
   public Player() : base(new Vector2Int(3, 3), 100) {
     shards = new List<RuneShard>();

@@ -31,7 +31,9 @@ public class EnemyManager : MonoBehaviour {
   }
 
   void OnDestroy() {
-    enemyRunesManager.EnsureDeregistered(Enemy, this);
+    if (enemyRunesManager != null) {
+      enemyRunesManager.EnsureDeregistered(Enemy, this);
+    }
   }
 
   void UpdateRuneUI() {
