@@ -48,14 +48,33 @@ public static class GridGenerator {
       }
     });
 
-    var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] is Floor).ToList();
-    foreach (var pos in floors.Shuffle().Take(numEnemies).ToList()) {
-      var enemyType = new List<Type>() { typeof(Enemy0), typeof(Enemy1) }.GetRandom();
-      var constructor = enemyType.GetConstructor(new Type[] { typeof(Vector2Int) });
-      var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
+    var floors = grid.EnumerateFloor().Where(grid.canOccupy).ToList();
+    var enemyPositions = floors.Shuffle().Take(numEnemies).ToList();
+    for (int i = 0; i < numEnemies; i++) {
+      var enemyType = new List<Type>() { typeof(Enemy0), typeof(Enemy1), typeof(Enemy2) }.GetRandom();
 
-      grid.AddEntity(enemy);
-      floors.Remove(pos);
+      if (enemyType == typeof(Enemy2)) {
+        var pos = enemyPositions[0];
+        SpawnEnemy(enemyType, pos);
+        enemyPositions.RemoveAt(0);
+        var adjacentPos = grid.EnumerateCircle(pos, 2).Where(grid.canOccupy).FirstOrDefault();
+        if (adjacentPos != null) {
+          SpawnEnemy(enemyType, adjacentPos);
+          enemyPositions.Remove(adjacentPos);
+        }
+
+      } else {
+        SpawnEnemy(enemyType, enemyPositions[0]);
+        enemyPositions.RemoveAt(0);
+      }
+
+      void SpawnEnemy(Type type, Vector2Int pos) {
+        var constructor = enemyType.GetConstructor(new Type[] { typeof(Vector2Int) });
+        var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
+
+        grid.AddEntity(enemy);
+        floors.Remove(pos);
+      }
     }
 
     List<Room> blocklist = new List<Room>();

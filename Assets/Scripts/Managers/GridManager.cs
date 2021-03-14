@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour {
   public GameObject HealAltarPrefab;
   public GameObject Enemy0Prefab;
   public GameObject Enemy1Prefab;
+  public GameObject Enemy2Prefab;
   public GameObject RuneEditAltarPrefab;
   public GameObject RuneUpgradeAltarPrefab;
 
@@ -76,6 +77,8 @@ public class GridManager : MonoBehaviour {
         return Enemy0Prefab;
       case Enemy1 _:
         return Enemy1Prefab;
+      case Enemy2 _:
+        return Enemy2Prefab;
       case HealAltar _:
         return HealAltarPrefab;
       case RuneEditAltar _:

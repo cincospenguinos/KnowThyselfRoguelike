@@ -12,21 +12,23 @@ public abstract class Enemy : Entity {
     player.attack(this);
   }
 
-  public void moveTowardsPlayerOrAttack() {
+  public void moveTowardsPlayerOrAttack(int numMoves = 1) {
     var player = _grid.Player;
     if (isNextTo(player)) {
       /// if we're already next to the player, attack them
       attack(player);
     } else {
-      /// otherwise, move towards the empty adjacent tile that's closest to the player
-      var directions = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
-      var newCoordinate = directions
-        .Select(d => adjacentIn(d))
-        .Where((c) => _grid.canOccupy(c))
-        .OrderBy(c => Vector2.Distance(c, player.Coordinates))
-        .FirstOrDefault();
-      if (newCoordinate != null) {
-        move(newCoordinate);
+      for ( ; numMoves > 0 ; numMoves--) {
+        /// otherwise, move towards the empty adjacent tile that's closest to the player
+        var directions = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
+        var newCoordinate = directions
+          .Select(d => adjacentIn(d))
+          .Where((c) => _grid.canOccupy(c))
+          .OrderBy(c => Vector2.Distance(c, player.Coordinates))
+          .FirstOrDefault();
+        if (newCoordinate != null) {
+          move(newCoordinate);
+        }
       }
     }
   }
@@ -77,5 +79,19 @@ public class Enemy1 : Enemy {
       moveRandomly();
     }
     mustWait = true;
+  }
+}
+
+public class Enemy2 : Enemy {
+  public override int BaseDamage => Random.Range(2, 5);
+  public Enemy2(Vector2Int position) : base(position, 7) { }
+
+  public override void TakeTurn() {
+    if (hasDetectedPlayer) {
+      moveTowardsPlayerOrAttack(2);
+    } else {
+      hasDetectedPlayer = Vector2.Distance(_grid.Player.Coordinates, Coordinates) < 7;
+      moveRandomly();
+    }
   }
 }
