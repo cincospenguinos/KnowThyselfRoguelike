@@ -1,21 +1,24 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
   public GameObject depthPanel;
   public TMPro.TMP_Text TurnText;
+  public TMPro.TMP_Text ScoreText;
   public TMPro.TMP_Text GameOverText;
   GameObject currentGrid;
   Player player;
 
   void Awake() {
+    GameOverText.gameObject.SetActive(false);
     player = new Player();
     NewGrid(1);
   }
 
   void NewGrid(int depth) {
-    Grid.instance = GridGenerator.generateMultiRoomGrid(player, depth, 6);
+    Grid.instance = GridGenerator.generateMultiRoomGrid(player, depth);
     Grid.instance.OnCleared += HandleGridCleared;
     currentGrid = Instantiate(GridPrefab);
     currentGrid.GetComponent<GridManager>().grid = Grid.instance;
@@ -30,6 +33,7 @@ public class StartGame : MonoBehaviour {
 
   IEnumerator ChangeFloors(int newDepth) {
     PlayerManager.inputEnabled = false;
+
     // let player movement animation finish
     // yield return new WaitForSeconds(0.25f);
     // disable player input
@@ -44,6 +48,15 @@ public class StartGame : MonoBehaviour {
       pManager.transform.localScale = newScale;
     });
     yield return new WaitForSeconds(0.5f);
+
+    if (newDepth % 2 == 0) {
+      var trigger = RuneGenerator.randomTrigger(player.shards);
+      player.AddRuneShard(trigger);
+    } else {
+      var action = RuneGenerator.randomAction(player.shards);
+      player.AddRuneShard(action);
+    }
+
     depthPanel.GetComponentInChildren<TMPro.TMP_Text>().text = "Depth " + newDepth;
     depthPanel.SetActive(true);
     yield return null;
@@ -63,12 +76,27 @@ public class StartGame : MonoBehaviour {
 
   void Update() {
     if (player.Dead) {
-      GameOverText.text = $"<b><color=red>Game Over</color></b>";
+      GameOverText.gameObject.SetActive(true);
+      if (player.newHighscoreReached == null) {
+        // hasn't been computed yet; compute it for the first time, and store it 
+        player.newHighscoreReached = player.score > Player.HIGHSCORE;
+        Player.HIGHSCORE = player.score;
+      }
+      var highscore = Player.HIGHSCORE;
+      GameOverText.text = $"<b><color=red>You succumb to insanity...</color></b>\nScore: {player.score}\nHigh Score: {Player.HIGHSCORE}";
+      if (player.newHighscoreReached == true) {
+        GameOverText.text += $"\nNew high score!";
+      }
+      GameOverText.text += "\n\n<u>Replay<u>";
     } else {
       TurnText.text = $"Turn {Grid.instance.CurrentTurn}\n" +
       $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}\n" +
-      $"Block: {player.Block}\n"
-      ;
+      $"Block: {player.Block}\n";
+      ScoreText.text = $"Score: {player.score}";
     }
+  }
+
+  public void Replay() {
+    SceneManager.LoadSceneAsync("Scenes/SampleScene", LoadSceneMode.Single);
   }
 }

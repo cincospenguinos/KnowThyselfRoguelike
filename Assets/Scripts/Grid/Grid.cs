@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +8,7 @@ public abstract class Tile {
   public Vector2Int Coordinates;
   protected Grid _grid;
   // +4/-4; show 9 vertical tiles
-  public bool isVisible => ManhattanDistanceToPlayer <= (4 + _grid.Player.SightModifier);
+  public bool isVisible => ManhattanDistanceToPlayer <= _grid.Player.SightRange;
 
   public int ManhattanDistanceToPlayer {
     get {
@@ -139,20 +140,7 @@ public class Grid {
 
   /// always starts right on the startPoint, and always ends right on the endPoint
   public IEnumerable<Vector2Int> EnumerateManhattanLine(Vector2Int start, Vector2Int end) {
-    // Vector2 offset = endPoint - startPoint;
-    // for (float t = 0; t <= offset.magnitude; t += 0.5f) {
-    //   Vector2 point = startPoint + offset.normalized * t;
-    //   Vector2Int p = new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
-    //   if (InBounds(p)) {
-    //     yield return p;
-    //   }
-    // }
-    // if (InBounds(endPoint)) {
-    //   yield return endPoint;
-    // }
-
     /// for now, go horizontal first, then vertical, then horizontal
-
     var midX = (end.x + start.x) / 2;
     var dX = end.x > start.x ? 1 : -1;
     /// first horizontal half
@@ -172,20 +160,16 @@ public class Grid {
     }
   }
 
-  public void actionTaken() {
+  public IEnumerator actionTaken(bool delay, Action then) {
     _elapsedTurns += 1;
     EnqueueEvent(new GameEvent(GameEvent.EventType.TURN_ELAPSED));
 
+    var turnWaitDuration = delay ? 0.25f : 0;
+    // wait 0.2f seconds
+    yield return new WaitForSeconds(turnWaitDuration);
+
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
-      Rune rune = e.RuneList.ToArray()[0];
-
-      if (UnityEngine.Random.value > 0.5f) {
-        Player.AddRuneShard(rune.action);
-      } else {
-        Player.AddRuneShard(rune.trigger);
-      }
-
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
     });
 
@@ -193,8 +177,13 @@ public class Grid {
 
     ClearEventQueue();
 
+    bool enemiesMoved = false;
     foreach (var e in Enemies) {
       e.TakeTurn();
+      // if (e.isVisible) {
+        enemiesMoved = true;
+      //   yield return new WaitForSeconds(turnWaitDuration);
+      // }
     }
 
     ClearEventQueue();
@@ -208,7 +197,7 @@ public class Grid {
         .Take(2);
 
       foreach(var pos in positions) {
-        Enemy enemy = new Enemy(pos);
+        Enemy enemy = new Enemy0(pos);
         AddEntity(enemy);
         OnEntityAdded(enemy);
       }
@@ -216,11 +205,17 @@ public class Grid {
       Player.TurnsSinceHitByEnemy = 0;      
     }
 
+    if (enemiesMoved) {
+      yield return new WaitForSeconds(turnWaitDuration);
+    }
 
-    /// all enemies are dead, move onto the next floor!
+    /// Move onto the next floor!
     if (Tiles[Player.Coordinates.x, Player.Coordinates.y] is Downstairs) {
+      Player.score += 10;
       OnCleared?.Invoke();
     }
+
+    then();
   }
 
   /// Emit a game event first to the player and then to ever enemy on the

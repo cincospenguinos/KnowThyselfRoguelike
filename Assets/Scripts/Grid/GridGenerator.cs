@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public static class GridGenerator {
-  public static Grid generateMultiRoomGrid(Player player, int depth, int numEnemies, int numSplits = 10) {
+  public static Grid generateMultiRoomGrid(Player player, int depth, int numSplits = 10) {
+    int numEnemies = 3 + ((depth - 1) / 2);
+
     Grid grid = new Grid(player, depth);
     foreach (var point in grid.EnumerateFloor()) {
       grid.Tiles[point.x, point.y] = new Wall(grid, point);
@@ -45,10 +48,33 @@ public static class GridGenerator {
       }
     });
 
-    var floors = grid.EnumerateFloor().Where((pos) => grid.Tiles[pos.x, pos.y] is Floor).ToList();
-    foreach (var pos in floors.Shuffle().Take(numEnemies).ToList()) {
-      grid.AddEntity(new Enemy(pos));
-      floors.Remove(pos);
+    var floors = grid.EnumerateFloor().Where(grid.canOccupy).ToList();
+    var enemyPositions = floors.Shuffle().Take(numEnemies).ToList();
+    for (int i = 0; i < numEnemies; i++) {
+      var enemyType = new List<Type>() { typeof(Enemy0), typeof(Enemy1), typeof(Enemy2) }.GetRandom();
+
+      if (enemyType == typeof(Enemy2)) {
+        var pos = enemyPositions[0];
+        SpawnEnemy(enemyType, pos);
+        enemyPositions.RemoveAt(0);
+        var adjacentPos = grid.EnumerateCircle(pos, 2).Where(grid.canOccupy).FirstOrDefault();
+        if (adjacentPos != null) {
+          SpawnEnemy(enemyType, adjacentPos);
+          enemyPositions.Remove(adjacentPos);
+        }
+
+      } else {
+        SpawnEnemy(enemyType, enemyPositions[0]);
+        enemyPositions.RemoveAt(0);
+      }
+
+      void SpawnEnemy(Type type, Vector2Int pos) {
+        var constructor = enemyType.GetConstructor(new Type[] { typeof(Vector2Int) });
+        var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
+
+        grid.AddEntity(enemy);
+        floors.Remove(pos);
+      }
     }
 
     List<Room> blocklist = new List<Room>();
@@ -167,6 +193,6 @@ public static class ListExtensions {
   }
 
   public static T GetRandom<T>(this IList<T> list) {
-    return list[Random.Range(0, list.Count)];
+    return list[UnityEngine.Random.Range(0, list.Count)];
   }
 }

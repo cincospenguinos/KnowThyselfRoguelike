@@ -6,8 +6,7 @@ public class IncreaseViewRadiusAction : RuneAction {
   public IncreaseViewRadiusAction(Entity entityToModify) : base(entityToModify) {}
 
   public override void Perform() {
-    OwningEntity.SightModifier += 1;
-    Camera.main.orthographicSize += 1;
+    OwningEntity.SightRange += 1;
   }
 
   public override string Text() => $"Permanently gain +1 sight.";

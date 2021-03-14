@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,13 @@ public class PlayerManager : MonoBehaviour {
   void Start() {
     Player = Grid.instance.Player;
     Player.OnHit += HandlePlayerHit;
+    Player.OnHeal += HandleHeal;
     transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
   }
 
   void Update() {
     if (!Player.Dead) {
-      if (inputEnabled) {
+      if (inputEnabled && actionLoop == null) {
         MaybeTakePlayerTurn();
       }
 
@@ -24,9 +26,12 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
+  private void HandleHeal(int amount) {
+    AnimUtils.AddDamageOrHealNumber(amount, transform.position, false);
+  }
+
   void HandlePlayerHit(int damage) {
-    var obj = Instantiate(damageNumber, transform.position, Quaternion.identity);
-    obj.GetComponentInChildren<TMPro.TMP_Text>().text = "-" + damage.ToString();
+    AnimUtils.AddDamageOrHealNumber(damage, transform.position, true);
     animator.SetTrigger("hit");
   }
 
@@ -45,7 +50,7 @@ public class PlayerManager : MonoBehaviour {
   void MaybeTakePlayerTurn() {
     if (Input.GetKeyDown(KeyCode.Space)) {
       Player.wait();
-      Grid.instance.actionTaken();
+      RunActionLoop(false);
       return;
     }
 
@@ -57,13 +62,26 @@ public class PlayerManager : MonoBehaviour {
       if (entity != null) {
         entity.onWalkInto(Player);
         animatorUpdatePlayerAttack();
-        Grid.instance.actionTaken();
+        RunActionLoop(true);
       } else {
         if (Player.move(nextCoordinates)) {
           animatorUpdatePlayerMoved(direction.Value);
-          Grid.instance.actionTaken();
+          RunActionLoop(false);
         }
       }
+    }
+  }
+
+  private Grid grid => Grid.instance;
+
+  Coroutine actionLoop = null;
+  void RunActionLoop(bool hasDelay) {
+    if (actionLoop == null) {
+      Debug.Log("actionLoop started");
+      actionLoop = StartCoroutine(Grid.instance.actionTaken(hasDelay, () => {
+        actionLoop = null;
+        Debug.Log("actionLoop finished");
+      }));
     }
   }
 
