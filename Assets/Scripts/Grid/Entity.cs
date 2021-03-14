@@ -18,6 +18,7 @@ public abstract class Entity {
   public event Action OnDeath;
   public event System.Action<Entity> OnAttack;
   public event Action<int> OnHit;
+  public event Action<int> OnHeal;
   public List<Rune> RuneList;
   
   public int AddedDamage = 0;
@@ -104,13 +105,14 @@ public abstract class Entity {
 
   public void Heal(int amount) {
     if (amount == -1) {
-      _currentHitPoints = MaxHitPoints;
-      Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
-      return;
+      amount = MaxHitPoints - _currentHitPoints;
     }
 
+
     if (_currentHitPoints < MaxHitPoints) {
-      _currentHitPoints += Math.Min(amount, MaxHitPoints - _currentHitPoints);
+      amount = Math.Min(amount, MaxHitPoints - _currentHitPoints);
+      OnHeal?.Invoke(amount);
+      _currentHitPoints += amount;
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
     }
   }

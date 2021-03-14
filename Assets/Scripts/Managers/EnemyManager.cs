@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour {
   public Enemy Enemy;
   private EnemyRunesManager enemyRunesManager;
-  public GameObject damageNumber;
   public TMPro.TMP_Text hpText;
-
   public Coroutine attackAnimation;
 
   // Start is called before the first frame update
@@ -30,9 +28,11 @@ public class EnemyManager : MonoBehaviour {
         }
       }));
     };
+    Enemy.OnHeal += (int heal) => {
+      AnimUtils.AddDamageOrHealNumber(heal, transform.position, false);
+    };
     Enemy.OnHit += (int damage) => {
-      var obj = Instantiate(damageNumber, transform.position, Quaternion.identity);
-      obj.GetComponentInChildren<TMPro.TMP_Text>().text = "-" + damage.ToString();
+      AnimUtils.AddDamageOrHealNumber(damage, transform.position, true);
     };
   }
 
