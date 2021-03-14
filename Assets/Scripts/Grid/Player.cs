@@ -10,6 +10,8 @@ public class Player : Entity {
     set => PlayerPrefs.SetInt("highscore", value);
   }
 
+  public bool EditingRunes = false;
+
   public bool? newHighscoreReached = null;
 
   public int minBaseDamage = 4;
