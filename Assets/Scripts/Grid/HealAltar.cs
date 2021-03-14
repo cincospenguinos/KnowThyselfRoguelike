@@ -30,6 +30,7 @@ public class RuneEditAltar : Altar {
   public override void Use(Player player) {
     TriggerOnUse();
     player.EditingRunes = true;
+    PlayerManager.inputEnabled = false;
     GameObject.Find("GameManager").GetComponent<RuneEditorAcceptButtonManager>().Button.SetActive(true);
   }
 }

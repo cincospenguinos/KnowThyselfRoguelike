@@ -8,6 +8,7 @@ public class StartGame : MonoBehaviour {
   public TMPro.TMP_Text TurnText;
   public TMPro.TMP_Text ScoreText;
   public TMPro.TMP_Text GameOverText;
+  private AudioSource _soundEffectSource;
   GameObject currentGrid;
   Player player;
 
@@ -15,6 +16,7 @@ public class StartGame : MonoBehaviour {
     GameOverText.gameObject.SetActive(false);
     player = new Player();
     NewGrid(1);
+    _soundEffectSource = GameObject.Find("Player").GetComponent<AudioSource>();
   }
 
   void NewGrid(int depth) {
