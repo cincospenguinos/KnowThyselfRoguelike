@@ -8,12 +8,25 @@ public class PlayerManager : MonoBehaviour {
   public Animator animator;
   public GameObject damageNumber;
   public static bool inputEnabled = true;
+  public AudioSource SoundEffectSource;
+  public List<AudioClip> attackEffects;
 
   void Start() {
     Player = Grid.instance.Player;
     Player.OnHit += HandlePlayerHit;
     Player.OnHeal += HandleHeal;
     transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
+    SoundEffectSource = GameObject.Find("Player").GetComponent<AudioSource>();
+
+    attackEffects = new List<AudioClip>(new AudioClip[] {
+      (AudioClip) Resources.Load("Sounds/thwack-01"),
+      (AudioClip) Resources.Load("Sounds/thwack-02"),
+      (AudioClip) Resources.Load("Sounds/thwack-04"),
+      (AudioClip) Resources.Load("Sounds/thwack-06"),
+      (AudioClip) Resources.Load("Sounds/thwack-07"),
+      (AudioClip) Resources.Load("Sounds/thwack-08"),
+      (AudioClip) Resources.Load("Sounds/thwack-09"),
+    });
   }
 
   void Update() {
@@ -62,6 +75,7 @@ public class PlayerManager : MonoBehaviour {
       if (entity != null) {
         entity.onWalkInto(Player);
         animatorUpdatePlayerAttack();
+        SoundEffectSource.PlayOneShot(attackEffects.GetRandom());
         RunActionLoop(true);
       } else {
         if (Player.move(nextCoordinates)) {
