@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour {
   public GameObject damageNumber;
   public static bool inputEnabled = true;
   public AudioSource SoundEffectSource;
+  public AudioClip heal;
   public List<AudioClip> attackEffects;
 
   void Start() {
@@ -42,6 +43,7 @@ public class PlayerManager : MonoBehaviour {
 
   private void HandleHeal(int amount) {
     AnimUtils.AddDamageOrHealNumber(amount, transform.position, false);
+    AudioSource.PlayClipAtPoint(heal, transform.position, 1.4f);
   }
 
   void HandlePlayerHit(int damage) {
