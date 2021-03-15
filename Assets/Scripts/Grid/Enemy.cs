@@ -5,7 +5,7 @@ public abstract class Enemy : Entity {
   public bool hasDetectedPlayer = false;
 
   public Enemy(Vector2Int coords, int HitPoints) : base(coords, HitPoints) {
-    if (Random.value < 0.07f) {
+    if (Random.value < 0.12f) {
       RuneList[0] = RuneGenerator.generateRandom(this);
     }
    }

@@ -61,15 +61,19 @@ public class StartGame : MonoBehaviour {
     });
     yield return new WaitForSeconds(0.5f);
 
-    if (newDepth % 2 == 0) {
+    bool runePieceAcquired = false;
+    if (newDepth % 4 == 1) {
       var trigger = RuneGenerator.randomTrigger(player.shards);
       player.AddRuneShard(trigger);
-    } else {
+      runePieceAcquired = true;
+    } else if (newDepth % 4 == 3) {
       var action = RuneGenerator.randomAction(player.shards);
       player.AddRuneShard(action);
+      runePieceAcquired = true;
     }
 
     depthPanel.GetComponentInChildren<TMPro.TMP_Text>().text = "Depth " + newDepth;
+    depthPanel.transform.Find("RunePieceAcquired").gameObject.SetActive(runePieceAcquired);
     depthPanel.SetActive(true);
     yield return null;
     Destroy(currentGrid);
