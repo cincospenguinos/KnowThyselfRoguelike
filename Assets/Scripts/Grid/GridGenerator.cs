@@ -74,6 +74,8 @@ public static class GridGenerator {
       void SpawnEnemy(Type type, Vector2Int pos) {
         var constructor = enemyType.GetConstructor(new Type[] { typeof(Vector2Int) });
         var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
+        enemy.AddedDamage += (depth / 3);
+        enemy.MaxHitPoints += (2 * depth / 3);
 
         grid.AddEntity(enemy);
         floors.Remove(pos);

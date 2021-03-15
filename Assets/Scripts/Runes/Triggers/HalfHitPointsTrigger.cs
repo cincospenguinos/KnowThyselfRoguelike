@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class HalfHitPointsTrigger : RuneTrigger {
   public override int ChargeBase => 200;
   public int Cooldown = 100;
@@ -13,8 +15,17 @@ public class HalfHitPointsTrigger : RuneTrigger {
       Cooldown += 1;
     }
 
-    bool ownerCrossedThreshold = gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && FromOwnEntity(gameEvent) && Cooldown == 100; 
-    return ownerCrossedThreshold;
+    bool ownerCrossedThreshold = gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && FromOwnEntity(gameEvent);
+    bool cooldownOkay = Cooldown >= 100;
+
+    Debug.Log("How's that cooldown?"+ Cooldown + "" + cooldownOkay + "" + (ownerCrossedThreshold && cooldownOkay));
+
+    if (ownerCrossedThreshold && cooldownOkay) {
+      Cooldown = 0;
+      return true;
+    }
+
+    return false;
   }
 
   public override string Text() => $"when your HP falls below (<b>{(int)(OwningEntity.MaxHitPoints / 2)}</b>, {Cooldown} cooldown).";
