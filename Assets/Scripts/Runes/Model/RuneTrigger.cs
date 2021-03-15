@@ -3,7 +3,7 @@ using TMPro;
 
 public abstract class RuneTrigger : RuneShard {
   public abstract int ChargeBase { get; }
-  public int ChargeFinal => (int) UnityEngine.Mathf.Ceil(ChargeBase * (1 + 0.1f * Upgrades));
+  public int ChargeFinal => (int) UnityEngine.Mathf.Ceil(ChargeBase * (1 + 0.06f * Upgrades));
 
   public RuneTrigger(Entity owningEntity) {
     OwningEntity = owningEntity;

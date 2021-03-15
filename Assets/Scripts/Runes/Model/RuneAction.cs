@@ -2,7 +2,7 @@ using System;
 
 public abstract class RuneAction : RuneShard {
   public abstract int ThresholdBase { get; }
-  public int ThresholdFinal => UnityEngine.Mathf.FloorToInt(ThresholdBase / (1 + 0.1f * Upgrades));
+  public int ThresholdFinal => UnityEngine.Mathf.FloorToInt(ThresholdBase / (1 + 0.06f * Upgrades));
   public float ChargePercentage => (float) CurrentCharge / ThresholdFinal;
 
   protected int CurrentCharge;

@@ -59,7 +59,9 @@ public class RuneGenerator {
       RuneGenerator._all_triggers.Add("MovementTrigger", new MovementTrigger(null));
       RuneGenerator._all_triggers.Add("DealDamageTrigger", new DealDamageTrigger(null));
       RuneGenerator._all_triggers.Add("ReceiveDamageTrigger", new ReceiveDamageTrigger(null));
-      RuneGenerator._all_triggers.Add("EveryFiftyTurnsTrigger", new EveryFiftyTurnsTrigger(null));
+      RuneGenerator._all_triggers.Add("Every50TurnsTrigger", new Every50TurnsTrigger(null));
+      RuneGenerator._all_triggers.Add("Every100TurnsTrigger", new Every100TurnsTrigger(null));
+      RuneGenerator._all_triggers.Add("Every200TurnsTrigger", new Every200TurnsTrigger(null));
       RuneGenerator._all_triggers.Add("TenTurnsNoDamage", new TenTurnsNoDamage(null));
     }
 

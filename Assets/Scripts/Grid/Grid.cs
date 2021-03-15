@@ -100,6 +100,17 @@ public class Grid {
     }
   }
 
+  public IEnumerable<Vector2Int> EnumerateDiamond(Vector2Int center, int radius) {
+    Vector2Int extent = new Vector2Int(radius + 1, radius + 1);
+    foreach (var pos in EnumerateRectangle(center - extent, center + extent)) {
+      var diamondDistance = Math.Abs(center.x - pos.x) + Math.Abs(center.y - pos.y);
+      if (diamondDistance <= radius) {
+        yield return pos;
+      }
+    }
+  }
+
+
   /// max is exclusive
   public IEnumerable<Vector2Int> EnumerateRectangle(Vector2Int min, Vector2Int max) {
     min = Vector2Int.Max(min, boundsMin);

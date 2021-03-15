@@ -92,7 +92,7 @@ public class StartGame : MonoBehaviour {
       TurnText.text = $"Turn {Grid.instance.CurrentTurn}\n" +
       $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}\n" +
       $"Block: {player.Block}\n";
-      ScoreText.text = $"Score: {player.score}";
+      ScoreText.text = $"Depth {Grid.instance.depth} - Score {player.score}";
     }
   }
 
