@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
@@ -10,11 +11,12 @@ public class StartGame : MonoBehaviour {
   public TMPro.TMP_Text BlockText;
   public TMPro.TMP_Text ScoreText;
   public TMPro.TMP_Text GameOverText;
+  public GameObject GameOverContainer;
   GameObject currentGrid;
   Player player;
 
   void Awake() {
-    GameOverText.gameObject.SetActive(false);
+    GameOverContainer.SetActive(false);
     player = new Player();
     NewGrid(1);
   }
@@ -84,20 +86,13 @@ public class StartGame : MonoBehaviour {
     // pManager.enabled = true;
   }
 
+  private bool gameOverTriggered = false;
   void Update() {
     if (player.Dead) {
-      GameOverText.gameObject.SetActive(true);
-      if (player.newHighscoreReached == null) {
-        // hasn't been computed yet; compute it for the first time, and store it 
-        player.newHighscoreReached = player.score > Player.HIGHSCORE;
-        Player.HIGHSCORE = player.score;
+      if (!gameOverTriggered) {
+        gameOverTriggered = true;
+        StartCoroutine(GameOverScreen());
       }
-      var highscore = Player.HIGHSCORE;
-      GameOverText.text = $"<b><color=red>You succumb to insanity...</color></b>\nScore: {player.score}\nHigh Score: {Player.HIGHSCORE}";
-      if (player.newHighscoreReached == true) {
-        GameOverText.text += $"\nNew high score!";
-      }
-      GameOverText.text += "\n\n<u>Replay<u>";
     } else {
       TurnText.text = $"{Grid.instance.CurrentTurn}";
       DamageText.text = $"{player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}";
@@ -106,7 +101,47 @@ public class StartGame : MonoBehaviour {
     }
   }
 
+  IEnumerator GameOverScreen() {
+    GameOverContainer.SetActive(true);
+    GameOverText.gameObject.SetActive(false);
+    var replay = GameOverContainer.transform.Find("Replay").gameObject;
+    var backToMain = GameOverContainer.transform.Find("Back to Main").gameObject;
+    replay.SetActive(false);
+    backToMain.SetActive(false);
+
+    yield return AnimUtils.Animate(1f, (t) => {
+      GameOverContainer.GetComponent<Image>().color = new Color(0, 0, 0, t * 0.9f);
+    });
+
+    yield return new WaitForSeconds(0.25f);
+
+    if (player.newHighscoreReached == null) {
+      // hasn't been computed yet; compute it for the first time, and store it 
+      player.newHighscoreReached = player.score > Player.HIGHSCORE;
+      Player.HIGHSCORE = player.score;
+    }
+    GameOverText.text = $"<b><color=red>You succumb to insanity...</color></b>\nScore: {player.score}\nHigh Score: {Player.HIGHSCORE}";
+    if (player.newHighscoreReached == true) {
+      GameOverText.text += $"\nNew high score!";
+    }
+
+    GameOverText.gameObject.SetActive(true);
+    yield return AnimUtils.Animate(1, (t) => {
+      GameOverText.color = new Color(1, 1, 1, t);
+    });
+
+    yield return new WaitForSeconds(0.25f);
+    replay.SetActive(true);
+
+    yield return new WaitForSeconds(0.25f);
+    backToMain.SetActive(true);
+  }
+
   public void Replay() {
     SceneManager.LoadSceneAsync("Scenes/SampleScene", LoadSceneMode.Single);
+  }
+
+  public void BackToMain() {
+    SceneManager.LoadSceneAsync("Scenes/StartGameScene", LoadSceneMode.Single);
   }
 }
