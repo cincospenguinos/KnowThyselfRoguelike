@@ -189,7 +189,7 @@ public class Grid {
     ClearEventQueue();
 
     // We want to prevent movement scumming, so if the player hasn't been hit in 75 turns, spawn some enemies
-    if (++Player.TurnsSinceHitByEnemy >= 75) {
+    if (++Player.TurnsSinceHitByEnemy >= 200) {
       var positions = EnumerateCircle(Player.Coordinates, 3)
         .Where(pos => canOccupy(pos))
         .ToList()

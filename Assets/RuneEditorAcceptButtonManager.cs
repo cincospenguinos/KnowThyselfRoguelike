@@ -13,6 +13,8 @@ public class RuneEditorAcceptButtonManager : MonoBehaviour
     void Update() {}
 
     public void DoneEditingRunes() {
+        Debug.Log("hey this should be run now");
         Grid.instance.Player.EditingRunes = false;
+        PlayerManager.inputEnabled = true;
     }
 }
