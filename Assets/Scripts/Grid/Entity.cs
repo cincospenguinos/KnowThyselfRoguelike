@@ -42,8 +42,6 @@ public abstract class Entity {
     CurrentHitPoints = HitPoints;
     MaxHitPoints = HitPoints;
     _Coordinates = coords;
-
-    RuneList[0] = RuneGenerator.generateRandom(this);
   }
 
   public void SetGrid(Grid grid) {

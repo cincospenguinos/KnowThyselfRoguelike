@@ -4,7 +4,11 @@ using UnityEngine;
 public abstract class Enemy : Entity {
   public bool hasDetectedPlayer = false;
 
-  public Enemy(Vector2Int coords, int HitPoints) : base(coords, HitPoints) { }
+  public Enemy(Vector2Int coords, int HitPoints) : base(coords, HitPoints) {
+    if (Random.value < 0.07f) {
+      RuneList[0] = RuneGenerator.generateRandom(this);
+    }
+   }
 
   public abstract void TakeTurn();
 

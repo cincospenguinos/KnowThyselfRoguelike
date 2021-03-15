@@ -186,9 +186,8 @@ public class Grid {
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
 
-      Rune rune = e.RuneList.ToArray()[0];
-
-      if (UnityEngine.Random.value < 0.05f) {
+      Rune rune = e.RuneList[0];
+      if (rune != null) {
         AnimUtils.ShowFloatingText("Rune Shard Recovered!", new Vector3(e.Coordinates.x, e.Coordinates.y, 0));
         if (UnityEngine.Random.value > 0.5f) {
           Player.AddRuneShard(rune.action);

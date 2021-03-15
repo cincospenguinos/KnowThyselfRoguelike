@@ -20,6 +20,7 @@ public class Player : Entity {
 
   public Player() : base(new Vector2Int(3, 3), 100) {
     shards = new List<RuneShard>();
+    RuneList[0] = RuneGenerator.generateRandom(this);
     RuneList[1] = new Rune(null, null);
     RuneList[2] = new Rune(null, null);
   }

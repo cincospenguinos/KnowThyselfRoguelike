@@ -42,7 +42,9 @@ public class EnemyManager : MonoBehaviour {
     if (attackAnimation == null) {
       transform.position = Vector3.Lerp(transform.position, new Vector3(Enemy.Coordinates.x, Enemy.Coordinates.y, 0), 0.1f);
     }
-    UpdateRuneUI();
+    if (Enemy.RuneList[0] != null) {
+      UpdateRuneUI();
+    }
     var targetScale = Enemy.isVisible ? 1 : 0;
     transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(targetScale, targetScale, 1), 0.2f);
     hpText.text = $"{Enemy.HitPoints}/{Enemy.MaxHitPoints}";

@@ -7,7 +7,6 @@ public abstract class Altar : Entity {
   public override int BaseDamage => 0;
 
   public Altar(Vector2Int coords) : base(coords, 1000) {
-    RuneList[0] = null;
   }
 
   public override void onWalkInto(Player player) {
