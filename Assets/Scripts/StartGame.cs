@@ -100,8 +100,8 @@ public class StartGame : MonoBehaviour {
       GameOverText.text += "\n\n<u>Replay<u>";
     } else {
       TurnText.text = $"{Grid.instance.CurrentTurn}";
-      DamageText.text = $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}";
-      BlockText.text = $"Block: {player.Block}";
+      DamageText.text = $"{player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}";
+      BlockText.text = $"{player.Block}";
       ScoreText.text = $"Depth {Grid.instance.depth} - Score {player.score}";
     }
   }
