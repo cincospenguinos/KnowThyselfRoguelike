@@ -18,8 +18,6 @@ public class HalfHitPointsTrigger : RuneTrigger {
     bool ownerCrossedThreshold = gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && FromOwnEntity(gameEvent);
     bool cooldownOkay = Cooldown >= 100;
 
-    Debug.Log("How's that cooldown?"+ Cooldown + "" + cooldownOkay + "" + (ownerCrossedThreshold && cooldownOkay));
-
     if (ownerCrossedThreshold && cooldownOkay) {
       Cooldown = 0;
       return true;
