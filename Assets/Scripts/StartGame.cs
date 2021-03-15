@@ -6,6 +6,8 @@ public class StartGame : MonoBehaviour {
   public GameObject GridPrefab;
   public GameObject depthPanel;
   public TMPro.TMP_Text TurnText;
+  public TMPro.TMP_Text DamageText;
+  public TMPro.TMP_Text BlockText;
   public TMPro.TMP_Text ScoreText;
   public TMPro.TMP_Text GameOverText;
   GameObject currentGrid;
@@ -18,7 +20,15 @@ public class StartGame : MonoBehaviour {
   }
 
   void NewGrid(int depth) {
-    Grid.instance = GridGenerator.generateMultiRoomGrid(player, depth);
+    var retry = true;
+    for (int i = 0; i < 100 && retry; i++) {
+      try {
+        Grid.instance = GridGenerator.generateMultiRoomGrid(player, depth);
+        retry = false;
+      } catch (System.Exception) {
+        /// try again
+      }
+    }
     Grid.instance.OnCleared += HandleGridCleared;
     currentGrid = Instantiate(GridPrefab);
     currentGrid.GetComponent<GridManager>().grid = Grid.instance;
@@ -89,9 +99,9 @@ public class StartGame : MonoBehaviour {
       }
       GameOverText.text += "\n\n<u>Replay<u>";
     } else {
-      TurnText.text = $"Turn {Grid.instance.CurrentTurn}\n" +
-      $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}\n" +
-      $"Block: {player.Block}\n";
+      TurnText.text = $"Turn {Grid.instance.CurrentTurn}";
+      DamageText.text = $"Damage: {player.minBaseDamage + player.AddedDamage}-{player.maxBaseDamage + player.AddedDamage}";
+      BlockText.text = $"Block: {player.Block}";
       ScoreText.text = $"Depth {Grid.instance.depth} - Score {player.score}";
     }
   }
