@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class GridGenerator {
   public static Grid generateMultiRoomGrid(Player player, int depth, int numSplits = 10) {
-    int numEnemies = 3 + ((depth - 1) / 2);
+    int numEnemies = 2 + ((depth - 1) / 2);
 
     var width = 18 + 3 * depth;
     var height = Mathf.RoundToInt(12 + 40f / 28f * depth);
