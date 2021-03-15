@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class DamageEntitiesInRangeAction : RuneAction {
@@ -8,10 +9,10 @@ public abstract class DamageEntitiesInRangeAction : RuneAction {
   public DamageEntitiesInRangeAction(Entity e) : base(e) {}
 
   public override void Perform() {
-    foreach (var point in AllAdjacentTo(OwningEntity.Coordinates, range)) {
-      Entity e = Grid.instance.EntityAt(point);
-
-      if (e != null && e != OwningEntity && !e.Dead) {
+    var points = Grid.instance.EnumerateDiamond(OwningEntity.Coordinates, range);
+    var entities = points.Select(p => Grid.instance.EntityAt(p)).Where((e) => e != null).ToList();
+    foreach (var e in entities) {
+      if (e != OwningEntity && !e.Dead) {
         e.TakeDamage(damage);
         Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_DEALT, OwningEntity));
       }
