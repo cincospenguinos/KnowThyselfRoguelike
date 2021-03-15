@@ -83,6 +83,7 @@ public class RuneGenerator {
       RuneGenerator._all_actions.Add("PermanentBlockAction", new PermanentBlockAction(null));
       RuneGenerator._all_actions.Add("LessHPMoreBlockAction", new LessHPMoreBlockAction(null));
       RuneGenerator._all_actions.Add("IncreaseMaxHitPoints", new IncreaseMaxHitPoints(null));
+      RuneGenerator._all_actions.Add("AddDamageTakeDamage", new AddDamageTakeDamageAction(null));
       RuneGenerator._all_actions.Add("Damage1EntitiesInRange3Action", new Damage5EntitiesInRange3Action(null));
       RuneGenerator._all_actions.Add("Damage2EntitiesInRange2Action", new Damage8EntitiesInRange2Action(null));
       RuneGenerator._all_actions.Add("Damage3EntitiesInRange1Action", new Damage12EntitiesInRange1Action(null));
