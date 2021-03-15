@@ -181,6 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 133904613458319670}
   damageNumber: {fileID: 381724521857512134, guid: 38caf6e558d12cb48ad2b9cc5a54693f, type: 3}
+  SoundEffectSource: {fileID: 0}
+  heal: {fileID: 8300000, guid: a4eec703b49ae6f4687185aec9c1de42, type: 3}
+  attackEffects: []
 --- !u!95 &133904613458319670
 Animator:
   serializedVersion: 3
