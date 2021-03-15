@@ -20,8 +20,8 @@ public class Player : Entity {
 
   public Player() : base(new Vector2Int(3, 3), 100) {
     shards = new List<RuneShard>();
-    RuneList.Add(RuneGenerator.generateRandom(this));
-    RuneList.Add(RuneGenerator.generateRandom(this));
+    RuneList[1] = new Rune(null, null);
+    RuneList[2] = new Rune(null, null);
   }
 
   public override void onWalkInto(Player player) {
@@ -38,22 +38,52 @@ public class Player : Entity {
     TurnsSinceHitByEnemy = 0;
   }
 
-  public void SwapShard(RuneShard shard) {
-    if (shard == RuneList[0].trigger || shard == RuneList[0].action) {
+  /// assumes shard is somewhere in RuneList
+  ///
+  /// 1. find rune with shard
+  /// 2. assign new rune with null in the spot
+  /// 3. add shard to inventory
+  public void MoveShardFromRuneListToInventory(RuneShard shard) {
+    var index = System.Array.FindIndex(RuneList, rune => shard is RuneAction ? rune.action == shard : rune.trigger == shard);
+    if (index == -1) {
+      // couldn't find it
+      Debug.LogError("can't find shard in runelist");
+    }
+    var oldRune = RuneList[index];
+    Rune newRune;
+    if (shard is RuneAction) {
+      newRune = new Rune(oldRune.trigger, null);
+    } else {
+      newRune = new Rune(null, oldRune.action);
+    }
+    shard.OnAddedOrRemovedFromRune();
+    RuneList[index] = newRune;
+    shards.Add(shard);
+  }
+
+  /// put a shard from your inventory into a rune in your RuneList
+  /// we need to:
+  ///
+  /// find rune in RuneList with empty spot for the shard to fit
+  /// remove shard from inventory
+  /// set new rune with new shard
+  public void MoveShardFromInventoryIntoFirstEmptyRuneList(RuneShard shard) {
+    var index = System.Array.FindIndex(RuneList, rune => shard is RuneAction ? rune.action == null : rune.trigger == null);
+    if (index == -1) {
+      Debug.Log("no empty slots");
+      // no empty slots
       return;
     }
-
-    var rune = RuneList[0];
+    var oldRune = RuneList[index];
     shards.Remove(shard);
+    Rune newRune;
 
     if (shard is RuneAction action) {
-      Rune newRune = new Rune(rune.trigger, action);
-      shards.Add(RuneList[0].action);
-      RuneList[0] = newRune;
+      newRune = new Rune(oldRune.trigger, action);
     } else {
-      Rune newRune = new Rune((RuneTrigger) shard, rune.action);
-      shards.Add(RuneList[0].trigger);
-      RuneList[0] = newRune;
+      newRune = new Rune((RuneTrigger) shard, oldRune.action);
     }
+    shard.OnAddedOrRemovedFromRune();
+    RuneList[index] = newRune;
   }
 }

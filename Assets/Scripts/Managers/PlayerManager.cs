@@ -91,10 +91,8 @@ public class PlayerManager : MonoBehaviour {
   Coroutine actionLoop = null;
   void RunActionLoop(bool hasDelay) {
     if (actionLoop == null) {
-      Debug.Log("actionLoop started");
       actionLoop = StartCoroutine(Grid.instance.actionTaken(hasDelay, () => {
         actionLoop = null;
-        Debug.Log("actionLoop finished");
       }));
     }
   }

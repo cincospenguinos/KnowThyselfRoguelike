@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 7293573311540624737}
   - component: {fileID: 7616506173784847871}
   - component: {fileID: 1591355389256620923}
-  - component: {fileID: 4287682349805519662}
+  - component: {fileID: 7340461791143578654}
   m_Layer: 5
   m_Name: RuneTrigger
   m_TagString: Untagged
@@ -238,7 +238,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8369148043886897674}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -273,7 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 0}
---- !u!114 &4287682349805519662
+  chargePercentage: {fileID: 0}
+--- !u!114 &7340461791143578654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,7 +293,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -313,13 +314,13 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3624722997578740218}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1591355389256620923}
         m_TargetAssemblyTypeName: RuneShardManager, Assembly-CSharp
-        m_MethodName: OnShardInventoryClick
+        m_MethodName: HandleClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

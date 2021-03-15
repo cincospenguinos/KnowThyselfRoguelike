@@ -14,6 +14,10 @@ public class Rune {
   }
 
   public void EventOccurred(GameEvent gameEvent) {
+    if (action == null || trigger == null) {
+      return;
+    }
+
     action.OnEvent(gameEvent);
     int chargeOutput = trigger.OnEvent(gameEvent);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RuneEditorAcceptButtonManager : MonoBehaviour
 {
-    public GameObject Button;
+    public GameObject OverlayAndButton;
 
     // Start is called before the first frame update
     void Start() {}

@@ -19,7 +19,7 @@ public abstract class Entity {
   public event System.Action<Entity> OnAttack;
   public event Action<int> OnHit;
   public event Action<int> OnHeal;
-  public List<Rune> RuneList;
+  public Rune[] RuneList = new Rune[3];
   
   public int AddedDamage = 0;
   public abstract int BaseDamage { get; }
@@ -38,8 +38,7 @@ public abstract class Entity {
     MaxHitPoints = HitPoints;
     _Coordinates = coords;
 
-    RuneList = new List<Rune>();
-    RuneList.Add(RuneGenerator.generateRandom(this));
+    RuneList[0] = RuneGenerator.generateRandom(this);
   }
 
   public void SetGrid(Grid grid) {
@@ -80,7 +79,7 @@ public abstract class Entity {
   public void EmitEvent(GameEvent gameEvent) {
     if (!Dead) {
       foreach(var rune in RuneList) {
-        rune.EventOccurred(gameEvent);
+        rune?.EventOccurred(gameEvent);
       }
     }
   }

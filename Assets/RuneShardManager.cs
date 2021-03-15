@@ -17,16 +17,23 @@ public class RuneShardManager : MonoBehaviour {
     if (shard != null) {
       text.text = shard.TextFull();
       if (shard is RuneAction a && chargePercentage != null) {
-        chargePercentage.fillAmount = a.ChargePercentage;
+        var targetFillAmount = a.ChargePercentage;
+        chargePercentage.fillAmount = Mathf.Lerp(chargePercentage.fillAmount, targetFillAmount, 0.2f);
       }
     }
   }
 
-  public void OnShardInventoryClick() {
-    if (Grid.instance.Player.EditingRunes) {
-      if (shard != null) {
-        Grid.instance.Player.SwapShard(shard);
-      }
+  public void HandleClicked() {
+    if (!Grid.instance.Player.EditingRunes) {
+      return;
+    }
+
+    var isInInventory = Grid.instance.Player.shards.Contains(shard);
+    var isInRuneList = System.Array.FindIndex(Grid.instance.Player.RuneList, (rune) => rune.action == shard || rune.trigger == shard) != -1;
+    if (isInInventory) {
+      Grid.instance.Player.MoveShardFromInventoryIntoFirstEmptyRuneList(shard);
+    } else if (isInRuneList) {
+      Grid.instance.Player.MoveShardFromRuneListToInventory(shard);
     }
   }
 }

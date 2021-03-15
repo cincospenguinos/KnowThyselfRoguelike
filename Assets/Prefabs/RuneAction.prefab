@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 562146878904818177}
   - component: {fileID: 6611009046261684856}
   - component: {fileID: 2998949786079626655}
-  - component: {fileID: 4633308690830262158}
+  - component: {fileID: 6084035231492197506}
   m_Layer: 5
   m_Name: RuneAction
   m_TagString: Untagged
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 0}
   chargePercentage: {fileID: 3083849960672794585}
---- !u!114 &4633308690830262158
+--- !u!114 &6084035231492197506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -178,13 +178,13 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4698968888831368976}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2998949786079626655}
         m_TargetAssemblyTypeName: RuneShardManager, Assembly-CSharp
-        m_MethodName: OnShardInventoryClick
+        m_MethodName: HandleClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

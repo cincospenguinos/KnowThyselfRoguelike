@@ -9,7 +9,7 @@ public class TeleportToRandomSpotAction : RuneAction {
   public override void Perform() {
     Vector2Int newPosition = Grid.instance
       .EnumerateFloor()
-      .Where(p => Grid.instance.Tiles[p.x, p.y] is Floor)
+      .Where(Grid.instance.canOccupy)
       .ToList()
       .GetRandom();
     OwningEntity.SetCoordinates(newPosition);

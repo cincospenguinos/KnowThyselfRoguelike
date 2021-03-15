@@ -7,7 +7,7 @@ public abstract class Altar : Entity {
   public override int BaseDamage => 0;
 
   public Altar(Vector2Int coords) : base(coords, 1000) {
-    RuneList.Clear();
+    RuneList[0] = null;
   }
 
   public override void onWalkInto(Player player) {
@@ -31,7 +31,7 @@ public class RuneEditAltar : Altar {
     TriggerOnUse();
     player.EditingRunes = true;
     PlayerManager.inputEnabled = false;
-    GameObject.Find("GameManager").GetComponent<RuneEditorAcceptButtonManager>().Button.SetActive(true);
+    GameObject.Find("GameManager").GetComponent<RuneEditorAcceptButtonManager>().OverlayAndButton.SetActive(true);
   }
 }
 

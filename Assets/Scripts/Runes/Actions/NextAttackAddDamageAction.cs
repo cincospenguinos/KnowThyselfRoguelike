@@ -15,6 +15,13 @@ public class NextAttackAddDamageAction : RuneAction {
     isActive = true;
   }
 
+  public override void OnAddedOrRemovedFromRune() {
+    if (isActive) {
+      OwningEntity.AddedDamage -= 5;
+    }
+    isActive = false;
+  }
+
   internal override void OnEvent(GameEvent gameEvent) {
     if (isActive && FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_DEALT) {
       OwningEntity.AddedDamage -= 5;

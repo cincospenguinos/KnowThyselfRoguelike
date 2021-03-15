@@ -10,8 +10,16 @@ public class GainBlockAction : RuneAction {
   bool isActive = false;
 
   public override void Perform() {
-    OwningEntity.Block += 3;
-    isActive = true;
+    if (!isActive) {
+      OwningEntity.Block += 3;
+      isActive = true;
+    }
+  }
+  public override void OnAddedOrRemovedFromRune() {
+    if (isActive) {
+      OwningEntity.Block -= 3;
+    }
+    isActive = false;
   }
 
   internal override void OnEvent(GameEvent gameEvent) {

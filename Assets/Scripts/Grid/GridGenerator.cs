@@ -95,8 +95,8 @@ public static class GridGenerator {
     grid.Tiles[downstairsPos.x, downstairsPos.y] = new Downstairs(grid, downstairsPos);
 
     // put player in bottom-left corner
-    var bottomLeftFloor = floors.OrderBy(pos => pos.sqrMagnitude).Where(pos => grid.canOccupy(pos)).First();
-    player.SetCoordinates(bottomLeftFloor);
+    var playerStartPos = randomPosInRoom(grid, rooms, blocklist);
+    player.SetCoordinates(playerStartPos);
 
     return grid;
   }

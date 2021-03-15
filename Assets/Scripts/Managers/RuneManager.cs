@@ -9,15 +9,27 @@ public class RuneManager : MonoBehaviour {
   public GameObject chargePrefab;
 
   void Start() {
-    action.shard = rune.action;
-    trigger.shard = rune.trigger;
+    if (rune.action == null) {
+      Destroy(action.gameObject);
+    } else {
+      action.shard = rune.action;
+      rune.action.OnTriggered += HandleActionTriggered;
+    }
+
+    if (rune.trigger == null) {
+      Destroy(trigger.gameObject);
+    } else {
+      trigger.shard = rune.trigger;
+    }
+
     rune.OnChargeAdded += HandleChargeAdded;
-    rune.action.OnTriggered += HandleActionTriggered;
   }
 
   void OnDestroy() {
     rune.OnChargeAdded -= HandleChargeAdded;
-    rune.action.OnTriggered -= HandleActionTriggered;
+    if (rune.action != null) {
+      rune.action.OnTriggered -= HandleActionTriggered;
+    }
   }
 
   private void HandleChargeAdded(int charge) {
