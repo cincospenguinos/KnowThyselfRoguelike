@@ -12094,7 +12094,7 @@ GameObject:
   - component: {fileID: 1292656824}
   - component: {fileID: 1292656823}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: RunePieceAcquired
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
