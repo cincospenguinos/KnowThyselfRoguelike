@@ -76,6 +76,7 @@ public static class GridGenerator {
         var enemy = (Enemy) constructor.Invoke(new object[1] { pos });
         enemy.AddedDamage += (depth / 3);
         enemy.MaxHitPoints += (2 * depth / 3);
+        enemy.CurrentHitPoints += (2 * depth / 3);
 
         grid.AddEntity(enemy);
         floors.Remove(pos);

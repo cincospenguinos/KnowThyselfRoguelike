@@ -10,7 +10,7 @@ public abstract class Entity {
   protected Grid _grid;
   public bool isVisible => _grid.Tiles[Coordinates.x, Coordinates.y].isVisible;
 
-  protected int _currentHitPoints;
+  public int CurrentHitPoints;
 
   private Vector2Int _Coordinates;
   /// set through SetCoordinates()
@@ -30,16 +30,16 @@ public abstract class Entity {
   public abstract int BaseDamage { get; }
   public int TotalDamage => BaseDamage + AddedDamage;
   public int Block = 0;
-  public int HitPoints => _currentHitPoints;
+  public int HitPoints => CurrentHitPoints;
   public int MaxHitPoints;
-  public bool Dead => _currentHitPoints <= 0;
+  public bool Dead => CurrentHitPoints <= 0;
 
   public int SightRange = 4;
 
   public int FreeAttacks = 0;
 
   public Entity(Vector2Int coords, int HitPoints) {
-    _currentHitPoints = HitPoints;
+    CurrentHitPoints = HitPoints;
     MaxHitPoints = HitPoints;
     _Coordinates = coords;
 
@@ -98,25 +98,25 @@ public abstract class Entity {
   public virtual void TakeDamage(int damage) {
     damage = Math.Max(damage - Block, 0);
     OnHit?.Invoke(damage);
-    bool wasAboveHalf = _currentHitPoints >= MaxHitPoints / 2;
-    _currentHitPoints -= damage;
+    bool wasAboveHalf = CurrentHitPoints >= MaxHitPoints / 2;
+    CurrentHitPoints -= damage;
     Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.DAMAGE_RECEIVED, this));
 
-    if (wasAboveHalf && _currentHitPoints < MaxHitPoints / 2) {
+    if (wasAboveHalf && CurrentHitPoints < MaxHitPoints / 2) {
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.REACH_HALF_HIT_POINTS, this));
     }
   }
 
   public void Heal(int amount) {
     if (amount == -1) {
-      amount = MaxHitPoints - _currentHitPoints;
+      amount = MaxHitPoints - CurrentHitPoints;
     }
 
 
-    if (_currentHitPoints < MaxHitPoints) {
-      amount = Math.Min(amount, MaxHitPoints - _currentHitPoints);
+    if (CurrentHitPoints < MaxHitPoints) {
+      amount = Math.Min(amount, MaxHitPoints - CurrentHitPoints);
       OnHeal?.Invoke(amount);
-      _currentHitPoints += amount;
+      CurrentHitPoints += amount;
       Grid.instance.EnqueueEvent(new GameEvent(GameEvent.EventType.HEAL, this));
     }
   }
