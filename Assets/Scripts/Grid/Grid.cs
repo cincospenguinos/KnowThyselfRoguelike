@@ -181,6 +181,8 @@ public class Grid {
     // wait 0.2f seconds
     yield return new WaitForSeconds(turnWaitDuration);
 
+    ClearEventQueue();
+
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
 
@@ -199,8 +201,6 @@ public class Grid {
     });
 
     Entities.RemoveAll(e => e.Dead);
-
-    ClearEventQueue();
 
     bool enemiesMoved = false;
     foreach (var e in Enemies) {
