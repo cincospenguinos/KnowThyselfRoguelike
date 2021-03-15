@@ -1,5 +1,5 @@
 public class HalfHitPointsTrigger : RuneTrigger {
-  public override int Charge => 200;
+  public override int ChargeBase => 200;
 
   public HalfHitPointsTrigger(Entity e) : base(e) {}
 
@@ -7,9 +7,9 @@ public class HalfHitPointsTrigger : RuneTrigger {
     return new HalfHitPointsTrigger(OwningEntity);
   }
 
-  public override int OnEvent(GameEvent gameEvent) {
+  public override bool ShouldCharge(GameEvent gameEvent) {
     bool ownerCrossedThreshold = gameEvent.GameEventType == GameEvent.EventType.REACH_HALF_HIT_POINTS && FromOwnEntity(gameEvent); 
-    return ownerCrossedThreshold ? Charge : 0;
+    return ownerCrossedThreshold;
   }
 
   public override string Text() => $"when your HP falls below (<b>{(int)(OwningEntity.MaxHitPoints / 2)}</b>).";

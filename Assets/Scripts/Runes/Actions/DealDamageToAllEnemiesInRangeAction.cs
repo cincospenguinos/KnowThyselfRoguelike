@@ -52,7 +52,7 @@ public class Damage5EntitiesInRange3Action : DamageEntitiesInRangeAction {
 
   public override int range => 3;
 
-  public override int Threshold => 66;
+  public override int ThresholdBase => 66;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new Damage5EntitiesInRange3Action(otherEntity);
@@ -66,7 +66,7 @@ public class Damage8EntitiesInRange2Action : DamageEntitiesInRangeAction {
 
   public override int range => 2;
 
-  public override int Threshold => 56;
+  public override int ThresholdBase => 56;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new Damage8EntitiesInRange2Action(otherEntity);
@@ -80,7 +80,7 @@ public class Damage12EntitiesInRange1Action : DamageEntitiesInRangeAction {
 
   public override int range => 1;
 
-  public override int Threshold => 36;
+  public override int ThresholdBase => 36;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new Damage8EntitiesInRange2Action(otherEntity);

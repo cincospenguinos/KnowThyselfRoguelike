@@ -1,5 +1,5 @@
 public class TenTurnsNoDamage : RuneTrigger {
-  public override int Charge => 20;
+  public override int ChargeBase => 20;
   private int _turnsLeft;
 
   public TenTurnsNoDamage(Entity e) : base(e) {
@@ -10,7 +10,7 @@ public class TenTurnsNoDamage : RuneTrigger {
     return new TenTurnsNoDamage(OwningEntity);
   }
 
-  public override int OnEvent(GameEvent gameEvent) {
+  public override bool ShouldCharge(GameEvent gameEvent) {
     if (FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED) {
       _turnsLeft = 10;
     } else if (gameEvent.GameEventType == GameEvent.EventType.TURN_ELAPSED) {
@@ -21,8 +21,8 @@ public class TenTurnsNoDamage : RuneTrigger {
     if (shouldTrigger) {
       _turnsLeft = 10;
     }
-
-    return shouldTrigger ? Charge : 0;
+    
+    return shouldTrigger;
   }
 
   public override string Text() => $"after <b>{_turnsLeft}</b> turns without taking damage.";

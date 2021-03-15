@@ -1,14 +1,10 @@
 public class EntityDiesTrigger : RuneTrigger {
-  public override int Charge => 33;
+  public override int ChargeBase => 33;
 
   public EntityDiesTrigger() : base(null) {}
 
-  public override int OnEvent(GameEvent gameEvent) {
-    if (gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD) {
-      return Charge;
-    }
-
-    return 0;
+  public override bool ShouldCharge(GameEvent gameEvent) {
+    return gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD;
   }
 
   public override string Text() => $"when killing an enemy.";

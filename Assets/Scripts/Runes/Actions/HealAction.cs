@@ -1,5 +1,5 @@
 public class HealLargeAction : RuneAction {
-  public override int Threshold => 180;
+  public override int ThresholdBase => 180;
 
   public HealLargeAction(Entity e) : base(e) {}
 
@@ -15,7 +15,7 @@ public class HealLargeAction : RuneAction {
 }
 
 public class HealMediumAction : RuneAction {
-  public override int Threshold => 66;
+  public override int ThresholdBase => 66;
 
   public HealMediumAction(Entity e) : base(e) {}
 
@@ -31,7 +31,7 @@ public class HealMediumAction : RuneAction {
 }
 
 public class HealTinyAction : RuneAction {
-  public override int Threshold => 7;
+  public override int ThresholdBase => 7;
 
   public HealTinyAction(Entity e) : base(e) {}
 

@@ -1,7 +1,7 @@
 public class GainBlockAction : RuneAction {
   public GainBlockAction(Entity entityToModify) : base(entityToModify) { }
 
-  public override int Threshold => 22;
+  public override int ThresholdBase => 22;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new GainBlockAction(otherEntity);

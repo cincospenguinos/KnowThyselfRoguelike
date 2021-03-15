@@ -57,6 +57,10 @@ public class UpgradeAltar : Altar {
   public override void Use(Player player) {
     TriggerOnUse();
     Debug.Log("Hey show the upgrade dialog screen homie");
+    foreach (var rune in player.RuneList) {
+      rune?.action?.Upgrade();
+      rune?.trigger?.Upgrade();
+    }
     // TODO: Show the screen
   }
 }

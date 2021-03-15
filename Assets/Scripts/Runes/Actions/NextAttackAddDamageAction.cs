@@ -2,7 +2,7 @@ public class NextAttackAddDamageAction : RuneAction {
   public NextAttackAddDamageAction(Entity entityToModify) : base(entityToModify) {
   }
 
-  public override int Threshold => 60;
+  public override int ThresholdBase => 60;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new NextAttackAddDamageAction(otherEntity);

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class IncreaseViewRadiusAction : RuneAction {
-  public override int Threshold => 300;
+  public override int ThresholdBase => 300;
 
   public IncreaseViewRadiusAction(Entity entityToModify) : base(entityToModify) {}
 

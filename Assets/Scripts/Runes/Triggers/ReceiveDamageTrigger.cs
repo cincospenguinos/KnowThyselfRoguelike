@@ -1,5 +1,5 @@
 public class ReceiveDamageTrigger : RuneTrigger {
-  public override int Charge => 17;
+  public override int ChargeBase => 17;
 
   public ReceiveDamageTrigger(Entity e) : base(e) { }
 
@@ -7,10 +7,9 @@ public class ReceiveDamageTrigger : RuneTrigger {
     return new ReceiveDamageTrigger(OwningEntity);
   }
 
-  public override int OnEvent(GameEvent gameEvent) {
+  public override bool ShouldCharge(GameEvent gameEvent) {
     bool entityReceivedDamage = FromOwnEntity(gameEvent) && gameEvent.GameEventType == GameEvent.EventType.DAMAGE_RECEIVED;
-
-    return entityReceivedDamage ? Charge : 0;
+    return entityReceivedDamage;
   }
 
   public override void Reset() { }

@@ -2,7 +2,7 @@
 public class PermanentBlockAction : RuneAction {
   public PermanentBlockAction(Entity entityToModify) : base(entityToModify) { }
 
-  public override int Threshold => 400;
+  public override int ThresholdBase => 400;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new PermanentBlockAction(otherEntity);
@@ -18,7 +18,7 @@ public class PermanentBlockAction : RuneAction {
 public class LessHPMoreBlockAction : RuneAction {
   public LessHPMoreBlockAction(Entity entityToModify) : base(entityToModify) { }
 
-  public override int Threshold => 50;
+  public override int ThresholdBase => 50;
 
   public override RuneAction Clone(Entity otherEntity) {
     return new PermanentBlockAction(otherEntity);

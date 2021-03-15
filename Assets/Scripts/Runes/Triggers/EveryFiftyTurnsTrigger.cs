@@ -1,5 +1,5 @@
 public class EveryFiftyTurnsTrigger : RuneTrigger {
-  public override int Charge => 50;
+  public override int ChargeBase => 50;
   private int _elapsedTurns;
   public bool IsTriggered => _elapsedTurns > 0 && _elapsedTurns % 50 == 0;
 
@@ -11,12 +11,12 @@ public class EveryFiftyTurnsTrigger : RuneTrigger {
     return new EveryFiftyTurnsTrigger(OwningEntity);
   }
 
-  public override int OnEvent(GameEvent gameEvent) {
+  public override bool ShouldCharge(GameEvent gameEvent) {
     if (gameEvent.GameEventType == GameEvent.EventType.TURN_ELAPSED) {
       _elapsedTurns += 1;
     }
 
-    return IsTriggered ? Charge : 0;
+    return IsTriggered;
   }
 
   public override string Text() => $"in <b>{50 - _elapsedTurns}</b> turns.";

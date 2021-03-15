@@ -7,6 +7,8 @@ public class RuneShardManager : MonoBehaviour {
   public RuneShard shard;
   public TMPro.TMP_Text text;
   public Image chargePercentage;
+  public Transform upgradeContainer;
+  public GameObject pearlPrefab;
 
   void Start() {
     text = GetComponentInChildren<TMPro.TMP_Text>();
@@ -19,6 +21,10 @@ public class RuneShardManager : MonoBehaviour {
       if (shard is RuneAction a && chargePercentage != null) {
         var targetFillAmount = a.ChargePercentage;
         chargePercentage.fillAmount = Mathf.Lerp(chargePercentage.fillAmount, targetFillAmount, 0.2f);
+      }
+      for(int i = upgradeContainer.childCount; i < shard.Upgrades; i++) {
+        var newUpgradePearl = Instantiate(pearlPrefab, upgradeContainer);
+        newUpgradePearl.SetActive(true);
       }
     }
   }

@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 
 public class TeleportToRandomSpotAction : RuneAction {
-  public override int Threshold => 66;
+  public override int ThresholdBase => 66;
 
   public TeleportToRandomSpotAction(Entity e) : base(e) { }
 

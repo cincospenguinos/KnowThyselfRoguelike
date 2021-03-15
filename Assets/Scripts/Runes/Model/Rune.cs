@@ -19,12 +19,15 @@ public class Rune {
     }
 
     action.OnEvent(gameEvent);
-    int chargeOutput = trigger.OnEvent(gameEvent);
 
-    if (chargeOutput > 0) {
-      OnChargeAdded?.Invoke(chargeOutput);
-      action.ReceiveCharge(chargeOutput);
-      trigger.Reset();
+    if (trigger.ShouldCharge(gameEvent)) {
+      var chargeOutput = trigger.ChargeFinal;
+
+      if (chargeOutput > 0) {
+        OnChargeAdded?.Invoke(chargeOutput);
+        action.ReceiveCharge(chargeOutput);
+        trigger.Reset();
+      }
     }
   }
 

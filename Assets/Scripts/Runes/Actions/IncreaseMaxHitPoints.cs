@@ -1,5 +1,5 @@
 public class IncreaseMaxHitPoints : RuneAction {
-  public override int Threshold => 400;
+  public override int ThresholdBase => 400;
 
   public IncreaseMaxHitPoints(Entity entityToModify) : base(entityToModify) {}
 
