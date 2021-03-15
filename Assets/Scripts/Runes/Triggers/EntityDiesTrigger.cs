@@ -7,7 +7,7 @@ public class EntityDiesTrigger : RuneTrigger {
     return gameEvent.GameEventType == GameEvent.EventType.ENEMY_DEAD;
   }
 
-  public override string Text() => $"when killing an enemy.";
+  public override string Text() => $"when an enemy dies.";
 
   public override void Reset() {}
 

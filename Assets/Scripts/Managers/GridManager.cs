@@ -15,8 +15,8 @@ public class GridManager : MonoBehaviour {
   public GameObject RuneUpgradeAltarPrefab;
 
   void Start() {
-    for (int x = 0; x < Grid.WIDTH; x++) {
-      for (int y = 0; y < Grid.HEIGHT; y++) {
+    for (int x = 0; x < grid.WIDTH; x++) {
+      for (int y = 0; y < grid.HEIGHT; y++) {
         var tile = grid.Tiles[x,y];
 
         switch(tile) {

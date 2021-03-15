@@ -61,8 +61,8 @@ public class Grid {
 
   public Tile[,] Tiles => _grid;
 
-  public const int WIDTH = 40;
-  public const int HEIGHT = 28;
+  public readonly int WIDTH = 40;
+  public readonly int HEIGHT = 28;
 
   /// min inclusive, max exclusive in terms of map WIDTH/HEIGHT
   public Vector2Int boundsMin => new Vector2Int(0, 0);
@@ -70,13 +70,15 @@ public class Grid {
   public Vector2 center => new Vector2(WIDTH / 2.0f, HEIGHT / 2.0f);
   public int CurrentTurn => _elapsedTurns + 1;
 
-  public Grid(Player player, int depth) {
+  public Grid(Player player, int depth, int width, int height) {
+    WIDTH = width;
+    HEIGHT = height;
     this.depth = depth;
     Entities = new List<Entity>();
     _elapsedTurns = 0;
-    _grid = new Tile[40, 28];
-    for (var x = 0; x < 40; x++) {
-      for (var y = 0; y < 28; y++) {
+    _grid = new Tile[WIDTH, HEIGHT];
+    for (var x = 0; x < WIDTH; x++) {
+      for (var y = 0; y < HEIGHT; y++) {
         _grid[x, y] = new Wall(this, new Vector2Int(x, y));
       }
     }
@@ -170,6 +172,18 @@ public class Grid {
 
     Entities.FindAll(e => e.Dead).ForEach(e => {
       e.GoDie();
+
+      Rune rune = e.RuneList.ToArray()[0];
+
+      if (UnityEngine.Random.value < 0.05f) {
+        AnimUtils.ShowFloatingText("Rune Shard Recovered!", new Vector3(e.Coordinates.x, e.Coordinates.y, 0));
+        if (UnityEngine.Random.value > 0.5f) {
+          Player.AddRuneShard(rune.action);
+        } else {
+          Player.AddRuneShard(rune.trigger);
+        }
+      }
+
       this.EnqueueEvent(new GameEvent(GameEvent.EventType.ENEMY_DEAD));
     });
 

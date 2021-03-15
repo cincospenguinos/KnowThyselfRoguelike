@@ -17,6 +17,7 @@ public abstract class RuneAction : RuneShard {
     CurrentCharge += amount;
     while (CurrentCharge >= ThresholdFinal) {
       OnTriggered?.Invoke();
+      OwningEntity.RuneActionTriggered(Text());
       Perform();
       CurrentCharge -= ThresholdFinal;
     }

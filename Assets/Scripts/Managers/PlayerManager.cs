@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour {
     Player = Grid.instance.Player;
     Player.OnHit += HandlePlayerHit;
     Player.OnHeal += HandleHeal;
+    Player.OnRuneTriggered += (message) => AnimUtils.ShowFloatingText(message, transform.position);
     transform.position = new Vector3(Player.Coordinates.x, Player.Coordinates.y, 0);
     SoundEffectSource = GameObject.Find("Player").GetComponent<AudioSource>();
 

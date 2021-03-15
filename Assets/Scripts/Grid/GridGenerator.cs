@@ -7,7 +7,10 @@ public static class GridGenerator {
   public static Grid generateMultiRoomGrid(Player player, int depth, int numSplits = 10) {
     int numEnemies = 3 + ((depth - 1) / 2);
 
-    Grid grid = new Grid(player, depth);
+    var width = 18 + 3 * depth;
+    var height = Mathf.RoundToInt(12 + 40f / 28f * depth);
+
+    Grid grid = new Grid(player, depth, width, height);
     foreach (var point in grid.EnumerateFloor()) {
       grid.Tiles[point.x, point.y] = new Wall(grid, point);
     }

@@ -20,7 +20,12 @@ public abstract class Entity {
   public event Action<int> OnHit;
   public event Action<int> OnHeal;
   public Rune[] RuneList = new Rune[3];
-  
+
+  public event Action<string> OnRuneTriggered;
+  internal void RuneActionTriggered(string v) {
+    OnRuneTriggered?.Invoke(v);
+  }
+
   public int AddedDamage = 0;
   public abstract int BaseDamage { get; }
   public int TotalDamage => BaseDamage + AddedDamage;

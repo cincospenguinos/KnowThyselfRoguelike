@@ -4,6 +4,19 @@ using UnityEngine;
 
 public static class AnimUtils {
   private static GameObject damageNumber;
+
+  public static GameObject ShowFloatingText(string message, Vector3 position) {
+    if (damageNumber == null) {
+      damageNumber = Resources.Load<GameObject>("Damage Number");
+    }
+    var obj = UnityEngine.Object.Instantiate(damageNumber, position, Quaternion.identity);
+    var text = obj.GetComponentInChildren<TMPro.TMP_Text>();
+    text.color = new Color(1, 1, 1, 1);
+    text.text = message;
+    obj.GetComponentInChildren<Animator>().speed = 0.5f;
+    return obj;
+  }
+
   public static GameObject AddDamageOrHealNumber(int amount, Vector3 position, bool isDamage) {
     if (damageNumber == null) {
       damageNumber = Resources.Load<GameObject>("Damage Number");

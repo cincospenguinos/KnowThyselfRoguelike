@@ -18,5 +18,6 @@ public class UpgradeAltarManager : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = usedAltar;
         GetComponent<Animator>().enabled = false;
         GetComponentInChildren<ParticleSystem>()?.Stop();
+        AnimUtils.ShowFloatingText("Upgraded first Rune!", transform.position);
     }
 }

@@ -30,7 +30,7 @@ public class Room {
 
   public Room(Grid grid) : this(
     new Vector2Int(1, 1),
-    new Vector2Int(Grid.WIDTH - 2, Grid.HEIGHT - 2)) { }
+    new Vector2Int(grid.WIDTH - 2, grid.HEIGHT - 2)) { }
 
   public int width {
     get {

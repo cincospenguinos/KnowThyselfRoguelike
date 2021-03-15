@@ -34,6 +34,7 @@ public class EnemyManager : MonoBehaviour {
     Enemy.OnHit += (int damage) => {
       AnimUtils.AddDamageOrHealNumber(damage, transform.position, true);
     };
+    Enemy.OnRuneTriggered += (message) => AnimUtils.ShowFloatingText(message, transform.position);
   }
 
   // Update is called once per frame
