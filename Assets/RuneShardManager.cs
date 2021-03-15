@@ -36,7 +36,10 @@ public class RuneShardManager : MonoBehaviour {
 
     var isInInventory = Grid.instance.Player.shards.Contains(shard);
     var isInRuneList = System.Array.FindIndex(Grid.instance.Player.RuneList, (rune) => rune.action == shard || rune.trigger == shard) != -1;
-    if (isInInventory) {
+
+    if (isInInventory && isInRuneList) {
+      Grid.instance.Player.shards.Remove(shard);
+    } else if (isInInventory) {
       Grid.instance.Player.MoveShardFromInventoryIntoFirstEmptyRuneList(shard);
     } else if (isInRuneList) {
       Grid.instance.Player.MoveShardFromRuneListToInventory(shard);
