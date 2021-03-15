@@ -22,10 +22,6 @@ public class Player : Entity {
     shards = new List<RuneShard>();
     RuneList[1] = new Rune(null, null);
     RuneList[2] = new Rune(null, null);
-    // for(int i = 0; i < 10; i++) {
-    //   AddRuneShard(RuneGenerator.randomTrigger(new List<RuneShard>()));
-    //   AddRuneShard(RuneGenerator.randomAction(new List<RuneShard>()));
-    // }
   }
 
   public override void onWalkInto(Player player) {
